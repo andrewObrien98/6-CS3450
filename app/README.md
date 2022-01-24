@@ -1,0 +1,1 @@
+This will be a folder where the actual web app building project will be kept
