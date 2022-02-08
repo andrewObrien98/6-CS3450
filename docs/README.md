@@ -1,1 +1,8 @@
-This will be a folder where we include use case diagrams, the project plan, Requirements definition, and database diagrams, and more as the project progresses
+This will be a folder where we include:
+- Use case diagrams
+- Project plan
+- Requirements definition
+- Low-fi prototype
+- High-fi prototype
+- Activity diagrams
+- Class diagram
