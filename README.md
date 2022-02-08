@@ -23,33 +23,33 @@ Vue.js - We will use this as the front-end framework for our site.
 
 ## Build instructions
 Clone the project in git bash:
-    * git clone https://github.com/andrewObrien98/6-CS3450
+- git clone https://github.com/andrewObrien98/6-CS3450
 
 Migrate in bash:
-    * python manage.py migrate
+- python manage.py migrate
 
 Finally to get it up and running:
-    * python manage.py runserver
+- python manage.py runserver
 
 Go to the location:
-    * Type localhost:8000 in browser to see the app running
+- Type localhost:8000 in browser to see the app running
 
 ## Unit Testing Instructions
 Unit tests will cover all use cases laid out in the use case diagrams. These will be able to be found in the unittests.py file. The unit test class will prompt the user to select which use cases should be executed. After the user has chosen it will display the results.
 
 ## Systems Testing Instructions
 Start by running an instance of the web app by first entering the correct repository and then by entering the following:
-    * python manage.py runserver
+- python manage.py runserver
 
 Now that the app is running open up your browser and type into the address bar:
-    * Localhost:8000
+- Localhost:8000
 
 After you can login using the following credentials:
-    * Username: admin
+- Username: admin
 
-    * Email: admin@example.com
+- Email: admin@example.com
     
-    * Password: password
+- Password: password
 
 With these credentials you will have access to perform all actions as a customer, supervisor, owner, and attendant in a test environment.
 
