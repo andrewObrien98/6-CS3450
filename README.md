@@ -24,7 +24,7 @@ Vue.js - We will use this as the front-end framework for our site.
 ## Build instructions
 Clone the project in git bash:
     * git clone https://github.com/andrewObrien98/6-CS3450
-    
+
 Migrate in bash:
     * python manage.py migrate
 
@@ -46,7 +46,9 @@ Now that the app is running open up your browser and type into the address bar:
 
 After you can login using the following credentials:
     * Username: admin
+
     * Email: admin@example.com
+    
     * Password: password
 
 With these credentials you will have access to perform all actions as a customer, supervisor, owner, and attendant in a test environment.
