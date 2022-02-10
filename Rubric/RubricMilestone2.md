@@ -37,3 +37,4 @@ a README.md for the docs folder
 
 ## History on the Scrum board showing who is working which items and when the items are completed
 - This history can be found by clicking on Projects in the Menu bar and going to our project called Scrum Board
+- Also feel free to check out our story points in the docs foler. This documents well who did what, how long it took, etc..
