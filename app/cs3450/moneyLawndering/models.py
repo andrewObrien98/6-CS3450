@@ -10,7 +10,7 @@ class User(models.Model):
     password = models.CharField(max_length=200)
     phoneNumber = models.IntegerField()
     address = models.CharField(max_length=200)
-    accountBalance = models.IntegerField()
+    accountBalance = models.FloatField()
     rating = models.IntegerField(default=5)
 
     def __str__(self):
