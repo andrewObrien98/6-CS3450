@@ -7,33 +7,32 @@ from django.urls import reverse
 from moneyLawndering.models import User, Listing, AppliedFor, CustomerReview, WorkerReview, Category
 
 def index(request):
-    return render(request, 'moneyLawndering/signin.html')
+    return render(request, 'moneyLawndering/signup.html')
 
 def signup(request):
     return render(request, 'moneyLawndering/signup.html')
 
 def signin(request):
-    context = {}
-    return render(request, 'signin.html', context)
+    return render(request, 'moneyLawndering/signin.html')
 
 def account(request, user_id):
-    return render(request, 'account.html')
+    return render(request, 'moneyLawndering/account.html')
 
 def publicListing(request):
-    return render(request, 'publicListing.html')
+    return render(request, 'moneyLawndering/publicListing.html')
 
 def myListing(request, user_id):
-    return render(request, 'myListing.html')
+    return render(request, 'moneyLawndering/myListing.html')
 
 def newListing(request):
-    return render(request, 'newListing.html')
+    return render(request, 'moneyLawndering/newListing.html')
 
 def acceptedJobs(request, user_id):
-    return render(request, 'acceptedJobs.html')
+    return render(request, 'moneyLawndering/acceptedJobs.html')
 
 def directTransfer(request, user_id):
-    return render(request, 'directTransfer.html')
+    return render(request, 'moneyLawndering/directTransfer.html')
 
 def history(request, user_id):
-    return render(request, 'history.html')
+    return render(request, 'moneyLawndering/history.html')
 
