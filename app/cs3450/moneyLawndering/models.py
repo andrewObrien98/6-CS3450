@@ -6,15 +6,22 @@ from django.utils import timezone
 class User(models.Model):
     name = models.CharField(max_length=200)
     email = models.EmailField(max_length=200)
-    type = models.CharField(max_length=200)
+    type = models.IntegerField() # 0 for worker or 1 for customer
     password = models.CharField(max_length=200)
     phoneNumber = models.IntegerField()
     address = models.CharField(max_length=200)
-    accountBalance = models.IntegerField()
+    accountBalance = models.FloatField()
     rating = models.IntegerField(default=5)
 
     def __str__(self):
         return self.name
+
+    def isWorker(self):
+        return self.type == 0
+
+    def isCustomer(self):
+        return self.type == 1
+    
 
 
 class Listing(models.Model):
