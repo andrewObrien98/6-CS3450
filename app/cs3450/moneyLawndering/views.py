@@ -49,8 +49,8 @@ def createUser(request):
 
 def signin(request):
     try:
-        email = request.GET['email']
-        password = request.GET['password']
+        email = request.POST['email']
+        password = request.POST['password']
         user = User.objects.get(email=email, password=password)
     except(KeyError, User.DoesNotExist):
         return render(request, 'moneyLawndering/signin.html', {'error_message' : 'Email or Password dont correspsond to any existing user'})
