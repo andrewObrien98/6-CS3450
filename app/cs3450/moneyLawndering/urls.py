@@ -2,10 +2,12 @@ from django.urls import path
 
 from . import views
 
+app_name = 'moneyLawndering'
 urlpatterns = [
     path('', views.index, name='signin'),
     path('signin/', views.signin, name='signin'),
     path('signup/', views.signup, name='signup'),
+    path('createUser/', views.createUser, name='createUser'),
     path('<int:user_id>/account/', views.account, name='account'),
     path('publiclistings/', views.publicListing, name='publicListing'),
     path('<int:user_id>/mylistings/', views.myListing, name='myListing'),
