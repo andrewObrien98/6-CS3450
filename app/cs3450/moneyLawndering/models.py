@@ -21,6 +21,9 @@ class User(models.Model):
 
     def isCustomer(self):
         return self.type == 1
+
+    def isAdmin(self):
+        return self.type == 2
     
 
 
