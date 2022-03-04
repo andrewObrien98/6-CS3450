@@ -25,7 +25,7 @@ def createUser(request):
         type = request.POST['type']
         password = request.POST['password']
         phoneNumber = request.POST['phoneNumber']
-        address = request.POST['addess']
+        address = request.POST['address']
         accountBalance = request.POST['accountBalance']
         user = User(
             name = name,
