@@ -7,7 +7,9 @@
 <body>
 <div>You're on the sign in page.</div>
 <div>
-    <form action="{% url 'moneyLawndering:signin' %}" method="get">
+    <form action="{% url 'moneyLawndering:signin' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
         <input type="text" name="email" id="email" value="john@gmail.com"> 
         <!-- this is the default value, make sure we change to empty -->
         <input type="text" name="password" id="password" value="john">
