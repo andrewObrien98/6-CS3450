@@ -1,20 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sign In</title>
-</head>
-<body>
-<div>You're on the sign in page.</div>
-<div>
-    <form action="{% url 'moneyLawndering:signin' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="text" name="email" id="email" value="john@gmail.com"> 
-        <!-- this is the default value, make sure we change to empty -->
-        <input type="text" name="password" id="password" value="john">
-        <input type="submit" value="signin">
-    </form>
-</div>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<title>Sign In</title>
+	</head>
+	<body style="background-image: url('/static/moneyLawndering/moneyLawndering.png')">
+		<div>
+			<p>
+				You're on the sign in page.<br>
+				Please enter your email and password.
+			</p>
+			<form action="{% url 'moneyLawndering:signin' %}" method="post">
+				{% csrf_token %}
+				{{ form }}
+				<input type="text" name="email" id="email" value="john@gmail.com"> 
+				<!-- this is the default value, make sure we change to empty -->
+				<input type="text" name="password" id="password" value="john">
+				<input type="submit" value="signin">
+			</form>
+			<form method="get" action="{% url 'moneyLawndering:signup' %}">
+				<button type="submit">Sign Up</button>
+			</form>
+		</div>
+		<div>
+			<p>
+				What the Community is saying right now:
+			</p>
+			<p>
+				5/5 Star! Best Lawn Care Ever!<br>
+				-Dora T. E.
+			</p>
+			<p>
+				110% - I'm rich now! It was easy!<br>
+				-Jimothy
+			</p>
+			<p>
+				10/10 - I made that kid rich lolol!<br>
+				-Walter
+			</p>
+		</div>
+	</body>
 </html>
