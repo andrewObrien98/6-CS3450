@@ -63,7 +63,9 @@ def account(request, user_id):
     return render(request, 'moneyLawndering/account.html', context)
 
 def publicListing(request):
-    return render(request, 'moneyLawndering/publicListing.html')
+    listings = Listing.objects.get(status=0, status = 3)
+    context = {'listings' : listings}
+    return render(request, 'moneyLawndering/publicListing.html', context)
 
 def myListing(request, user_id):
     return render(request, 'moneyLawndering/myListing.html')
