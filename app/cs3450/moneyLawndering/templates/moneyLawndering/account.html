@@ -3,8 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <title>Account</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'moneyLawndering/style.css' %}">
 </head>
-<body>
-<div>You're on your account page.</div>
+
+<body class="normal-page-background">
+    <header>
+        <div class="navBar">
+            {% if user.type == 0 %}
+                <div class="navBarBox">Welcome to Money Lawndering!</div>
+                <div class="selectedNavBarBox"> Account </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:publicListing' user.id %}"><div>Public Listings</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:acceptedJobs' user.id %}"><div>Accepted Jobs</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:history' user.id %}"><div>History</div></a> </div>
+            {% elif user.type == 1 %}
+                <div class="navBarBox">Welcome to Money Lawndering!</div>
+                <div class="selectedNavBarBox"> Account </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:myListing' user.id %}"><div>Your Listings</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:newListing' user.id %}"><div>New Listing</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:directTransfer' user.id %}"><div>Direct Transfer</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:history' user.id %}"><div>History</div></a> </div>
+            {% endif %}
+        </div>
+    </header>
+    <div>You're on your account page, {{ user.name }}.</div>
+    <div class="accountBox">
+        <div class="accountInfo">
+            <form action="{% url 'moneyLawndering:updateUser' user.id %}" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <label for="name">Name</label><br>
+                <input type="text" name="name" id="name" value="{{ user.name }}"><br>
+
+                <label for="email">Email</label><br>
+                <input type="email" name="email" id="email" value="{{ user.email }}"><br>
+
+                <label for="password">Password</label><br>
+                <input type="password" name="password" id="password" value="{{ user.password }}"><br>
+
+                <label for="confirmedPassword">Confirm Password</label><br>
+                <input type="password" name="confirmedPassword" id="confirmedPassword" value="{{ user.password }}"><br>
+
+                <label for="phoneNumber">Phone Number</label><br>
+                <input type="number" name="phoneNumber" id="phoneNumber" value="{{ user.phoneNumber }}"><br>
+
+                <label for="address">Address</label><br>
+                <input type="text" name="address" id="address" value="{{ user.address }}"><br>
+
+                <label for="accountBalance">Account Balance</label><br>
+                <input type="number" name="accountBalance" id="accountBalance" value="{{ user.accountBalance }}"><br>
+
+                <input type="submit" value="Update Info">
+            </form>
+        </div>
+
+        <div class="starRatingBox">
+            <h1>Your Rating:</h1>
+            {% if user.rating == 0 %}
+                <img style="width: 50vh;" src='/static/moneyLawndering/Star_rating_0_of_5.png' alt="0 Stars">
+            {% elif user.rating == 1 %}
+                <img style="width: 50vh;" src='/static/moneyLawndering/Star_rating_1_of_5.png' alt="1 Star">
+            {% elif user.rating == 2 %}
+                <img style="width: 50vh;" src='/static/moneyLawndering/Star_rating_2_of_5.png' alt="2 Stars">
+            {% elif user.rating == 3 %}
+                <img style="width: 50vh;" src='/static/moneyLawndering/Star_rating_3_of_5.png' alt="3 Stars">
+            {% elif user.rating == 4 %}
+                <img style="width: 50vh;" src='/static/moneyLawndering/Star_rating_4_of_5.png' alt="4 Stars">
+            {% else %}
+                <img style="width: 50vh;" src='/static/moneyLawndering/Star_rating_5_of_5.png' alt="5 Stars">
+            {% endif %}
+        </div>
+    </div>
 </body>
 </html>
