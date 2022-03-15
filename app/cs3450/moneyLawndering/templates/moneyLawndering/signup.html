@@ -2,9 +2,10 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Sign Up</title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'moneyLawndering/style.css' %}">
     </head>
-    <body style="background-image: url('/static/moneyLawndering/moneyLawndering.png')">
+    <body class="normal-page-background">
         <div>
             <h1>Sign Up</h1>
         </div>
@@ -25,7 +26,7 @@
                 <label for="worker">Worker</label><br>
 
                 <label for="password">Password</label><br>
-                <input type="text" name="password" id="password" value="john"><br>
+                <input type="password" name="password" id="password" value="john"><br>
 
                 <label for="confirmedPassword">Confirm Password</label><br>
                 <input type="password" name="confirmedPassword" id="confirmedPassword"><br>
