@@ -122,7 +122,7 @@ def myListing(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     try:
         listings = []
-        if(user.isWorker):
+        if (user.isWorker):
             listings = Listing.objects.get(worker=user_id)
         else:
             listings = user.listing_set.all()
@@ -131,10 +131,12 @@ def myListing(request, user_id):
         return render(request, 'moneyLawndering/myListing.html', {
             'no_listing': "You currently have no listings",
             'user_id': user_id,
+            'user': user,
         })
     return render(request, 'moneyLawndering/myListing.html', {
             'listings': listings,
             'user_id': user_id,
+            'user': user,
         })
 
 def createListing(request, user_id):
