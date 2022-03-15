@@ -56,7 +56,10 @@ def signin(request):
     except(KeyError, User.DoesNotExist):
         return render(request, 'moneyLawndering/signin.html', {'error_message' : 'Email and/or Password doesn\'t correspond to any existing user'})
     else:
-        return HttpResponseRedirect(reverse('moneyLawndering:account', args=(user.id,)))
+        if user.isAdmin():
+            return HttpResponseRedirect(reverse('moneyLawndering:admin', args=(user.id,)))
+        else:
+            return HttpResponseRedirect(reverse('moneyLawndering:account', args=(user.id,)))
 
 def updateUser(request, user_id):
     user = get_object_or_404(User, pk=user_id)
@@ -211,4 +214,7 @@ def history(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     context = {'user': user}
     return render(request, 'moneyLawndering/history.html', context)
+
+def admin(request, user_id):
+    return render(request, 'moneyLawndering/admin.html')
 
