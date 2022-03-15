@@ -27,21 +27,21 @@ class User(models.Model):
 
 
 class Listing(models.Model):
-    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='customerListing')
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.CharField(max_length=200)
     location = models.CharField(max_length=300)
     time_est = models.FloatField()
-    dayOfWeek = models.CharField(max_length=10)
-    startTimeOfDay = models.FloatField()
-    endTimeOfDay = models.FloatField()
+    dayOfWeek = models.CharField(max_length=100)
+    startTimeOfDay = models.CharField(max_length=100)
+    endTimeOfDay = models.CharField(max_length=100)
     description = models.TextField()
     price = models.IntegerField()
     status = models.IntegerField() #0=open, 1=closed, 2=accepted, 3=pending, 4=completed
-    worker = models.ForeignKey(User, on_delete=models.CASCADE, related_name='workerListing')
+    worker = models.IntegerField()
     pubDate = models.DateTimeField('date published')
 
     def __str__(self):
-        return self.customer
+        return self.customer.name
 
     def wasPublishedRecently(self):
         return self.pubDate >= timezone.now() - datetime.timedelta(days=1)
@@ -65,16 +65,16 @@ class Listing(models.Model):
     
 
 class AppliedFor(models.Model):
-    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='customerAppliedFor')
-    worker = models.ForeignKey(User, on_delete=models.CASCADE, related_name='workerAppliedFor')
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    worker = models.IntegerField()
 
     def __str__(self):
         return self.worker + ' applied for ' + self.customer + ' job'
 
 #reviews left by the worker for the customer
 class CustomerReview(models.Model):
-    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='customerCR')
-    worker = models.ForeignKey(User, on_delete=models.CASCADE, related_name='workerCR')
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    worker = models.IntegerField()
     rating = models.IntegerField()
     description = models.TextField()
 
@@ -83,8 +83,8 @@ class CustomerReview(models.Model):
 
 #reviews left by the customer for the worker
 class WorkerReview(models.Model):
-    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='customerWR')
-    worker = models.ForeignKey(User, on_delete=models.CASCADE, related_name='workerWR')
+    customer = models.IntegerField()
+    worker = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField()
     description = models.TextField()
 
