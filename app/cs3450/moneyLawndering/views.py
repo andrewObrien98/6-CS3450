@@ -90,8 +90,10 @@ def myListing(request, user_id):
     context = {'user': user}
     return render(request, 'moneyLawndering/myListing.html', context)
 
-def newListing(request):
-    return render(request, 'moneyLawndering/newListing.html')
+def newListing(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    context = {'user': user}
+    return render(request, 'moneyLawndering/newListing.html', context)
 
 def acceptedJobs(request, user_id):
     user = get_object_or_404(User, pk=user_id)

@@ -20,7 +20,7 @@
                 <div class="navBarBox">Welcome to Money Lawndering!</div>
                 <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' user.id %}"><div>Account</div></a> </div>
                 <div class="navBarBox"> <a href="{% url 'moneyLawndering:myListing' user.id %}"><div>Your Listings</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:newListing' %}"><div>New Listing</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:newListing' user.id %}"><div>New Listing</div></a> </div>
                 <div class="selectedNavBarBox"> Direct Transfer </div>
                 <div class="navBarBox"> <a href="{% url 'moneyLawndering:history' user.id %}"><div>History</div></a> </div>
             {% endif %}
