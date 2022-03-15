@@ -30,6 +30,13 @@
 <ul>
  {% for listing in listings %}
     <li>{{listing.price}} $$$$</li>
+    
+    <form action="{% url 'moneyLawndering:acceptListing' user.id %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" name="listing_id" id="listing_id" value={{listing.id}}>
+
+    </form>
  {% endfor %}
 </ul>
 </body>
