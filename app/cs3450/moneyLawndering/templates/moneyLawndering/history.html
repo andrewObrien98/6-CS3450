@@ -3,8 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>History</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'moneyLawndering/style.css' %}">
 </head>
-<body>
+
+<body class="normal-page-background">
+    <header>
+        <div class="navBar">
+            {% if user.type == 0 %}
+                <div class="navBarBox">Welcome to Money Lawndering!</div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' user.id %}"><div>Account</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:publicListing' user.id %}"><div>Public Listings</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:acceptedJobs' user.id %}"><div>Accepted Jobs</div></a> </div>
+                <div class="selectedNavBarBox"> History </div>
+            {% elif user.type == 1 %}
+                <div class="navBarBox">Welcome to Money Lawndering!</div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' user.id %}"><div>Account</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:myListing' user.id %}"><div>Your Listings</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:newListing' %}"><div>New Listing</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:directTransfer' user.id %}"><div>Direct Transfer</div></a> </div>
+                <div class="selectedNavBarBox"> History </div>
+            {% endif %}
+        </div>
+    </header>
 <div>You're on the history page.</div>
 </body>
 </html>

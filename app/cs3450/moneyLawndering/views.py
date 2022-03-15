@@ -53,32 +53,58 @@ def signin(request):
         password = request.POST['password']
         user = User.objects.get(email=email, password=password)
     except(KeyError, User.DoesNotExist):
-        return render(request, 'moneyLawndering/signin.html', {'error_message' : 'Email or Password dont correspsond to any existing user'})
+        return render(request, 'moneyLawndering/signin.html', {'error_message' : 'Email and/or Password doesn\'t correspond to any existing user'})
     else:
         return HttpResponseRedirect(reverse('moneyLawndering:account', args=(user.id,)))
+
+def updateUser(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    user.name = request.POST['name']
+    user.email = request.POST['email']
+    user.password = request.POST['password']
+    user.phoneNumber = request.POST['phoneNumber']
+    user.address = request.POST['address']
+    user.accountBalance = request.POST['accountBalance']
+    user.save()
+    return HttpResponseRedirect(reverse('moneyLawndering:account', args=(user.id,)))
+
 
 def account(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     context = {'user': user}
     return render(request, 'moneyLawndering/account.html', context)
 
-def publicListing(request):
-    listings = Listing.objects.get(status=0, status = 3)
-    context = {'listings' : listings}
-    return render(request, 'moneyLawndering/publicListing.html', context)
+def publicListing(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    try:
+        listings = Listing.objects.get(status=0)
+        context = {'listings' : listings, 'user': user}
+    except (KeyError, Listing.DoesNotExist):
+        context = {'user': user}
+        return render(request, 'moneyLawndering/publicListing.html', context)
+    else:
+        return render(request, 'moneyLawndering/publicListing.html', context)
 
 def myListing(request, user_id):
-    return render(request, 'moneyLawndering/myListing.html')
+    user = get_object_or_404(User, pk=user_id)
+    context = {'user': user}
+    return render(request, 'moneyLawndering/myListing.html', context)
 
 def newListing(request):
     return render(request, 'moneyLawndering/newListing.html')
 
 def acceptedJobs(request, user_id):
-    return render(request, 'moneyLawndering/acceptedJobs.html')
+    user = get_object_or_404(User, pk=user_id)
+    context = {'user': user}
+    return render(request, 'moneyLawndering/acceptedJobs.html', context)
 
 def directTransfer(request, user_id):
-    return render(request, 'moneyLawndering/directTransfer.html')
+    user = get_object_or_404(User, pk=user_id)
+    context = {'user': user}
+    return render(request, 'moneyLawndering/directTransfer.html', context)
 
 def history(request, user_id):
-    return render(request, 'moneyLawndering/history.html')
+    user = get_object_or_404(User, pk=user_id)
+    context = {'user': user}
+    return render(request, 'moneyLawndering/history.html', context)
 
