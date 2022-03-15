@@ -76,7 +76,6 @@ def account(request, user_id):
     return render(request, 'moneyLawndering/account.html', context)
 
 def publicListing(request, user_id):
-<<<<<<< HEAD
     listings1 = Listing.objects.get(status=0)
     listings2 = Listing.objects.get(status=3)
     for i in listings2:
@@ -85,17 +84,6 @@ def publicListing(request, user_id):
     context = {'listings' : listings1,
                 'user_id': user_id}
     return render(request, 'moneyLawndering/publicListing.html', context)
-=======
-    user = get_object_or_404(User, pk=user_id)
-    try:
-        listings = Listing.objects.get(status=0)
-        context = {'listings' : listings, 'user': user}
-    except (KeyError, Listing.DoesNotExist):
-        context = {'user': user}
-        return render(request, 'moneyLawndering/publicListing.html', context)
-    else:
-        return render(request, 'moneyLawndering/publicListing.html', context)
->>>>>>> 773817f276debc9d13de22bbd0e1d6296e27b5f3
 
 def acceptListing(request, user_id):
     user = get_object_or_404(User, pk=user_id)
@@ -132,7 +120,6 @@ def acceptListing(request, user_id):
 
 def myListing(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-<<<<<<< HEAD
     try:
         listings = []
         if(user.isWorker):
@@ -195,15 +182,6 @@ def newListing(request, user_id):
         return response
     return HttpResponseRedirect(reverse('moneyLawndering:myListing', args=(user.id,)))
 
-=======
-    context = {'user': user}
-    return render(request, 'moneyLawndering/myListing.html', context)
-
-def newListing(request, user_id):
-    user = get_object_or_404(User, pk=user_id)
-    context = {'user': user}
-    return render(request, 'moneyLawndering/newListing.html', context)
->>>>>>> 773817f276debc9d13de22bbd0e1d6296e27b5f3
 
 def acceptedJobs(request, user_id):
     user = get_object_or_404(User, pk=user_id)
