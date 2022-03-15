@@ -76,13 +76,25 @@ def account(request, user_id):
     return render(request, 'moneyLawndering/account.html', context)
 
 def publicListing(request, user_id):
-    listings1 = Listing.objects.get(status=0)
-    listings2 = Listing.objects.get(status=3)
-    for i in listings2:
-        listings1.append(i)
+    user = get_object_or_404(User, pk=user_id)
+    if(user.type == 1):
+        response = {
+        "failure": "You are not a worker and do not have access to this page",
+        "user_id": user_id,
+        "user_name": user.name,
+        "isCustomer": user.type,
+        }
+        response = JsonResponse(response)
+        response['Access-Control-Allow-Origin'] = '*'
+        return response
+    #this means that they are not a worker
+    listings = Listing.objects.all()
+    listings.exclude(status=1)
+    listings.exclude(status=2)
+    listings.exclude(status=4)
     #we might want to order the listing by date created
-    context = {'listings' : listings1,
-                'user_id': user_id}
+    context = {'listings' : listings,
+                'user': user}
     return render(request, 'moneyLawndering/publicListing.html', context)
 
 def acceptListing(request, user_id):

@@ -27,5 +27,10 @@
         </div>
     </header>
 <div>You're on the public listings page.</div>
+<ul>
+ {% for listing in listings %}
+    <li>{{listing.price}} $$$$</li>
+ {% endfor %}
+</ul>
 </body>
 </html>
