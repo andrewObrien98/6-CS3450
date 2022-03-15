@@ -65,11 +65,9 @@ class Listing(models.Model):
     
 
 class AppliedFor(models.Model):
-    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="applicants")
     worker = models.IntegerField()
 
-    def __str__(self):
-        return self.worker + ' applied for ' + self.customer + ' job'
 
 #reviews left by the worker for the customer
 class CustomerReview(models.Model):

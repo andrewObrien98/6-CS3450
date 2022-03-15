@@ -101,36 +101,23 @@ def publicListing(request, user_id):
     return render(request, 'moneyLawndering/publicListing.html', context)
 
 def acceptListing(request, user_id):
-    user = get_object_or_404(User, pk=user_id)
     #first make sure that they have posted a listing
     try:
-        listing = request.POST['listing']
-    except(KeyError, Listing.DoesNotExist) :
-        raise Http404("Listing does not exist")
-    #we will then check to see if they have already applied for that listing
-    #If they have we return failure and if they havent we create it a send a success
+        listing_id = request.POST['listing_id']
+    except:
+        raise Http404("You did not send back the right thing")
     try:
-        appliedFor = AppliedFor.objects.get(worker=user, listing=listing)
+        listing = Listing.objects.get(pk=listing_id)
     except(KeyError, Listing.DoesNotExist) :
-        listing.status = 3 #set it to pending so that way customer can know someone applied for it
-        listing.save()
-        appliedFor = AppliedFor(listing=listing, worker=user)
-        appliedFor.save()
-        response = {
-        "success": "Your request has been sent to the customer",
-        "user_id": user_id,
-        }
-        response = JsonResponse(response)
-        response['Access-Control-Allow-Origin'] = '*'
-        return response
+        raise Http404("Listing does not exist here jose")
+    listing = Listing.objects.get(pk=listing_id)
+    try:
+        listing.applicants.get(worker=user_id)
+    except(KeyError, AppliedFor.DoesNotExist) :
+        listing.applicants.create(worker=user_id)
+    return HttpResponseRedirect(reverse('moneyLawndering:publicListing', args=(user_id,)))
 
-    response = {
-    "failure": "You have already sent a request to this customer",
-    "user_id": user_id,
-    }
-    response = JsonResponse(response)
-    response['Access-Control-Allow-Origin'] = '*'
-    return response
+    
 
 
 def myListing(request, user_id):
