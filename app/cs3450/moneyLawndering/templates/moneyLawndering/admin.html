@@ -2,10 +2,27 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
+        <title>Admin</title>
 		{% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'moneyLawndering/style.css' %}">
     </head>
-    <body>
-        Welcome to the admin page.
+    <body class="normal-page-background">
+        <header>
+            <div class="navBar">
+                <div class="navBarBox">Welcome to Money Lawndering!</div>
+                <div class="selectedNavBarBox">Admin</div>
+                <div class="navBarBox">
+                    <a href="{% url 'moneyLawndering:publicListing' user.id %}">
+                        <div>Public Listings</div>
+                    </a>
+                </div>
+                <div class="navBarBox">
+                    <a href="{% url 'moneyLawndering:history' user.id %}">
+                        <div>History</div>
+                    </a>
+                </div>
+            </div>
+        </header>
+        <div>Admin stuff</div>
     </body>
 </html>

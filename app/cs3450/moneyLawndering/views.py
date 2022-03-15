@@ -203,5 +203,7 @@ def history(request, user_id):
     return render(request, 'moneyLawndering/history.html', context)
 
 def admin(request, user_id):
-    return render(request, 'moneyLawndering/admin.html')
+    user = get_object_or_404(User, pk=user_id)
+    context = {'user': user}
+    return render(request, 'moneyLawndering/admin.html', context)
 
