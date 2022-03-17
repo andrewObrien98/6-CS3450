@@ -205,7 +205,14 @@ def history(request, user_id):
 def admin(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     users = User.objects.all()
+    user_types = ['Worker', 'Customer', 'Admin']
+    for u in users:
+        u.type = user_types[u.type]
+
     listings = Listing.objects.all()
+    listing_status = ['Open', 'Closed', 'Accepted', 'Pending', 'Completed']
+    for listing in listings:
+        listing.status = listing_status[listing.status]
     context = {'user': user, 'users': users, 'listings': listings}
     return render(request, 'moneyLawndering/admin.html', context)
 
