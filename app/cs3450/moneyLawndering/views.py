@@ -204,6 +204,8 @@ def history(request, user_id):
 
 def admin(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    context = {'user': user}
+    users = User.objects.all()
+    listings = Listing.objects.all()
+    context = {'user': user, 'users': users, 'listings': listings}
     return render(request, 'moneyLawndering/admin.html', context)
 

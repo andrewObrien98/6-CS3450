@@ -87,6 +87,13 @@
   flex: 1;
 }
 
+div.models-display {
+    width: 100%;
+    height: 70%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
 html, body {
     width: 100%;
     height: 100%;
