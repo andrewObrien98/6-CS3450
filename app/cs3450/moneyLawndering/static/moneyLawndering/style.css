@@ -1,6 +1,6 @@
 .title-page-background {
   background-image: url('/static/moneyLawndering/signinBackground.png');
-  background-color: #cccccc;
+  background-color: #1a1a6e;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -9,7 +9,7 @@
 
 .normal-page-background {
   background-image: url('/static/moneyLawndering/defaultBackground.png');
-  background-color: #cccccc;
+  background-color: #1a1a6e;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -86,6 +86,19 @@
 .starRatingBox {
   flex: 1;
 }
+
+.listing {
+  border: 2px solid black;
+  padding-top: 3vh;
+  padding-right: 3vh;
+  padding-left: 3vh;
+  padding-bottom: 3vh;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  margin-right: 10vh;
+  margin-left: 140vh;
+  background-color: #99abba;
+  list-style: none
 
 div.models-display {
     width: 100%;

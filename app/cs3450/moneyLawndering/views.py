@@ -100,12 +100,8 @@ def publicListing(request, user_id):
                 'user': user}
     return render(request, 'moneyLawndering/publicListing.html', context)
 
-def acceptListing(request, user_id):
+def acceptListing(request, user_id, listing_id):
     #first make sure that they have posted a listing
-    try:
-        listing_id = request.POST['listing_id']
-    except:
-        raise Http404("You did not send back the right thing")
     try:
         listing = Listing.objects.get(pk=listing_id)
     except(KeyError, Listing.DoesNotExist) :
