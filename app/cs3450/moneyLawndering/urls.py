@@ -20,4 +20,5 @@ urlpatterns = [
     path('<int:user_id>/directtransfer/', views.directTransfer, name='directTransfer'),
     path('<int:user_id>/history/', views.history, name='history'),
     path('<int:user_id>/admin/', views.admin, name='admin'),
+    path('<int:user_id>/sendMoney/', views.sendMoney, name='sendMoney'),
 ]

@@ -26,6 +26,22 @@
             {% endif %}
         </div>
     </header>
-<div>You're on the direct money transfer page.</div>
+    <div>
+        <form action="{% url 'moneyLawndering:sendMoney' user.id %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <label for="worker">Worker</label><br>
+            <select name="worker" id="worker">
+            {% for worker in workers %}
+                <option value="{{worker.pk}}">{{worker.name}}</option>
+            {% endfor %}
+            </select><br>
+
+            <label for="amount">Amount</label><br>
+            <input type="number" name="amount" id="amount"><br>
+
+            <input type="submit" value="Send">
+        </form>
+    </div>
 </body>
 </html>
