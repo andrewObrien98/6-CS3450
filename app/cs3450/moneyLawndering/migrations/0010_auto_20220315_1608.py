@@ -19,6 +19,11 @@ def listing(apps, schema_editor):
     listing = customer.listing_set.create(category = 'Lawn Mowing', location = '105 Tim Ln.', time_est = 1, dayOfWeek = 'Monday', startTimeOfDay = '1:15 P.M.', endTimeOfDay = '2:15 P.M.', description = 'Mow my Lawn', price = 25, status = 1, worker = 0, pubDate = timezone.now())
     listing.save()
 
+def category(apps, schema_editor):
+    Category = apps.get_model('moneyLawndering', 'Category')
+    category = Category(type = 'Lawn Mowing')
+    category = category.save()
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -28,4 +33,5 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(users),
         migrations.RunPython(listing),
+        migrations.RunPython(category),
     ]
