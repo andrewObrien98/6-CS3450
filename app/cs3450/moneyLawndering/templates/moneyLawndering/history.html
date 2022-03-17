@@ -31,6 +31,39 @@
             {% endif %}
         </div>
     </header>
-<div>You're on the history page.</div>
+    <div>
+        <table id="listings-table">
+            <tr>
+                <th>Customer</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>Estimated Time</th>
+                <th>Day of Week</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Worker</th>
+                <th>Date Published</th>
+            </tr>
+            {% for listing in listings %}
+                <tr>
+                    <th>{{listing.customer.name}}</th>
+                    <th>{{listing.category}}</th>
+                    <th>{{listing.location}}</th>
+                    <th>{{listing.time_est}}</th>
+                    <th>{{listing.dayOfWeek}}</th>
+                    <th>{{listing.startTimeOfDay}}</th>
+                    <th>{{listing.endTimeOfDay}}</th>
+                    <th>{{listing.description}}</th>
+                    <th>{{listing.price}}</th>
+                    <th>{{listing.status}}</th>
+                    <th>{{listing.worker}}</th>
+                    <th>{{listing.pubDate}}</th>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 </body>
 </html>
