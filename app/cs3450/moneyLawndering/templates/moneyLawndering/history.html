@@ -26,6 +26,7 @@
             {% elif user.type == 2 %}
                 <div class="navBarBox">Welcome to Money Lawndering!</div>
                 <div class="navBarBox"> <a href="{% url 'moneyLawndering:admin' user.id %}"><div>Admin</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' user.id %}"><div>Account</div></a> </div>
                 <div class="navBarBox"> <a href="{% url 'moneyLawndering:publicListing' user.id %}"><div>Public Listings</div></a> </div>
                 <div class="selectedNavBarBox"> History </div>
             {% endif %}
