@@ -115,6 +115,9 @@ def acceptListing(request, user_id):
         listing.applicants.get(worker=user_id)
     except(KeyError, AppliedFor.DoesNotExist) :
         listing.applicants.create(worker=user_id)
+        #set the status = 3 because the listing is now pending
+        listing.status = 3
+        listing.save()
     return HttpResponseRedirect(reverse('moneyLawndering:publicListing', args=(user_id,)))
 
     
@@ -122,24 +125,50 @@ def acceptListing(request, user_id):
 
 def myListing(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    try:
-        listings = []
-        if (user.isWorker):
-            listings = Listing.objects.get(worker=user_id)
-        else:
-            listings = user.listing_set.all()
-    except (KeyError, Listing.DoesNotExist):
-        # Redisplay the question voting form.
-        return render(request, 'moneyLawndering/myListing.html', {
-            'no_listing': "You currently have no listings",
-            'user_id': user_id,
-            'user': user,
-        })
+    if user.type == 0:
+        raise Http404("You are not a customer and therefore do not have access to the accepted jobs page")
+    #first get all listing that are just open
+    openListing = user.listing_set.filter(status=0)
+
+    #get all listings that are pending
+    applicantsList = []
+    pendingListing = user.listing_set.filter(status=3)
+    for listing in pendingListing:
+        applicantsList.append(len(listing.applicants.all()))
+    #applicantsList should be an array that has the amount of people who have applied to each listing
+
+    #get all listings that have a worker but not completed
+    acceptedListing = user.listing_set.filter(status=2)
+
+    pendingListingSize = [];
+    for i in range(len(pendingListing)):
+        pendingListingSize.append(i)
+
     return render(request, 'moneyLawndering/myListing.html', {
-            'listings': listings,
-            'user_id': user_id,
+            'openListing': openListing,
+            'pendingListing': pendingListing,
+            'pendingListingSize': pendingListingSize,
+            'applicantsList': applicantsList,
+            'acceptedListing': acceptedListing,
             'user': user,
         })
+    
+def applicantList(request, listing_id):
+    listing = get_object_or_404(Listing, pk=listing_id)
+    applications = listing.applicants.all()
+    users = []
+    for application in applications:
+        users.append(User.objects.get(pk=application.worker))
+    context = {'listing': listing, 'users': users}
+    return render(request, "moneyLawndering/listApplicants.html", context)
+
+def acceptApplicant(request, listing_id, user_id):
+    listing = get_object_or_404(Listing, pk=listing_id)
+    listing.worker = user_id
+    listing.status=2
+    listing.save()
+    return HttpResponseRedirect(reverse('moneyLawndering:myListing', args=(listing.customer.id,)))
+
 
 def createListing(request, user_id):
     user = get_object_or_404(User, pk=user_id)
@@ -189,7 +218,22 @@ def newListing(request, user_id):
 
 def acceptedJobs(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    context = {'user': user}
+    if(user_id == 1):
+        raise Http404("You are not a worker and therefore do not have an accepted jobs page")
+    
+    #this will get all the jobs with which the worker has been accepted
+    acceptedListings = Listing.objects.filter(worker=user_id, status=2)
+    #this will get all jobs for which the worker has applied
+    applications = AppliedFor.objects.filter(worker=user_id)
+    pendingListings = []
+    for application in applications:
+        #this will make sure that the listing is still pending
+        if application.listing.status == 3:
+            pendingListings.append(application.listing)
+
+    context = {'user': user, 
+                'acceptedListings': acceptedListings, 
+                'pendingListings': pendingListings }
     return render(request, 'moneyLawndering/acceptedJobs.html', context)
 
 def directTransfer(request, user_id):
@@ -199,7 +243,17 @@ def directTransfer(request, user_id):
 
 def history(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    context = {'user': user}
+    #is a customer
+    if user_id == 1:
+        #only get the listings that have been completed
+        listings = user.listing_set.filter(status=4)
+    #is a worker
+    elif user_id == 0:
+        listings = Listing.objects.filter(worker=user_id, status=4)
+    #is the admin
+    elif user_id == 2:
+        listings = Listing.objects.all(status=4)
+    context = {'user': user, 'listings': listings}
     return render(request, 'moneyLawndering/history.html', context)
 
 def admin(request, user_id):

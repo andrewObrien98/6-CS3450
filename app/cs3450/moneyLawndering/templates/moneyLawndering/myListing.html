@@ -27,5 +27,22 @@
         </div>
     </header>
 <div>You're on your listings page.</div>
+    <div>These are all the open listings</div>
+    {% for listing in openListing %}
+        <div> listing {{listing.status}} </div>
+    <!-- this will obviously display all open listings -->
+    {% endfor %}
+
+    <div>These are all the pending listings</div>
+    {% for listing in pendingListing %}
+        <div> listing {{listing.status}} </div>
+        <a href="{% url 'moneyLawndering:applicantlist' listing.id %}">To view applicants click here</a>
+    {% endfor %}
+
+    <div>These are all the accepted listings</div>
+    {% for listing in acceptedListing %}
+        <div> listing {{listing.status}} </div>
+    <!-- this will display all accepted listings -->
+    {% endfor %}
 </body>
 </html>

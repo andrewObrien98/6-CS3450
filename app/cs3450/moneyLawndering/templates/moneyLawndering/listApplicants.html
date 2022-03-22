@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Accepted Jobs</title>
+    <title>Applicants</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'moneyLawndering/style.css' %}">
 </head>
@@ -13,8 +13,8 @@
             {% if user.type == 0 %}
                 <div class="navBarBox">Welcome to Money Lawndering!</div>
                 <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' user.id %}"><div>Account</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:publicListing' user.id %}"><div>Public Listings</div></a> </div>
-                <div class="selectedNavBarBox"> Accepted Jobs </div>
+                <div class="selectedNavBarBox"> Public Listings </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:acceptedJobs' user.id %}"><div>Accepted Jobs</div></a> </div>
                 <div class="navBarBox"> <a href="{% url 'moneyLawndering:history' user.id %}"><div>History</div></a> </div>
             {% elif user.type == 1 %}
                 <div class="navBarBox">Welcome to Money Lawndering!</div>
@@ -26,16 +26,15 @@
             {% endif %}
         </div>
     </header>
-<div>You're on the accepted jobs page.</div>
-<div>Applied for Jobs: </div>
-{% for listing in pendingListings %}
-    <div>{{listing.customer.name}}</div>
-{% endfor %}
+<div>You're on the view applicants for listing {{listing.id}} page.</div>
+ {% for user in users %}
+    <div>
+        <p id="">name: {{user.name}}</p>
+        <p>rating: {{user.rating}}</p>
+        <p><a href="{% url 'moneyLawndering:acceptApplicant'  listing.id user.id %}"> Accept</a></p>
+    </div>>
+    
+ {% endfor %}
 
-<div>Accepted Jobs: </div>
-
-{% for listing in acceptedListings %}
-    <div>{{listing.customer.name}}</div>
-{% endfor %}
 </body>
 </html>

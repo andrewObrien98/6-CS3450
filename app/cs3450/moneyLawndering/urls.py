@@ -18,5 +18,7 @@ urlpatterns = [
     path('<int:user_id>/acceptedjobs/', views.acceptedJobs, name='acceptedJobs'),
     path('<int:user_id>/directtransfer/', views.directTransfer, name='directTransfer'),
     path('<int:user_id>/history/', views.history, name='history'),
+    path('<int:listing_id>/applicantlist/', views.applicantList, name='applicantlist'),
+    path('acceptapplicant/<int:listing_id>/<int:user_id>', views.acceptApplicant, name='acceptApplicant'),
     path('<int:user_id>/admin/', views.admin, name='admin'),
 ]
