@@ -190,7 +190,12 @@ def acceptedJobs(request, user_id):
 
 def directTransfer(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    context = {'user': user}
+    listings = Listing.objects.filter(customer=user, status=4)
+    workers = set()
+    for listing in listings:
+        worker = get_object_or_404(User, pk=listing.worker)
+        workers.add(worker)
+    context = {'user': user, 'workers': workers}
     return render(request, 'moneyLawndering/directTransfer.html', context)
 
 def history(request, user_id):
@@ -218,4 +223,13 @@ def admin(request, user_id):
         listing.status = listing_status[listing.status]
     context = {'user': user, 'users': users, 'listings': listings}
     return render(request, 'moneyLawndering/admin.html', context)
+
+def sendMoney(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    user.accountBalance -= float(request.POST['amount'])
+    user.save()
+    worker = get_object_or_404(User, pk=int(request.POST['worker']))
+    worker.accountBalance += float(request.POST['amount'])
+    worker.save()
+    return HttpResponseRedirect(reverse('moneyLawndering:directTransfer', args=(user_id,)))
 
