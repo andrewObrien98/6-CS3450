@@ -203,23 +203,31 @@ def createListing(request, user_id):
 def newListing(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     try:
-        if user.isCustomer and user.accountBalance >= request.POST['price']:
-            category = request.POST['category']
-            location = request.POST['location']
-            time_est = request.POST['time_est']
-            dayOfWeek = request.POST['dayOfWeek']
-            startTimeOfDay = request.POST['startTime']
-            endTimeOfDay = request.POST['endTime']
-            description = request.POST['description']
-            price = request.POST['price']
-            status = 0
-            pubDate = timezone.now()
-            listing = user.listing_set.create(category=category, location=location,
-                                time_est=time_est, dayOfWeek=dayOfWeek, startTimeOfDay=startTimeOfDay, 
-                                endTimeOfDay=endTimeOfDay, description=description, price=price,
-                                status=status, pubDate=pubDate, worker=0)
-            
-            listing.save()
+        if user.isCustomer:
+            if user.accountBalance >= int(request.POST['price']):
+                category = request.POST['category']
+                location = request.POST['location']
+                time_est = request.POST['time_est']
+                dayOfWeek = request.POST['dayOfWeek']
+                startTimeOfDay = request.POST['startTime']
+                endTimeOfDay = request.POST['endTime']
+                description = request.POST['description']
+                price = request.POST['price']
+                status = 0
+                pubDate = timezone.now()
+                listing = user.listing_set.create(category=category, location=location,
+                                    time_est=time_est, dayOfWeek=dayOfWeek, startTimeOfDay=startTimeOfDay, 
+                                    endTimeOfDay=endTimeOfDay, description=description, price=price,
+                                    status=status, pubDate=pubDate, worker=0)
+                
+                listing.save()
+            else:
+                response = {
+                    "failure": "You have insufficient funds for this job!",
+                    }
+                response = JsonResponse(response)
+                response['Access-Control-Allow-Origin'] = '*'
+                return response
     except:
         response = {
         "failure": "You sent an invalid listing or have insufficient funds and it could not create it",
@@ -277,9 +285,10 @@ def completedJob(request, listing_id, user_id):
     #transfer the money now
     admin.accountBalance = admin.accountBalance + listing.price * .1
     worker.accountBalance = worker.accountBalance + listing.price * .9
-    customer.accountBalance = customer.accountBalance - listing.price * .9
+    customer.accountBalance = customer.accountBalance - listing.price
     worker.save()
     customer.save()
+    admin.save()
 
     #add the review now
     customerReview = customer.customerreview_set.create(
