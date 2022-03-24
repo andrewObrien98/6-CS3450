@@ -23,9 +23,6 @@ urlpatterns = [
     path('acceptapplicant/<int:listing_id>/<int:user_id>', views.acceptApplicant, name='acceptApplicant'),
     path('completedJob/<int:listing_id>/<int:user_id>', views.completedJob, name='completedJob'),
     path('<int:user_id>/admin/', views.admin, name='admin'),
-<<<<<<< HEAD
     path('customerreview/<int:listing_id>/<int:user_id>', views.customerReview, name='customerReview'),
-=======
     path('<int:user_id>/sendMoney/', views.sendMoney, name='sendMoney'),
->>>>>>> main
 ]
