@@ -40,8 +40,8 @@
                 <option value="listings">Listings</option>
             </select>
         </div>
-        <div class="table-div">
-            <table id="users-table">
+        <div class="table-div" id="admin-tables">
+            <table id="users">
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
@@ -65,7 +65,7 @@
                     </tr>
                 {% endfor %}
             </table>
-            <table id="listings-table">
+            <table id="listings">
                 <tr>
                     <th>Customer</th>
                     <th>Category</th>
@@ -98,5 +98,7 @@
                 {% endfor %}
             </table>
         </div>
+        {% load static %}
+        <script src="{% static 'moneyLawndering/admin.js' %}"></script>
     </body>
 </html>
