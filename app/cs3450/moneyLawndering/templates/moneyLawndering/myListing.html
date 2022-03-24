@@ -26,12 +26,96 @@
             {% endif %}
         </div>
     </header>
-<div>You're on your listings page.</div>
     <div>These are all the open listings</div>
+    <ul>
     {% for listing in openListing %}
-        <div> listing {{listing.status}} </div>
-    <!-- this will obviously display all open listings -->
+    <li class="listing">
+        <div class="listingInfo">
+        <form action="{% url 'moneyLawndering:updateListing' user.id listing.id %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <label for="category">Choose a category:</label><br>
+            <select name="category" id="category">
+               {% for category in categories %}
+                    {% if category == listing.category %}
+                        <option value="{{category.type}}" selected> {{category.type}}</option>
+                    {% else %}
+                        <option value={{category.type}}> {{category.type}}</option>
+                    {% endif %}
+               {% endfor %}
+            </select><br>
+
+            <label for="location">Location</label><br>
+            <input type="text" name="location" id="location" value="{{listing.location}}"><br>
+
+            <label for="time_est">Estimated time to complete job (hrs)</label><br>
+            <input type="number" name="time_est" id="time_est" value="{{listing.time_est}}">
+            <small> hrs</small><br>
+
+            <label for="dayOfWeek">Day of week you are available</label><br>
+            <select name="dayOfWeek" id="dayOfWeek" multiple>
+                {% if listing.dayOfWeek == "monday" %}
+                    <option value="monday" selected>Monday</option>
+                {% else %}
+                    <option value="monday">Monday</option>
+                {% endif %}
+                {% if listing.dayOfWeek == "tuesday" %}
+                    <option value="tuesday" selected>Tuesday</option>
+                {% else %}
+                    <option value="tuesday">Tuesday</option>
+                {% endif %}
+                {% if listing.dayOfWeek == "wednesday" %}
+                    <option value="wednesday" selected>Wednesday</option>
+                {% else %}
+                    <option value="wednesday">Wednesday</option>
+                {% endif %}
+                {% if listing.dayOfWeek == "thursday" %}
+                    <option value="thursday" selected>Thursday</option>
+                {% else %}
+                    <option value="thursday">Thursday</option>
+                {% endif %}
+                {% if listing.dayOfWeek == "Friday" %}
+                    <option value="friday" selected>Friday</option>
+                {% else %}
+                    <option value="friday">Friday</option>
+                {% endif %}
+                {% if listing.dayOfWeek == "saturday" %}
+                    <option value="saturday" selected>Saturday</option>
+                {% else %}
+                    <option value="saturday">Saturday</option>
+                {% endif %}
+                {% if listing.dayOfWeek == "sunday" %}
+                    <option value="sunday" selected>Sunday</option>
+                {% else %}
+                    <option value="sunday">Sunday</option>
+                {% endif %}
+            </select><br>
+
+            <label for="startTime">You are available from: </label><br>
+            <input type="time" id="startTime" name="startTime"
+               min="07:00:00" max="20:00:00" value="{{listing.startTimeOfDay}}" required><br>
+
+            <label for="endTime">To: </label><br>
+            <input type="time" id="endTime" name="endTime"
+               min="07:00:00" max="20:00:00" value="{{listing.endTimeOfDay}}" required><br>
+
+            <label for="description">Description of Job:</label><br>
+            <textarea id="description" name="description" rows="4" cols="50">{{listing.description}}</textarea> <br>
+
+            <label for="price">Price</label><br>
+            <input type="number" name="price" id="price" value="{{listing.price}}"><small>$</small><br>
+
+            <input type="submit" value="Update">
+        </form>
+        <form action="{% url 'moneyLawndering:deleteListing' user.id listing.id %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Delete">
+        </form>
+    </div>
+    </li>
     {% endfor %}
+</ul>
 
     <div>These are all the pending listings</div>
     {% for listing in pendingListing %}
@@ -40,10 +124,95 @@
     {% endfor %}
 
     <div>These are all the accepted listings</div>
-    {% for listing in acceptedListing %}
-        <div> listing {{listing.status}} </div>
-    <!-- this will display all accepted listings -->
-    {% endfor %}
+    <ul>
+ {% for listing in acceptedListing %}
+    <li class="listing">
+        <div class="listingInfo">
+        <form action="{% url 'moneyLawndering:updateListing' user.id listing.id %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <label for="category">Choose a category:</label><br>
+            <select name="category" id="category">
+               {% for category in categories %}
+                    {% if category == listing.category %}
+                        <option value="{{category.type}}" selected> {{category.type}}</option>
+                    {% else %}
+                        <option value={{category.type}}> {{category.type}}</option>
+                    {% endif %}
+               {% endfor %}
+            </select><br>
+
+            <label for="location">Location</label><br>
+            <input type="text" name="location" id="location" value="{{listing.location}}"><br>
+
+            <label for="time_est">Estimated time to complete job (hrs)</label><br>
+            <input type="number" name="time_est" id="time_est" value="{{listing.time_est}}">
+            <small> hrs</small><br>
+
+            <label for="dayOfWeek">Day of week you are available</label><br>
+            <select name="dayOfWeek" id="dayOfWeek" multiple>
+                {% if listing.dayOfWeek == "monday" %}
+                    <option value="monday" selected>Monday</option>
+                {% else %}
+                    <option value="monday">Monday</option>
+                {% endif %}
+                {% if listing.dayOfWeek == "tuesday" %}
+                    <option value="tuesday" selected>Tuesday</option>
+                {% else %}
+                    <option value="tuesday">Tuesday</option>
+                {% endif %}
+                {% if listing.dayOfWeek == "wednesday" %}
+                    <option value="wednesday" selected>Wednesday</option>
+                {% else %}
+                    <option value="wednesday">Wednesday</option>
+                {% endif %}
+                {% if listing.dayOfWeek == "thursday" %}
+                    <option value="thursday" selected>Thursday</option>
+                {% else %}
+                    <option value="thursday">Thursday</option>
+                {% endif %}
+                {% if listing.dayOfWeek == "Friday" %}
+                    <option value="friday" selected>Friday</option>
+                {% else %}
+                    <option value="friday">Friday</option>
+                {% endif %}
+                {% if listing.dayOfWeek == "saturday" %}
+                    <option value="saturday" selected>Saturday</option>
+                {% else %}
+                    <option value="saturday">Saturday</option>
+                {% endif %}
+                {% if listing.dayOfWeek == "sunday" %}
+                    <option value="sunday" selected>Sunday</option>
+                {% else %}
+                    <option value="sunday">Sunday</option>
+                {% endif %}
+            </select><br>
+
+            <label for="startTime">You are available from: </label><br>
+            <input type="time" id="startTime" name="startTime"
+               min="07:00:00" max="20:00:00" value="{{listing.startTimeOfDay}}" required><br>
+
+            <label for="endTime">To: </label><br>
+            <input type="time" id="endTime" name="endTime"
+               min="07:00:00" max="20:00:00" value="{{listing.endTimeOfDay}}" required><br>
+
+            <label for="description">Description of Job:</label><br>
+            <textarea id="description" name="description" rows="4" cols="50">{{listing.description}}</textarea> <br>
+
+            <label for="price">Price</label><br>
+            <input type="number" name="price" id="price" value="{{listing.price}}"><small>$</small><br>
+
+            <input type="submit" value="Update">
+        </form>
+        <form action="{% url 'moneyLawndering:deleteListing' user.id listing.id %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Delete">
+        </form>
+    </div>
+    </li>
+ {% endfor %}
+</ul>
 
     <div>These are all the recently completed listings</div>
     {% for listing in completedListing %}
