@@ -222,7 +222,7 @@ def newListing(request, user_id):
             listing.save()
     except:
         response = {
-        "failure": "You sent an invalid listing and it could not create it",
+        "failure": "You sent an invalid listing or have insufficient funds and it could not create it",
         "category": category,
         "location": location,
         "time_est": time_est,
@@ -272,11 +272,12 @@ def completedJob(request, listing_id, user_id):
 
     worker = get_object_or_404(User, pk=user_id)
     customer = get_object_or_404(User, pk=listing.customer.id)
-    admin = get_object_or_404(User, )
+    admin = get_object_or_404(User, type=2)
 
     #transfer the money now
-    worker.accountBalance = worker.accountBalance + listing.price
-    customer.accountBalance = customer.accountBalance - listing.price
+    admin.accountBalance = admin.accountBalance + listing.price * .1
+    worker.accountBalance = worker.accountBalance + listing.price * .9
+    customer.accountBalance = customer.accountBalance - listing.price * .9
     worker.save()
     customer.save()
 
@@ -315,7 +316,7 @@ def history(request, user_id):
         return render(request, 'moneyLawndering/history.html', context)
     #is the admin
     elif user.type == 2:
-        listings = Listing.objects.all(status=5)
+        listings = Listing.objects.filter(status=5)
         context = {'user': user, 'listings': listings}
         return render(request, 'moneyLawndering/history.html', context)
     context = {'user': user, 'listings': listings}
