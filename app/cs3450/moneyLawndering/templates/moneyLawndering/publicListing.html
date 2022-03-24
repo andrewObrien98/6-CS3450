@@ -29,6 +29,11 @@
                 <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' user.id %}"><div>Account</div></a> </div>
                 <div class="selectedNavBarBox"> Public Listings </div>
                 <div class="navBarBox"> <a href="{% url 'moneyLawndering:history' user.id %}"><div>History</div></a> </div>
+                <div class="navBarBox">
+                    <a href="{% url 'moneyLawndering:category' user.id %}">
+                        <div>Categories</div>
+                    </a>
+                </div>
             {% endif %}
         </div>
     </header>
