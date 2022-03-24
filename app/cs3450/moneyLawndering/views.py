@@ -272,11 +272,12 @@ def completedJob(request, listing_id, user_id):
 
     worker = get_object_or_404(User, pk=user_id)
     customer = get_object_or_404(User, pk=listing.customer.id)
-    admin = get_object_or_404(User, )
+    admin = get_object_or_404(User, type=2)
 
     #transfer the money now
-    worker.accountBalance = worker.accountBalance + listing.price
-    customer.accountBalance = customer.accountBalance - listing.price
+    admin.accountBalance = admin.accountBalance + listing.price * .1
+    worker.accountBalance = worker.accountBalance + listing.price * .9
+    customer.accountBalance = customer.accountBalance - listing.price * .9
     worker.save()
     customer.save()
 
