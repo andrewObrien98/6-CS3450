@@ -172,7 +172,7 @@ def customerReview(request, listing_id, user_id):
     workerReview.save()
 
     #reset the workers rating
-    workerReviews = worker.workerreviews_set.all()
+    workerReviews = worker.workerreview_set.all()
     overallRating = 0
     for review in workerReviews:
         overallRating = overallRating + review.rating
@@ -292,7 +292,7 @@ def completedJob(request, listing_id, user_id):
     customerReview.save()
 
     #reset the customers reviews now
-    customerReviews = customer.customerreviews_set.all()
+    customerReviews = customer.customerreview_set.all()
     overallRating = 0
     for review in customerReviews:
         overallRating = overallRating + review.rating
