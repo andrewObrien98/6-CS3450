@@ -218,12 +218,14 @@ def updateListing(request, user_id, listing_id):
         listing.save()
     categories = Category.objects.all()
     listings = Listing.objects.filter(customer=user_id)
-    return render(request, 'moneyLawndering/myListing.html', {
-        'listings': listings,
-        'categories': categories,
-        'user_id': user_id,
-        'user': user,
-    })
+    # return render(request, 'moneyLawndering/myListing.html', {
+    #     'listings': listings,
+    #     'categories': categories,
+    #     'user_id': user_id,
+    #     'user': user,
+    # })
+    return HttpResponseRedirect(reverse('moneyLawndering:myListing', args=(user_id,)))
+
 
 def deleteListing(request, user_id, listing_id):
     user = get_object_or_404(User, pk=user_id)
@@ -232,12 +234,14 @@ def deleteListing(request, user_id, listing_id):
         listing.delete()
     categories = Category.objects.all()
     listings = Listing.objects.get(customer=user_id)
-    return render(request, 'moneyLawndering/myListing.html', {
-        'listings': listings,
-        'categories': categories,
-        'user_id': user_id,
-        'user': user,
-    })
+    # return render(request, 'moneyLawndering/myListing.html', {
+    #     'listings': listings,
+    #     'categories': categories,
+    #     'user_id': user_id,
+    #     'user': user,
+    # })
+    return HttpResponseRedirect(reverse('moneyLawndering:myListing', args=(user.id,)))
+
 
 def newListing(request, user_id):
     user = get_object_or_404(User, pk=user_id)
