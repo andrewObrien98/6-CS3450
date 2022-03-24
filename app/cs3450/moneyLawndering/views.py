@@ -307,25 +307,19 @@ def history(request, user_id):
     if user.type== 1:
         #only get the listings that have been completed
         listings = user.listing_set.filter(status=5)
-        context = {'user': user, 'listings': listings}
-        return render(request, 'moneyLawndering/history.html', context)
     #is a worker
     elif user.type == 0:
         listings = Listing.objects.filter(worker=user_id, status=5)
-        context = {'user': user, 'listings': listings}
-        return render(request, 'moneyLawndering/history.html', context)
     #is the admin
     elif user.type == 2:
         listings = Listing.objects.filter(status=5)
-        context = {'user': user, 'listings': listings}
-        return render(request, 'moneyLawndering/history.html', context)
     context = {'user': user, 'listings': listings}
     return render(request, 'moneyLawndering/history.html', context)
 
 
 def directTransfer(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    listings = Listing.objects.filter(customer=user, status=4)
+    listings = Listing.objects.filter(customer=user, status=5)
     workers = set()
     for listing in listings:
         worker = get_object_or_404(User, pk=listing.worker)
@@ -342,7 +336,7 @@ def admin(request, user_id):
         u.type = user_types[u.type]
 
     listings = Listing.objects.all()
-    listing_status = ['Open', 'Closed', 'Accepted', 'Pending', 'Completed']
+    listing_status = ['Open', 'Closed', 'Accepted', 'Pending', 'Worker Completed', 'Customer Completed']
     for listing in listings:
         listing.status = listing_status[listing.status]
     context = {'user': user, 'users': users, 'listings': listings}
