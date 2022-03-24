@@ -243,7 +243,7 @@ def newListing(request, user_id):
 
 def acceptedJobs(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    if(user_id == 1):
+    if(user.type == 1):
         raise Http404("You are not a worker and therefore do not have an accepted jobs page")
     
     #this will get all the jobs with which the worker has been accepted
@@ -272,6 +272,7 @@ def completedJob(request, listing_id, user_id):
 
     worker = get_object_or_404(User, pk=user_id)
     customer = get_object_or_404(User, pk=listing.customer.id)
+    admin = get_object_or_404(User, )
 
     #transfer the money now
     worker.accountBalance = worker.accountBalance + listing.price
@@ -302,18 +303,18 @@ def history(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     listings = []
     #is a customer
-    if user.id== 1:
+    if user.type== 1:
         #only get the listings that have been completed
         listings = user.listing_set.filter(status=5)
         context = {'user': user, 'listings': listings}
         return render(request, 'moneyLawndering/history.html', context)
     #is a worker
-    elif user.id == 0:
+    elif user.type == 0:
         listings = Listing.objects.filter(worker=user_id, status=5)
         context = {'user': user, 'listings': listings}
         return render(request, 'moneyLawndering/history.html', context)
     #is the admin
-    elif user.id == 2:
+    elif user.type == 2:
         listings = Listing.objects.all(status=5)
         context = {'user': user, 'listings': listings}
         return render(request, 'moneyLawndering/history.html', context)
