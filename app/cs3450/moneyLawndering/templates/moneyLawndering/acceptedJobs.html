@@ -27,5 +27,40 @@
         </div>
     </header>
 <div>You're on the accepted jobs page.</div>
+<div>Applied for Jobs: </div>
+{% for listing in pendingListings %}
+    <div>{{listing.customer.name}}</div>
+{% endfor %}
+
+<div>Accepted Jobs: </div>
+
+{% for listing in acceptedListings %}
+    {% if listing.status != 4 %}
+        <div>{{listing.customer.name}}</div>
+        <form action="{% url 'moneyLawndering:completedJob' listing.id user.id%}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <label for="category">Choose a category:</label>
+            <select name="rating" id="rating">
+                <option value={{1}}> 1 star</option>
+                <option value={{2}}> 2 star</option>
+                <option value={{3}}> 3 star</option>
+                <option value={{4}}> 4 star</option>
+                <option value={{5}}> 5 star</option>
+            </select> <br>
+
+
+            <label for="review">Description of Job:</label>
+            <textarea id="review" name="review" rows="4" cols="50"></textarea> <br>
+
+            <input type="submit"  value="Job Completed"><br>
+        </form>
+    {% endif %}
+{% endfor %}
+
+<div>Compelted Jobs: </div>
+{% for listing in completedListings %}
+    <div>{{listing.customer.name}}</div>
+{% endfor %}
 </body>
 </html>

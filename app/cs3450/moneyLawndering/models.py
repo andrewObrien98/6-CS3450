@@ -36,7 +36,7 @@ class Listing(models.Model):
     endTimeOfDay = models.CharField(max_length=100)
     description = models.TextField()
     price = models.IntegerField()
-    status = models.IntegerField() #0=open, 1=closed, 2=accepted, 3=pending, 4=completed
+    status = models.IntegerField() #0=open, 1=closed, 2=accepted, 3=pending, 4=completedForWorker 5=completedForCustomer
     worker = models.IntegerField()
     pubDate = models.DateTimeField('date published')
 
@@ -76,8 +76,6 @@ class CustomerReview(models.Model):
     rating = models.IntegerField()
     description = models.TextField()
 
-    def __str__(self):
-        return self.worker + ' left a review for ' + self.customer
 
 #reviews left by the customer for the worker
 class WorkerReview(models.Model):
@@ -86,8 +84,6 @@ class WorkerReview(models.Model):
     rating = models.IntegerField()
     description = models.TextField()
 
-    def __str__(self):
-        return self.customer + ' left a review for ' + self.worker
 
 class Category(models.Model):
     type = models.CharField(max_length=300)
