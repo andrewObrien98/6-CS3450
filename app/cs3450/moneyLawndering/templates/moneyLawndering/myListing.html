@@ -44,5 +44,30 @@
         <div> listing {{listing.status}} </div>
     <!-- this will display all accepted listings -->
     {% endfor %}
+
+    <div>These are all the recently completed listings</div>
+    {% for listing in completedListing %}
+        <div> listing {{listing.status}} </div>
+    <!-- this will display all completed listings -->
+        <div>{{listing.customer.name}}</div>
+        <form action="{% url 'moneyLawndering:customerReview' listing.id user.id%}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <label for="category">Choose a category:</label>
+            <select name="rating" id="rating">
+                <option value={{1}}> 1 star</option>
+                <option value={{2}}> 2 star</option>
+                <option value={{3}}> 3 star</option>
+                <option value={{4}}> 4 star</option>
+                <option value={{5}}> 5 star</option>
+            </select> <br>
+
+
+            <label for="review">Description of Job:</label>
+            <textarea id="review" name="review" rows="4" cols="50"></textarea> <br>
+
+            <input type="submit"  value="Job Completed"><br>
+        </form>
+    {% endfor %}
 </body>
 </html>

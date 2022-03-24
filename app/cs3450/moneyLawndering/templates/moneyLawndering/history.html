@@ -27,5 +27,10 @@
         </div>
     </header>
 <div>You're on the history page.</div>
+<div>These are all of your completed Jobs: </div>
+{% for listing in listings %}
+    <div>customer: {{listing.customer.name}} </div>
+    <div>price: {{listing.price}}</div>
+{% endfor %}
 </body>
 </html>

@@ -140,7 +140,10 @@ def myListing(request, user_id):
     #get all listings that have a worker but not completed
     acceptedListing = user.listing_set.filter(status=2)
 
-    pendingListingSize = [];
+    #get all listings that have worker that completed the job but hasnt left a review
+    completedListing = user.listing_set.filter(status=4)
+
+    pendingListingSize = []
     for i in range(len(pendingListing)):
         pendingListingSize.append(i)
 
@@ -150,8 +153,34 @@ def myListing(request, user_id):
             'pendingListingSize': pendingListingSize,
             'applicantsList': applicantsList,
             'acceptedListing': acceptedListing,
+            'completedListing': completedListing,
             'user': user,
         })
+
+def customerReview(request, listing_id, user_id):
+    listing = get_object_or_404(Listing, pk=listing_id)
+    listing.status = 5
+    listing.save()
+    customer = get_object_or_404(User, pk=user_id)
+    worker = get_object_or_404(User, pk=listing.worker)
+
+    workerReview = worker.workerreview_set.create(
+        customer = customer.id,
+        rating = request.POST['rating'],
+        description = request.POST['review']
+    )
+    workerReview.save()
+
+    #reset the workers rating
+    workerReviews = worker.workerreviews_set.all()
+    overallRating = 0
+    for review in workerReviews:
+        overallRating = overallRating + review.rating
+    overallRating = overallRating // len(workerReviews)
+    worker.rating = overallRating
+    worker.save()
+
+    return HttpResponseRedirect(reverse('moneyLawndering:myListing', args=(customer.id,)))
     
 def applicantList(request, listing_id):
     listing = get_object_or_404(Listing, pk=listing_id)
@@ -223,6 +252,7 @@ def acceptedJobs(request, user_id):
     
     #this will get all the jobs with which the worker has been accepted
     acceptedListings = Listing.objects.filter(worker=user_id, status=2)
+    completedListings = Listing.objects.filter(worker=user_id, status=4)
     #this will get all jobs for which the worker has applied
     applications = AppliedFor.objects.filter(worker=user_id)
     pendingListings = []
@@ -233,28 +263,74 @@ def acceptedJobs(request, user_id):
 
     context = {'user': user, 
                 'acceptedListings': acceptedListings, 
-                'pendingListings': pendingListings }
+                'pendingListings': pendingListings ,
+                'completedListings': completedListings,}
     return render(request, 'moneyLawndering/acceptedJobs.html', context)
+
+def completedJob(request, listing_id, user_id):
+    listing = get_object_or_404(Listing, pk=listing_id)
+    if(listing.status == 4):
+        raise Http404("You have already left a review for this person")
+    listing.status = 4
+    listing.save()
+
+    worker = get_object_or_404(User, pk=user_id)
+    customer = get_object_or_404(User, pk=listing.customer.id)
+
+    #transfer the money now
+    worker.accountBalance = worker.accountBalance + listing.price
+    customer.accountBalance = customer.accountBalance - listing.price
+    worker.save()
+    customer.save()
+
+    #add the review now
+    customerReview = customer.customerreview_set.create(
+        worker = worker.id,
+        rating = request.POST['rating'],
+        description = request.POST['review']
+    )
+    customerReview.save()
+
+    #reset the customers reviews now
+    customerReviews = customer.customerreviews_set.all()
+    overallRating = 0
+    for review in customerReviews:
+        overallRating = overallRating + review.rating
+    overallRating = overallRating // len(customerReviews)
+    customer.rating = overallRating
+    customer.save()
+
+    return HttpResponseRedirect(reverse('moneyLawndering:acceptedJobs', args=(worker.id,)))
+
+def history(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    listings = []
+    #is a customer
+    if user.id== 1:
+        #only get the listings that have been completed
+        listings = user.listing_set.filter(status=5)
+        context = {'user': user, 'listings': listings}
+        return render(request, 'moneyLawndering/history.html', context)
+    #is a worker
+    elif user.id == 0:
+        listings = Listing.objects.filter(worker=user_id, status=5)
+        context = {'user': user, 'listings': listings}
+        return render(request, 'moneyLawndering/history.html', context)
+    #is the admin
+    elif user.id == 2:
+        listings = Listing.objects.all(status=5)
+        context = {'user': user, 'listings': listings}
+        return render(request, 'moneyLawndering/history.html', context)
+    context = {'user': user, 'listings': listings}
+    return render(request, 'moneyLawndering/history.html', context)
+
 
 def directTransfer(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     context = {'user': user}
     return render(request, 'moneyLawndering/directTransfer.html', context)
 
-def history(request, user_id):
-    user = get_object_or_404(User, pk=user_id)
-    #is a customer
-    if user_id == 1:
-        #only get the listings that have been completed
-        listings = user.listing_set.filter(status=4)
-    #is a worker
-    elif user_id == 0:
-        listings = Listing.objects.filter(worker=user_id, status=4)
-    #is the admin
-    elif user_id == 2:
-        listings = Listing.objects.all(status=4)
-    context = {'user': user, 'listings': listings}
-    return render(request, 'moneyLawndering/history.html', context)
+
 
 def admin(request, user_id):
     return render(request, 'moneyLawndering/admin.html')
