@@ -23,19 +23,36 @@
                 <div class="navBarBox"> <a href="{% url 'moneyLawndering:createListing' user.id %}"><div>New Listing</div></a> </div>
                 <div class="navBarBox"> <a href="{% url 'moneyLawndering:directTransfer' user.id %}"><div>Direct Transfer</div></a> </div>
                 <div class="navBarBox"> <a href="{% url 'moneyLawndering:history' user.id %}"><div>History</div></a> </div>
+            {% elif user.type == 2 %}
+                <div class="navBarBox">Welcome to Money Lawndering!</div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:admin' user.id %}"><div>Admin</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' user.id %}"><div>Account</div></a> </div>
+                <div class="selectedNavBarBox"> Public Listings </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:history' user.id %}"><div>History</div></a> </div>
             {% endif %}
         </div>
     </header>
-<div>You're on the public listings page.</div>
 <ul>
  {% for listing in listings %}
-    <li>{{listing.price}} $$$$</li>
-    
-    <form action="{% url 'moneyLawndering:acceptListing' user.id %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" name="listing_id" id="listing_id" value={{listing.id}}>
-    </form>
+    <li class="listing">
+        <h2>{{listing.category|capfirst}}</h2>
+        <h3>${{listing.price|floatformat:"-2g"}}</h3>
+        <div>
+            <h3>Description: </h3>{{listing.description|capfirst}}
+            {% if listing.time_est == 1.0 %}
+                <p>It'll probably take about 1 hour.</p>
+            {% else %}
+                <p>It'll probably take about {{listing.time_est|floatformat:"-1g"}} hours.</p>
+            {% endif %}
+        </div>
+        <div><h3>When: </h3>{{listing.dayOfWeek|capfirst}} between {{listing.startTimeOfDay}} and {{listing.endTimeOfDay}}</div>
+        <div><h3>Who: </h3>{{listing.customer.name|capfirst}}</div>
+        <form action="{% url 'moneyLawndering:acceptListing' user.id listing.id %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Accept Listing">
+        </form>
+    </li>
  {% endfor %}
 </ul>
 </body>

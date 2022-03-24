@@ -10,8 +10,9 @@ urlpatterns = [
     path('createuser/', views.createUser, name='createUser'),
     path('<int:user_id>/updateuser/', views.updateUser, name='updateUser'),
     path('<int:user_id>/account/', views.account, name='account'),
+    path('<int:user_id>/', views.account, name='account'),
     path('<int:user_id>/publiclistings/', views.publicListing, name='publicListing'),
-    path('<int:user_id>/acceptlisting/', views.acceptListing, name='acceptListing'),
+    path('<int:user_id>/<int:listing_id>/acceptlisting/', views.acceptListing, name='acceptListing'),
     path('<int:user_id>/mylistings/', views.myListing, name='myListing'),
     path('<int:user_id>/createListing/', views.createListing, name='createListing'),
     path('<int:user_id>/newListing/', views.newListing, name='newListing'),
@@ -22,5 +23,9 @@ urlpatterns = [
     path('acceptapplicant/<int:listing_id>/<int:user_id>', views.acceptApplicant, name='acceptApplicant'),
     path('completedJob/<int:listing_id>/<int:user_id>', views.completedJob, name='completedJob'),
     path('<int:user_id>/admin/', views.admin, name='admin'),
+<<<<<<< HEAD
     path('customerreview/<int:listing_id>/<int:user_id>', views.customerReview, name='customerReview'),
+=======
+    path('<int:user_id>/sendMoney/', views.sendMoney, name='sendMoney'),
+>>>>>>> main
 ]

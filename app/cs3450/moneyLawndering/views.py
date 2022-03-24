@@ -100,12 +100,8 @@ def publicListing(request, user_id):
                 'user': user}
     return render(request, 'moneyLawndering/publicListing.html', context)
 
-def acceptListing(request, user_id):
+def acceptListing(request, user_id, listing_id):
     #first make sure that they have posted a listing
-    try:
-        listing_id = request.POST['listing_id']
-    except:
-        raise Http404("You did not send back the right thing")
     try:
         listing = Listing.objects.get(pk=listing_id)
     except(KeyError, Listing.DoesNotExist) :
@@ -327,11 +323,50 @@ def history(request, user_id):
 
 def directTransfer(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    context = {'user': user}
+    listings = Listing.objects.filter(customer=user, status=4)
+    workers = set()
+    for listing in listings:
+        worker = get_object_or_404(User, pk=listing.worker)
+        workers.add(worker)
+    context = {'user': user, 'workers': workers}
     return render(request, 'moneyLawndering/directTransfer.html', context)
 
+<<<<<<< HEAD
 
+=======
+def history(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    listings = Listing.objects.all()
+    listings.exclude(status=0)
+    listings.exclude(status=2)
+    listings.exclude(status=3)
+    listing_status = ['Open', 'Closed', 'Accepted', 'Pending', 'Completed']
+    for listing in listings:
+        listing.status = listing_status[listing.status]
+    context = {'user': user, 'listings': listings}
+    return render(request, 'moneyLawndering/history.html', context)
+>>>>>>> main
 
 def admin(request, user_id):
-    return render(request, 'moneyLawndering/admin.html')
+    user = get_object_or_404(User, pk=user_id)
+    users = User.objects.all()
+    user_types = ['Worker', 'Customer', 'Admin']
+    for u in users:
+        u.type = user_types[u.type]
+
+    listings = Listing.objects.all()
+    listing_status = ['Open', 'Closed', 'Accepted', 'Pending', 'Completed']
+    for listing in listings:
+        listing.status = listing_status[listing.status]
+    context = {'user': user, 'users': users, 'listings': listings}
+    return render(request, 'moneyLawndering/admin.html', context)
+
+def sendMoney(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    user.accountBalance -= float(request.POST['amount'])
+    user.save()
+    worker = get_object_or_404(User, pk=int(request.POST['worker']))
+    worker.accountBalance += float(request.POST['amount'])
+    worker.save()
+    return HttpResponseRedirect(reverse('moneyLawndering:directTransfer', args=(user_id,)))
 

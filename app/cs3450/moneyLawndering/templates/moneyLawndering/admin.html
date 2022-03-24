@@ -2,10 +2,96 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
+        <title>Admin</title>
 		{% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'moneyLawndering/style.css' %}">
     </head>
-    <body>
-        Welcome to the admin page.
+    <body class="normal-page-background">
+        <header>
+            <div class="navBar">
+                <div class="navBarBox">Welcome to Money Lawndering!</div>
+                <div class="selectedNavBarBox">Admin</div>
+                <div class="navBarBox">
+                    <a href="{% url 'moneyLawndering:account' user.id %}">
+                        <div>Account</div>
+                    </a>
+                </div>
+                <div class="navBarBox">
+                    <a href="{% url 'moneyLawndering:publicListing' user.id %}">
+                        <div>Public Listings</div>
+                    </a>
+                </div>
+                <div class="navBarBox">
+                    <a href="{% url 'moneyLawndering:history' user.id %}">
+                        <div>History</div>
+                    </a>
+                </div>
+            </div>
+        </header>
+        <div>
+            <label for="model-type">Model Type:</label>
+            <select id="model-type">
+                <option value="users">Users</option>
+                <option value="listings">Listings</option>
+            </select>
+        </div>
+        <div class="table-div">
+            <table id="users-table">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Type</th>
+                    <th>Password</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
+                    <th>Account Balance</th>
+                    <th>Rating</th>
+                </tr>
+                {% for user in users %}
+                    <tr>
+                        <th>{{user.name}}</th>
+                        <th>{{user.email}}</th>
+                        <th>{{user.type}}</th>
+                        <th>{{user.password}}</th>
+                        <th>{{user.phoneNumber}}</th>
+                        <th>{{user.address}}</th>
+                        <th>{{user.accountBalance}}</th>
+                        <th>{{user.rating}}</th>
+                    </tr>
+                {% endfor %}
+            </table>
+            <table id="listings-table">
+                <tr>
+                    <th>Customer</th>
+                    <th>Category</th>
+                    <th>Location</th>
+                    <th>Estimated Time</th>
+                    <th>Day of Week</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Worker</th>
+                    <th>Date Published</th>
+                </tr>
+                {% for listing in listings %}
+                    <tr>
+                        <th>{{listing.customer.name}}</th>
+                        <th>{{listing.category}}</th>
+                        <th>{{listing.location}}</th>
+                        <th>{{listing.time_est}}</th>
+                        <th>{{listing.dayOfWeek}}</th>
+                        <th>{{listing.startTimeOfDay}}</th>
+                        <th>{{listing.endTimeOfDay}}</th>
+                        <th>{{listing.description}}</th>
+                        <th>{{listing.price}}</th>
+                        <th>{{listing.status}}</th>
+                        <th>{{listing.worker}}</th>
+                        <th>{{listing.pubDate}}</th>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
     </body>
 </html>
