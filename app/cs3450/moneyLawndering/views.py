@@ -120,7 +120,7 @@ def myListing(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     try:
         listings = []
-        if (user.isWorker):
+        if (user.isWorker()):
             listings = Listing.objects.get(worker=user_id)
         else:
             listings = user.listing_set.all()
@@ -131,8 +131,10 @@ def myListing(request, user_id):
             'user_id': user_id,
             'user': user,
         })
+    categories = Category.objects.all()
     return render(request, 'moneyLawndering/myListing.html', {
             'listings': listings,
+            'categories': categories,
             'user_id': user_id,
             'user': user,
         })
@@ -141,6 +143,42 @@ def createListing(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     categories = Category.objects.all()
     return render(request, "moneyLawndering/createListing.html", {'user':user, 'categories':categories})
+
+def updateListing(request, user_id, listing_id):
+    user = get_object_or_404(User, pk=user_id)
+    listing = get_object_or_404(Listing, pk=listing_id)
+    if user_id == listing.customer_id:
+        listing.category = request.POST['category']
+        listing.location = request.POST['location']
+        listing.time_est = request.POST['time_est']
+        listing.dayOfWeek = request.POST['dayOfWeek']
+        listing.startTimeOfDay = request.POST['startTime']
+        listing.endTimeOfDay = request.POST['endTime']
+        listing.description = request.POST['description']
+        listing.price = request.POST['price']
+        listing.save()
+    categories = Category.objects.all()
+    listings = Listing.objects.filter(customer=user_id)
+    return render(request, 'moneyLawndering/myListing.html', {
+        'listings': listings,
+        'categories': categories,
+        'user_id': user_id,
+        'user': user,
+    })
+
+def deleteListing(request, user_id, listing_id):
+    user = get_object_or_404(User, pk=user_id)
+    listing = get_object_or_404(Listing, pk=listing_id)
+    if listing.customer_id == user_id:
+        listing.delete()
+    categories = Category.objects.all()
+    listings = Listing.objects.get(customer=user_id)
+    return render(request, 'moneyLawndering/myListing.html', {
+        'listings': listings,
+        'categories': categories,
+        'user_id': user_id,
+        'user': user,
+    })
 
 def newListing(request, user_id):
     user = get_object_or_404(User, pk=user_id)

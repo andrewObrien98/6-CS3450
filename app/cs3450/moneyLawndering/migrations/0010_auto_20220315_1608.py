@@ -16,7 +16,7 @@ def listing(apps, schema_editor):
     User = apps.get_model('moneyLawndering', 'User')
     Listing = apps.get_model('moneyLawndering', 'Listing')
     customer = User.objects.get(pk=2)
-    listing = customer.listing_set.create(category = 'Lawn Mowing', location = '105 Tim Ln.', time_est = 1, dayOfWeek = 'Monday', startTimeOfDay = '1:15 P.M.', endTimeOfDay = '2:15 P.M.', description = 'Mow my Lawn', price = 25, status = 1, worker = 0, pubDate = timezone.now())
+    listing = customer.listing_set.create(category = 'Lawn Mowing', location = '105 Tim Ln.', time_est = 1, dayOfWeek = 'monday', startTimeOfDay = '13:15', endTimeOfDay = '14:15', description = 'Mow my Lawn', price = 25, status = 1, worker = 0, pubDate = timezone.now())
     listing.save()
 
 def category(apps, schema_editor):
