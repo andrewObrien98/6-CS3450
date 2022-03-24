@@ -331,21 +331,6 @@ def directTransfer(request, user_id):
     context = {'user': user, 'workers': workers}
     return render(request, 'moneyLawndering/directTransfer.html', context)
 
-<<<<<<< HEAD
-
-=======
-def history(request, user_id):
-    user = get_object_or_404(User, pk=user_id)
-    listings = Listing.objects.all()
-    listings.exclude(status=0)
-    listings.exclude(status=2)
-    listings.exclude(status=3)
-    listing_status = ['Open', 'Closed', 'Accepted', 'Pending', 'Completed']
-    for listing in listings:
-        listing.status = listing_status[listing.status]
-    context = {'user': user, 'listings': listings}
-    return render(request, 'moneyLawndering/history.html', context)
->>>>>>> main
 
 def admin(request, user_id):
     user = get_object_or_404(User, pk=user_id)
