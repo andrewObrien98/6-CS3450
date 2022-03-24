@@ -25,4 +25,6 @@ urlpatterns = [
     path('<int:user_id>/admin/', views.admin, name='admin'),
     path('customerreview/<int:listing_id>/<int:user_id>', views.customerReview, name='customerReview'),
     path('<int:user_id>/sendMoney/', views.sendMoney, name='sendMoney'),
+    path('<int:user_id>/categories/', views.categories, name='category'),
+    path('createCategory/', views.createCategory, name='createCategory'),
 ]

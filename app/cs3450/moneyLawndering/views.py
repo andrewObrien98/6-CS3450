@@ -203,7 +203,7 @@ def createListing(request, user_id):
 def newListing(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     try:
-        if user.isCustomer:
+        if user.isCustomer and user.accountBalance >= request.POST['price']:
             category = request.POST['category']
             location = request.POST['location']
             time_est = request.POST['time_est']
@@ -350,4 +350,20 @@ def sendMoney(request, user_id):
     worker.accountBalance += float(request.POST['amount'])
     worker.save()
     return HttpResponseRedirect(reverse('moneyLawndering:directTransfer', args=(user_id,)))
+
+def categories(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    categories = Category.objects.all()
+    return render(request, 'moneyLawndering/categories.html', {'categories': categories, 'user': user})
+
+def createCategory(request):
+    try:
+        category = Category.objects.get(type = request.POST['category'])
+    except(KeyError, Category.DoesNotExist) :
+        category = Category(type = request.POST['category'])
+        category.save()
+    admin = User.objects.get(type = 2)
+    return HttpResponseRedirect(reverse('moneyLawndering:category', args=(admin.id,)))
+    
+
 

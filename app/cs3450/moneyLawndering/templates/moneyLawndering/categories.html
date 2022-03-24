@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+        <title>Admin</title>
+		{% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'moneyLawndering/style.css' %}">
+    </head>
+    <body class="normal-page-background">
+        <header>
+            <div class="navBar">
+                <div class="navBarBox">Welcome to Money Lawndering!</div>
+                <div class="selectedNavBarBox">Admin</div>
+                <div class="navBarBox">
+                    <a href="{% url 'moneyLawndering:account' user.id %}">
+                        <div>Account</div>
+                    </a>
+                </div>
+                <div class="navBarBox">
+                    <a href="{% url 'moneyLawndering:publicListing' user.id %}">
+                        <div>Public Listings</div>
+                    </a>
+                </div>
+                <div class="navBarBox">
+                    <a href="{% url 'moneyLawndering:history' user.id %}">
+                        <div>History</div>
+                    </a>
+                </div>
+                <div class="navBarBox">
+                    <a href="{% url 'moneyLawndering:category' user.id %}">
+                        <div>Categories</div>
+                    </a>
+                </div>
+            </div>
+        </header>
+        <div>
+            <h1>Categories: </h1>
+            <ul>
+                {% for category in categories %}
+                    <li> {{category.type}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div>
+            <h4>Create a category: </h4>
+            <form action="{% url 'moneyLawndering:createCategory' %}" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <label for="category">Category: </label><br>
+                <input type="text" name="category" id="category" value=""><br>
+                <input type="submit"/>
+            </form>
+        </div>
+    </body>
+</html>
