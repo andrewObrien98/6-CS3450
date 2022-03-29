@@ -38,15 +38,16 @@
         </div>
     </header>
     <div>
-        <h1>Applicants:</h1>
+        <h1>Name: {{worker.name}}</h1>
+        <h2>Overall Rating: {{worker.rating}}</h2>
+        <button><a href="{% url 'moneyLawndering:applicantlist' listing.id%}"> Go Back</a> </button>
     </div>
- {% for u in users %}
+    <h2>Reviews: </h2>
+ {% for review in reviews %}
     <div>
-        <h3>name: {{u.name}}</h3>
-        <h4>rating: {{u.rating}}</h4>
-        <h4><a href="{% url 'moneyLawndering:workerreviews'  listing.id u.id %}">workers reviews </a></h4>
-        <button><a href="{% url 'moneyLawndering:acceptApplicant'  listing.id u.id %}"> Accept </a></button>
-            <br/>
+        <h3>rating: {{review.rating}}</h3>
+        <h3>Description: </h3>
+        <p>{{review.description}}</p>
     </div>
     
  {% endfor %}

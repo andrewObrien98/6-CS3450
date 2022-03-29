@@ -30,4 +30,5 @@ urlpatterns = [
     path('<int:user_id>/categories/', views.categories, name='category'),
     path('createCategory/', views.createCategory, name='createCategory'),
     path('deleteCategory/<int:category_id>/', views.deleteCategory, name='deleteCategory'),
+    path('workerreviews/<int:listing_id>/<int:user_id>/', views.workerReviews, name='workerreviews')
 ]

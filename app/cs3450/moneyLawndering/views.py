@@ -200,6 +200,14 @@ def applicantList(request, listing_id):
     context = {'listing': listing, 'users': users, 'user': user}
     return render(request, "moneyLawndering/listApplicants.html", context)
 
+def workerReviews(request, listing_id, user_id):
+    worker = get_object_or_404(User, pk=user_id)
+    listing = get_object_or_404(Listing, pk=listing_id)
+    user = get_object_or_404(User, pk=listing.customer.id)
+    reviews = worker.workerreview_set.all()
+    context = {'listing': listing, 'worker': worker, 'reviews': reviews, 'user':user}
+    return render(request, "moneyLawndering/workerReviews.html", context)
+
 def acceptApplicant(request, listing_id, user_id):
     worker = get_object_or_404(User, pk=user_id)
     listing = get_object_or_404(Listing, pk=listing_id)
