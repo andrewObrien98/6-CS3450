@@ -373,6 +373,9 @@ def createCategory(request):
         category.save()
     admin = User.objects.get(type = 2)
     return HttpResponseRedirect(reverse('moneyLawndering:category', args=(admin.id,)))
+
+def deleteCategory(request):
+    category = Category.objects
     
 
 
