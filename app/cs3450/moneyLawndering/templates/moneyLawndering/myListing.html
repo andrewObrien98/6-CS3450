@@ -26,8 +26,15 @@
             {% endif %}
         </div>
     </header>
+    <label for="listings-type">Listing Type:</label>
+    <select id="listings-type">
+        <option value="openListings">Open Listings</option>
+        <option value="pendingListings">Pending Listings</option>
+        <option value="acceptedListings">Accepted Listings</option>
+        <option value="completedListings">Completed Listings</option>
+    </select>
     <div class="listingsPage">
-    <div class="listingStatusList listingsScroll">
+    <div class="listingStatusList listingsScroll" id="openListings">
     <div class="centered">These are all the open listings</div>
     <ul>
     {% for listing in openListing %}
@@ -120,7 +127,7 @@
     </ul>
     </div>
 
-    <div class="listingStatusList listingsScroll">
+    <div class="listingStatusList listingsScroll" id="pendingListings">
     <div class="centered">These are all the pending listings</div>
     <ul>
     {% for listing in pendingListing %}
@@ -142,7 +149,7 @@
     </ul>
     </div>
 
-    <div class="listingStatusList listingsScroll">
+    <div class="listingStatusList listingsScroll" id="acceptedListings">
     <div class="centered">These are all the accepted listings</div>
     <ul>
  {% for listing in acceptedListing %}
@@ -163,7 +170,7 @@
     </ul>
     </div>
 
-    <div class="listingStatusList listingsScroll">
+    <div class="listingStatusList listingsScroll" id="completedListings">
     <div class="centered">These are all the recently completed listings</div>
     <ul>
         {% for listing in completedListing %}
@@ -193,5 +200,7 @@
     </ul>
     </div>
     </div>
+    {% load static %}
+    <script src="{% static 'moneyLawndering/myListing.js' %}"></script>
 </body>
 </html>
