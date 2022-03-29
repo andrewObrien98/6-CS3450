@@ -29,4 +29,5 @@ urlpatterns = [
     path('<int:user_id>/sendMoney/', views.sendMoney, name='sendMoney'),
     path('<int:user_id>/categories/', views.categories, name='category'),
     path('createCategory/', views.createCategory, name='createCategory'),
+    path('deleteCategory/<int:category_id>/', views.deleteCategory, name='deleteCategory'),
 ]

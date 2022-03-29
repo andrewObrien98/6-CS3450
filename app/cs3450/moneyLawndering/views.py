@@ -417,8 +417,16 @@ def createCategory(request):
     admin = User.objects.get(type = 2)
     return HttpResponseRedirect(reverse('moneyLawndering:category', args=(admin.id,)))
 
-def deleteCategory(request):
-    category = Category.objects
+def deleteCategory(request, category_id):
+    admin = get_object_or_404(User, type=2)
+    category = get_object_or_404(Category, pk=category_id)
+    try: 
+        category.delete()
+    except(KeyError):
+        raise Http404("Could not delete the category")
+    return HttpResponseRedirect(reverse('moneyLawndering:category', args=(admin.id,)))
+
+
     
 
 

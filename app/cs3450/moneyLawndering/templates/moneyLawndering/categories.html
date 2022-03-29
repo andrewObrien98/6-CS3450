@@ -37,7 +37,15 @@
             <h1>Categories: </h1>
             <ul>
                 {% for category in categories %}
-                    <li> {{category.type}}</li>
+                    <li> {{category.type}}
+                        <form action="{% url 'moneyLawndering:deleteCategory' category.id %}" method="Delete">
+
+                            {% csrf_token %}
+                            {{ form }}
+                            <input type="submit" value="Delete"/> <br/>
+                        </form>
+                    </li>
+                    
                 {% endfor %}
             </ul>
         </div>
@@ -49,7 +57,7 @@
                 {{ form }}
                 <label for="category">Category: </label><br>
                 <input type="text" name="category" id="category" value=""><br>
-                <input type="submit"/>
+                <input type="submit" value="Submit"/>
             </form>
         </div>
     </body>
