@@ -191,11 +191,13 @@ def customerReview(request, listing_id, user_id):
     
 def applicantList(request, listing_id):
     listing = get_object_or_404(Listing, pk=listing_id)
+    customerId = listing.customer.id
+    user = get_object_or_404(User,pk=customerId)
     applications = listing.applicants.all()
     users = []
     for application in applications:
         users.append(User.objects.get(pk=application.worker))
-    context = {'listing': listing, 'users': users}
+    context = {'listing': listing, 'users': users, 'user': user}
     return render(request, "moneyLawndering/listApplicants.html", context)
 
 def acceptApplicant(request, listing_id, user_id):
