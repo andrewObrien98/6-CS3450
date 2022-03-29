@@ -191,8 +191,10 @@ def applicantList(request, listing_id):
     return render(request, "moneyLawndering/listApplicants.html", context)
 
 def acceptApplicant(request, listing_id, user_id):
+    worker = get_object_or_404(User, pk=user_id)
     listing = get_object_or_404(Listing, pk=listing_id)
     listing.worker = user_id
+    listing.workername = worker.name
     listing.status=2
     listing.save()
     return HttpResponseRedirect(reverse('moneyLawndering:myListing', args=(listing.customer.id,)))
@@ -365,6 +367,8 @@ def history(request, user_id):
     #is the admin
     elif user.type == 2:
         listings = Listing.objects.filter(status=5)
+
+    
     context = {'user': user, 'listings': listings}
     return render(request, 'moneyLawndering/history.html', context)
 
