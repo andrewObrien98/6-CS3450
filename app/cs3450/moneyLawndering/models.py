@@ -5,7 +5,7 @@ from django.utils import timezone
 class User(models.Model):
     name = models.CharField(max_length=200)
     email = models.EmailField(max_length=200)
-    type = models.IntegerField() # 0 for worker or 1 for customer
+    type = models.IntegerField()  # 0 for worker, 1 for customer, 2 for admin
     password = models.CharField(max_length=200)
     phoneNumber = models.IntegerField()
     address = models.CharField(max_length=200)
@@ -36,7 +36,7 @@ class Listing(models.Model):
     endTimeOfDay = models.CharField(max_length=100)
     description = models.TextField()
     price = models.IntegerField()
-    status = models.IntegerField() #0=open, 1=closed, 2=accepted, 3=pending, 4=completedForWorker 5=completedForCustomer
+    status = models.IntegerField()  # 0=open, 1=closed, 2=accepted, 3=pending, 4=completedForWorker 5=completedForCustomer
     worker = models.IntegerField()
     pubDate = models.DateTimeField('date published')
 
