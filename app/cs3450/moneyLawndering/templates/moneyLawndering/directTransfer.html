@@ -27,6 +27,9 @@
         </div>
     </header>
     <div class="transferInfo">
+        {% if workers|length == 0 %}
+            <div>You need to hire someone once before you can send them money.</div>
+        {% else %}
         <form action="{% url 'moneyLawndering:sendMoney' user.id %}" method="post">
             {% csrf_token %}
             {{ form }}
@@ -42,6 +45,7 @@
 
             <input type="submit" value="Send">
         </form>
+        {% endif %}
     </div>
 </body>
 </html>
