@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Accepted Jobs</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"/>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'moneyLawndering/style.css' %}">
 </head>
 
 <body class="normal-page-background">
+<script></script>
     <header>
         <div class="navBar">
             {% if user.type == 0 %}
@@ -27,15 +30,15 @@
         </div>
     </header>
     <div>
-        <label for="model-type">Job Status:</label>
-        <select id="model-type">
-            <option value="applied">Applied For</option>
-            <option value="accepted">Accepted</option>
+        <label for="status">Job Status:</label>
+        <select id="status">
+            <option value="appliedFor">Applied For</option>
+            <option value="accepted" selected>Accepted</option>
             <option value="completed">Completed</option>
         </select>
     </div>
     <div class="listingsPage">
-    <div class="listingStatusList listingsScroll">
+    <div class="listingStatusList listingsScroll" id="appliedFor">
         <div class="centered">Applied for Jobs: </div>
         <ul>
         {% for listing in pendingListings %}
@@ -58,7 +61,7 @@
         </ul>
     </div>
 
-    <div class="listingStatusList listingsScroll">
+    <div class="listingStatusList listingsScroll" id="accepted">
     <div class="centered">Accepted Jobs: </div>
 
     {% for listing in acceptedListings %}
@@ -86,7 +89,7 @@
     {% endfor %}
     </div>
 
-    <div class="listingStatusList listingsScroll">
+    <div class="listingStatusList listingsScroll" id="completed">
         <div class="centered">Completed Jobs: </div>
         {% for listing in completedListings %}
              <li class="listing">
@@ -107,5 +110,22 @@
         {% endfor %}
         </div>
     </div>
+
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+          <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+            <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+          </a>
+          <span class="text-muted">© 2022 Group 6, Inc</span>
+        </div>
+
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+            <li><span class="social-icon social-facebook"><i class="fa fa-facebook"></i></span></li>
+            <li><span class="social-icon social-instagram"><i class="fa fa-instagram"></i></span></li>
+            <li><span class="social-icon social-twitter"><i class="fa fa-twitter"></i></span></li>
+        </ul>
+      </footer>
+    {% load static %}
+    <script src="{% static 'moneyLawndering/acceptedJobs.js' %}"></script>
 </body>
 </html>

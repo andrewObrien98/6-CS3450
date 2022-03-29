@@ -150,6 +150,38 @@ ul {
   padding-left: 0;
 }
 
+.social-icon {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 27px;
+    margin-right: 11px;
+    cursor: pointer
+}
+
+.social-twitter {
+    background-color: #55acee
+}
+
+.social-facebook {
+    background-color: #3b5999
+}
+
+.social-instagram {
+    background-color: #dd4b39
+}
+
+.social-icon i {
+    transition: 0.4s all
+}
+
+.social-icon:hover i {
+    transform: scale(1.4)
+}
+
 html, body {
     width: 100%;
     height: 100%;
