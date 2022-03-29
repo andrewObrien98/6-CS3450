@@ -26,41 +26,78 @@
             {% endif %}
         </div>
     </header>
-<div>You're on the accepted jobs page.</div>
-<div>Applied for Jobs: </div>
-{% for listing in pendingListings %}
-    <div>{{listing.customer.name}}</div>
-{% endfor %}
+    <div class="listingsPage">
+    <div class="listingStatusList listingsScroll">
+        <div class="centered">Applied for Jobs: </div>
+        <ul>
+        {% for listing in pendingListings %}
+            <li class="listing">
+                <h2>{{listing.category|capfirst}}</h2>
+                <h3>${{listing.price|floatformat:"-2g"}}</h3>
+                <div>
+                    <h3>Description: </h3>{{listing.description|capfirst}}
+                    {% if listing.time_est == 1.0 %}
+                        <p>It'll probably take about 1 hour.</p>
+                    {% else %}
+                        <p>It'll probably take about {{listing.time_est|floatformat:"-1g"}} hours.</p>
+                    {% endif %}
+                </div>
+                <div><h3>When: </h3>{{listing.dayOfWeek|capfirst}} between {{listing.startTimeOfDay}} and {{listing.endTimeOfDay}}</div>
+                <div><h3>Who: </h3>{{listing.customer.name|capfirst}}</div>
+                <div><h3>Where: </h3>{{listing.location|capfirst}}</div>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
 
-<div>Accepted Jobs: </div>
+    <div class="listingStatusList listingsScroll">
+    <div class="centered">Accepted Jobs: </div>
 
-{% for listing in acceptedListings %}
-    {% if listing.status != 4 %}
-        <div>{{listing.customer.name}}</div>
-        <form action="{% url 'moneyLawndering:completedJob' listing.id user.id%}" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <label for="category">Choose a category:</label>
-            <select name="rating" id="rating">
-                <option value={{1}}> 1 star</option>
-                <option value={{2}}> 2 star</option>
-                <option value={{3}}> 3 star</option>
-                <option value={{4}}> 4 star</option>
-                <option value={{5}}> 5 star</option>
-            </select> <br>
+    {% for listing in acceptedListings %}
+        {% if listing.status != 4 %}
+            <div>{{listing.customer.name}}</div>
+            <form action="{% url 'moneyLawndering:completedJob' listing.id user.id%}" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <label for="category">Choose a category:</label>
+                <select name="rating" id="rating">
+                    <option value={{1}}> 1 star</option>
+                    <option value={{2}}> 2 star</option>
+                    <option value={{3}}> 3 star</option>
+                    <option value={{4}}> 4 star</option>
+                    <option value={{5}}> 5 star</option>
+                </select> <br>
 
 
-            <label for="review">Description of Job:</label>
-            <textarea id="review" name="review" rows="4" cols="50"></textarea> <br>
+                <label for="review">Description of Job:</label>
+                <textarea id="review" name="review" rows="4" cols="50"></textarea> <br>
 
-            <input type="submit"  value="Job Completed"><br>
-        </form>
-    {% endif %}
-{% endfor %}
+                <input type="submit"  value="Job Completed"><br>
+            </form>
+        {% endif %}
+    {% endfor %}
+    </div>
 
-<div>Compelted Jobs: </div>
-{% for listing in completedListings %}
-    <div>{{listing.customer.name}}</div>
-{% endfor %}
+    <div class="listingStatusList listingsScroll">
+        <div class="centered">Completed Jobs: </div>
+        {% for listing in completedListings %}
+             <li class="listing">
+                <h2>{{listing.category|capfirst}}</h2>
+                <h3>${{listing.price|floatformat:"-2g"}}</h3>
+                <div>
+                    <h3>Description: </h3>{{listing.description|capfirst}}
+                    {% if listing.time_est == 1.0 %}
+                        <p>It'll probably take about 1 hour.</p>
+                    {% else %}
+                        <p>It'll probably take about {{listing.time_est|floatformat:"-1g"}} hours.</p>
+                    {% endif %}
+                </div>
+                <div><h3>When: </h3>{{listing.dayOfWeek|capfirst}} between {{listing.startTimeOfDay}} and {{listing.endTimeOfDay}}</div>
+                <div><h3>Who: </h3>{{listing.customer.name|capfirst}}</div>
+                <div><h3>Where: </h3>{{listing.location|capfirst}}</div>
+            </li>
+        {% endfor %}
+        </div>
+    </div>
 </body>
 </html>

@@ -26,7 +26,9 @@
             {% endif %}
         </div>
     </header>
-    <div>These are all the open listings</div>
+    <div class="listingsPage">
+    <div class="listingStatusList listingsScroll">
+    <div class="centered">These are all the open listings</div>
     <ul>
     {% for listing in openListing %}
     <li class="listing">
@@ -48,7 +50,7 @@
             <label for="location">Location</label><br>
             <input type="text" name="location" id="location" value="{{listing.location}}"><br>
 
-            <label for="time_est">Estimated time to complete job (hrs)</label><br>
+            <label for="time_est">Estimated time to complete job</label><br>
             <input type="number" name="time_est" id="time_est" value="{{listing.time_est}}">
             <small> hrs</small><br>
 
@@ -100,7 +102,7 @@
                min="07:00:00" max="20:00:00" value="{{listing.endTimeOfDay}}" required><br>
 
             <label for="description">Description of Job:</label><br>
-            <textarea id="description" name="description" rows="4" cols="50">{{listing.description}}</textarea> <br>
+            <textarea id="description" name="description" rows="4" width="12vh">{{listing.description}}</textarea> <br>
 
             <label for="price">Price</label><br>
             <input type="number" name="price" id="price" value="{{listing.price}}"><small>$</small><br>
@@ -115,15 +117,31 @@
     </div>
     </li>
     {% endfor %}
-</ul>
+    </ul>
+    </div>
 
-    <div>These are all the pending listings</div>
+    <div class="listingStatusList listingsScroll">
+    <div class="centered">These are all the pending listings</div>
     {% for listing in pendingListing %}
-        <div> listing {{listing.status}} </div>
-        <a href="{% url 'moneyLawndering:applicantlist' listing.id %}">To view applicants click here</a>
+        <li class="listing">
+            <h2>{{listing.category|capfirst}}</h2>
+            <h3>${{listing.price|floatformat:"-2g"}}</h3>
+            <div>
+                <h3>Description: </h3>{{listing.description|capfirst}}
+                {% if listing.time_est == 1.0 %}
+                    <p>It'll probably take about 1 hour.</p>
+                {% else %}
+                    <p>It'll probably take about {{listing.time_est|floatformat:"-1g"}} hours.</p>
+                {% endif %}
+            </div>
+            <div><h3>When: </h3>{{listing.dayOfWeek|capfirst}} between {{listing.startTimeOfDay}} and {{listing.endTimeOfDay}}</div>
+            <a href="{% url 'moneyLawndering:applicantlist' listing.id %}">Click here to view applicant(s)</a>
+        </li>
     {% endfor %}
+    </div>
 
-    <div>These are all the accepted listings</div>
+    <div class="listingStatusList listingsScroll">
+    <div class="centered">These are all the accepted listings</div>
     <ul>
  {% for listing in acceptedListing %}
     <li class="listing">
@@ -138,19 +156,16 @@
             {% endif %}
         </div>
         <div><h3>When: </h3>{{listing.dayOfWeek|capfirst}} between {{listing.startTimeOfDay}} and {{listing.endTimeOfDay}}</div>
-        <div><h3>Who: </h3>{{listing.customer.name|capfirst}}</div>
-        <form action="{% url 'moneyLawndering:acceptListing' user.id listing.id %}" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="Accept Listing">
-        </form>
     </li>
- {% endfor %}
-</ul>
+    {% endfor %}
+    </ul>
+    </div>
 
-    <div>These are all the recently completed listings</div>
+    <div class="listingStatusList listingsScroll">
+    <div class="centered">These are all the recently completed listings</div>
     {% for listing in completedListing %}
-        <div> listing {{listing.status}} </div>
+        <li class="listing">
+        <div> listing {{listing.id}} </div>
     <!-- this will display all completed listings -->
         <div>{{listing.customer.name}}</div>
         <form action="{% url 'moneyLawndering:customerReview' listing.id user.id%}" method="post">
@@ -165,12 +180,14 @@
                 <option value={{5}}> 5 star</option>
             </select> <br>
 
-
-            <label for="review">Description of Job:</label>
-            <textarea id="review" name="review" rows="4" cols="50"></textarea> <br>
+            <label for="review">Feedback:</label>
+            <textarea id="review" name="review" rows="4" width="12vh"></textarea> <br>
 
             <input type="submit"  value="Job Completed"><br>
         </form>
+        </li>
     {% endfor %}
+    </div>
+    </div>
 </body>
 </html>
