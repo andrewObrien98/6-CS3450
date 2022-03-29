@@ -10,6 +10,8 @@ Documentation and resources for this project will be kept in the “docs” fold
 
 The actual web app building project will be kept in the folder “app”
 
+Where to find what we completed for each milestone can be found in the Rubric folder
+
 ## Version-Control procedures
 Collaborators should have a forked repository of the app in Andrew’s account of the project “6-CS3450”, in their Github. Each collaborator should clone the forked repository. Before each meeting, collaborators should submit a pull request so we can monitor progress and discuss issues.
 
