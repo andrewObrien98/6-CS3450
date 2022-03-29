@@ -132,7 +132,6 @@ div.listingsScroll {
 
 .listingStatusList {
     flex: 1;
-
 }
 
 .centered {
@@ -144,6 +143,11 @@ div.listingsScroll {
 textarea {
   width: 31vh;
   height: 10vh;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
 }
 
 html, body {

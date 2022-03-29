@@ -122,6 +122,7 @@
 
     <div class="listingStatusList listingsScroll">
     <div class="centered">These are all the pending listings</div>
+    <ul>
     {% for listing in pendingListing %}
         <li class="listing">
             <h2>{{listing.category|capfirst}}</h2>
@@ -138,6 +139,7 @@
             <a href="{% url 'moneyLawndering:applicantlist' listing.id %}">Click here to view applicant(s)</a>
         </li>
     {% endfor %}
+    </ul>
     </div>
 
     <div class="listingStatusList listingsScroll">
@@ -163,7 +165,8 @@
 
     <div class="listingStatusList listingsScroll">
     <div class="centered">These are all the recently completed listings</div>
-    {% for listing in completedListing %}
+    <ul>
+        {% for listing in completedListing %}
         <li class="listing">
         <div> listing {{listing.id}} </div>
     <!-- this will display all completed listings -->
@@ -186,7 +189,8 @@
             <input type="submit"  value="Job Completed"><br>
         </form>
         </li>
-    {% endfor %}
+        {% endfor %}
+    </ul>
     </div>
     </div>
 </body>
