@@ -85,5 +85,24 @@
             {% endif %}
         </div>
     </div>
+    <div>
+        <h2>Your Past Ratings:</h2>
+    </div>
+    <div class="table-div">
+        <table id="review-table">
+            <tr>
+                <th>Customer</th>
+                <th>Rating</th>
+                <th>Description</th>
+            </tr>
+            {% for review in reviews %}
+                <tr>
+                    <th>{{review.customer}}</th>
+                    <th>{{review.rating}}</th>
+                    <th>{{review.description}}</th>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 </body>
 </html>
