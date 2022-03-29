@@ -92,7 +92,11 @@
                         <th>{{listing.description}}</th>
                         <th>{{listing.price}}</th>
                         <th>{{listing.status}}</th>
-                        <th>{{listing.worker}}</th>
+                        {% if listing.workername == "" %}
+                            <th>N/A </th>
+                        {% else %}
+                            <th>{{listing.workername}}</th>
+                        {% endif %}
                         <th>{{listing.pubDate}}</th>
                     </tr>
                 {% endfor %}
