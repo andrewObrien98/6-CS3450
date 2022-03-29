@@ -75,7 +75,15 @@ def updateUser(request, user_id):
 
 def account(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    context = {'user': user}
+    reviews = []
+    if user.type == 0:
+        reviews = WorkerReview.objects.filter(worker=user)
+    elif user.type == 2:
+        reviews = CustomerReview.objects.filter(customer=user)
+
+    for review in reviews:
+        review.customer = User.objects.get(pk=review.customer)
+    context = {'user': user, 'reviews': reviews}
     return render(request, 'moneyLawndering/account.html', context)
 
 def publicListing(request, user_id):
