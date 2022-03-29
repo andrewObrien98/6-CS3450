@@ -38,6 +38,7 @@ class Listing(models.Model):
     price = models.IntegerField()
     status = models.IntegerField()  # 0=open, 1=closed, 2=accepted, 3=pending, 4=completedForWorker 5=completedForCustomer
     worker = models.IntegerField()
+    workername = models.CharField(max_length=100)
     pubDate = models.DateTimeField('date published')
 
     def __str__(self):
