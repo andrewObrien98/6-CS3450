@@ -85,6 +85,7 @@
             {% endif %}
         </div>
     </div>
+    {% if reviews|length != 0 %}
     <div>
         <h2>Your Past Ratings:</h2>
     </div>
@@ -104,5 +105,6 @@
             {% endfor %}
         </table>
     </div>
+    {% endif %}
 </body>
 </html>
