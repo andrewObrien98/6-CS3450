@@ -12,25 +12,25 @@
         <div class="navBar">
             {% if user.type == 0 %}
                 <div class="navBarBox">Welcome to Money Lawndering!</div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' user.id %}"><div>Account</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:publicListing' user.id %}"><div>Public Listings</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:acceptedJobs' user.id %}"><div>Accepted Jobs</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:publicListing' %}"><div>Public Listings</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:acceptedJobs' %}"><div>Accepted Jobs</div></a> </div>
                 <div class="selectedNavBarBox"> History </div>
             {% elif user.type == 1 %}
                 <div class="navBarBox">Welcome to Money Lawndering!</div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' user.id %}"><div>Account</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:myListing' user.id %}"><div>Your Listings</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:createListing' user.id %}"><div>New Listing</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:directTransfer' user.id %}"><div>Direct Transfer</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:myListing' %}"><div>Your Listings</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:createListing' %}"><div>New Listing</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:directTransfer' %}"><div>Direct Transfer</div></a> </div>
                 <div class="selectedNavBarBox"> History </div>
             {% elif user.type == 2 %}
                 <div class="navBarBox">Welcome to Money Lawndering!</div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:admin' user.id %}"><div>Admin</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' user.id %}"><div>Account</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:publicListing' user.id %}"><div>Public Listings</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:admin' %}"><div>Admin</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:publicListing' %}"><div>Public Listings</div></a> </div>
                 <div class="selectedNavBarBox"> History </div>
                 <div class="navBarBox">
-                    <a href="{% url 'moneyLawndering:category' user.id %}">
+                    <a href="{% url 'moneyLawndering:category' %}">
                         <div>Categories</div>
                     </a>
                 </div>
