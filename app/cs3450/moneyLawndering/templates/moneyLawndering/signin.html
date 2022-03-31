@@ -16,15 +16,13 @@
 			<form action="{% url 'moneyLawndering:signin' %}" method="post">
 				{% csrf_token %}
 				{{ form }}
-				<div class="form-floating">
-					<input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com">
-					<label for="floatingInput">Email Address</label>
+				<div class="form-floating loginItem">
+					<input type="email" class="form-control" name="email" id="floatingInput" placeholder="Email Address">
 				</div>
-				<div class="form-floating">
+				<div class="form-floating loginItem">
 					<input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password">
-					<label for="floatingPassword">Password</label>
 				</div>
-					<input class="w-100 btn btn-lg btn-primary loginButton" type="submit" value="Sign In">
+					<input class="w-100 btn btn-lg btn-primary loginItem" type="submit" value="Sign In">
 			</form>
 			<form method="get" action="{% url 'moneyLawndering:signup' %}">
 				<button class="w-100 btn btn-lg btn-secondary" type="submit">Sign Up</button>
@@ -84,15 +82,13 @@
 				<form action="{% url 'moneyLawndering:signin' %}" method="post">
 					{% csrf_token %}
 					{{ form }}
-					<div class="form-floating">
-						<input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com">
-						<label for="floatingInput">Email Address</label>
+					<div class="form-floating loginItem">
+						<input type="email" class="form-control" name="email" id="floatingInput" placeholder="Email Address">
 					</div>
-					<div class="form-floating">
+					<div class="form-floating loginItem">
 						<input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password">
-						<label for="floatingPassword">Password</label>
 					</div>
-						<input class="w-100 btn btn-lg btn-primary loginButton" type="submit" value="Sign In">
+						<input class="w-100 btn btn-lg btn-primary loginItem" type="submit" value="Sign In">
 				</form>
 				<form method="get" action="{% url 'moneyLawndering:signup' %}">
 					<button class="w-100 btn btn-lg btn-secondary" type="submit">Sign Up</button>
@@ -113,15 +109,13 @@
                         <form action="{% url 'moneyLawndering:signin' %}" method="post">
                             {% csrf_token %}
                             {{ form }}
-                            <div class="form-floating">
-                                <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com">
-                                <label for="floatingInput">Email Address</label>
+                            <div class="form-floating loginItem">
+                                <input type="email" class="form-control" name="email" id="floatingInput" placeholder="Email">
                             </div>
-                            <div class="form-floating">
+                            <div class="form-floating loginItem">
                                 <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password">
-                                <label for="floatingPassword">Password</label>
                             </div>
-                                <input class="w-100 btn btn-lg btn-primary loginButton" type="submit" value="Sign In">
+                                <input class="w-100 btn btn-lg btn-primary loginItem" type="submit" value="Sign In">
                         </form>
                         <form method="get" action="{% url 'moneyLawndering:signup' %}">
                             <button class="w-100 btn btn-lg btn-secondary" type="submit">Sign Up</button>
@@ -172,6 +166,7 @@
 		</div>
 	</div>
 	<! –– End Large and Extra Large Screens ––>
+
 	<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top bg-light">
         <div class="col-md-4 d-flex align-items-center">
           <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
