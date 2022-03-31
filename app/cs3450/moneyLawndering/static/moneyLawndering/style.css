@@ -193,6 +193,19 @@ p.listingsScrollMin {
     flex: 1;
 }
 
+.backgroundBox {
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+    padding-right: 3vh;
+    padding-left: 3vh;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    margin-right: 3vh;
+    margin-left: 3vh;
+    background-color: #c1d2e0;
+    border: 2px solid black;
+}
+
 .centered {
   justify-content: center;
   align-items: center;
