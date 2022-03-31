@@ -37,9 +37,12 @@ Go to the location:
 ## Unit Testing Instructions
 Unit tests can be run by typing:
 - python manage.py test
+
 This will run all the unit tests and will show the results of running them.
+
 To run a specific test file type:
 - python manage.py test.test_file
+
 To run a specific class type:
 - python manage.py test.test_file.test_class
 
