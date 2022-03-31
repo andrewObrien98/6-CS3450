@@ -42,16 +42,19 @@
     <div>
         <h1>Applicants:</h1>
     </div>
- {% for u in users %}
-    <div>
-        <h3>name: {{u.name}}</h3>
-        <h4>rating: {{u.rating}}</h4>
-        <h4><a href="{% url 'moneyLawndering:workerreviews'  listing.id u.id %}">workers reviews </a></h4>
-        <button><a href="{% url 'moneyLawndering:acceptApplicant'  listing.id u.id %}"> Accept </a></button>
-            <br/>
+
+    <div class="applicantList">
+        {% for u in users %}
+            <div class="applicant">
+                <h3>name: {{u.name}}</h3>
+                <h4>rating: {{u.rating}}</h4>
+                <h4><a href="{% url 'moneyLawndering:workerreviews'  listing.id u.id %}">workers reviews </a></h4>
+                <button><a href="{% url 'moneyLawndering:acceptApplicant'  listing.id u.id %}"> Accept </a></button>
+                    <br/>
+            </div>
+        {% endfor %}
     </div>
-    
- {% endfor %}
+
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top bg-light">
         <div class="col-md-4 d-flex align-items-center">
           <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
