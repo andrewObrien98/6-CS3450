@@ -38,7 +38,8 @@ def createUser(request):
             accountBalance = accountBalance,
         )
         user.save()
-        return HttpResponseRedirect(reverse('moneyLawndering:account', args=(user.id,)))
+        request.session['userId'] = user.id
+        return HttpResponseRedirect(reverse('moneyLawndering:account'))
     else:
         response = {
         "error": "User with corresponding email already exists",
@@ -53,15 +54,17 @@ def signin(request):
         email = request.POST['email']
         password = request.POST['password']
         user = User.objects.get(email=email, password=password)
+        request.session['userId'] = user.id
     except(KeyError, User.DoesNotExist):
         return render(request, 'moneyLawndering/signin.html', {'error_message' : 'Email and/or Password doesn\'t correspond to any existing user'})
     else:
         if user.isAdmin():
-            return HttpResponseRedirect(reverse('moneyLawndering:admin', args=(user.id,)))
+            return HttpResponseRedirect(reverse('moneyLawndering:admin'))
         else:
-            return HttpResponseRedirect(reverse('moneyLawndering:account', args=(user.id,)))
+            return HttpResponseRedirect(reverse('moneyLawndering:account'))
 
-def updateUser(request, user_id):
+def updateUser(request):
+    user_id = request.session['userId']
     user = get_object_or_404(User, pk=user_id)
     user.name = request.POST['name']
     user.email = request.POST['email']
@@ -70,10 +73,11 @@ def updateUser(request, user_id):
     user.address = request.POST['address']
     user.accountBalance = request.POST['accountBalance']
     user.save()
-    return HttpResponseRedirect(reverse('moneyLawndering:account', args=(user.id,)))
+    return HttpResponseRedirect(reverse('moneyLawndering:account'))
 
 
-def account(request, user_id):
+def account(request):
+    user_id = request.session['userId']
     user = get_object_or_404(User, pk=user_id)
     reviews = []
     if user.type == 0:
@@ -86,7 +90,8 @@ def account(request, user_id):
     context = {'user': user, 'reviews': reviews}
     return render(request, 'moneyLawndering/account.html', context)
 
-def publicListing(request, user_id):
+def publicListing(request):
+    user_id = request.session['userId']
     user = get_object_or_404(User, pk=user_id)
     if(user.type == 1):
         response = {
@@ -108,7 +113,8 @@ def publicListing(request, user_id):
                 'user': user}
     return render(request, 'moneyLawndering/publicListing.html', context)
 
-def acceptListing(request, user_id, listing_id):
+def acceptListing(request, listing_id):
+    user_id = request.session['userId']
     #first make sure that they have posted a listing
     try:
         listing = Listing.objects.get(pk=listing_id)
@@ -122,12 +128,13 @@ def acceptListing(request, user_id, listing_id):
         #set the status = 3 because the listing is now pending
         listing.status = 3
         listing.save()
-    return HttpResponseRedirect(reverse('moneyLawndering:publicListing', args=(user_id,)))
+    return HttpResponseRedirect(reverse('moneyLawndering:publicListing'))
 
     
 
 
-def myListing(request, user_id):
+def myListing(request):
+    user_id = request.session['userId']
     user = get_object_or_404(User, pk=user_id)
     if user.type == 0:
         raise Http404("You are not a customer and therefore do not have access to the accepted jobs page")
@@ -164,7 +171,8 @@ def myListing(request, user_id):
             'user': user,
         })
 
-def customerReview(request, listing_id, user_id):
+def customerReview(request, listing_id):
+    user_id = request.session['userId']
     listing = get_object_or_404(Listing, pk=listing_id)
     listing.status = 5
     listing.save()
@@ -187,7 +195,7 @@ def customerReview(request, listing_id, user_id):
     worker.rating = overallRating
     worker.save()
 
-    return HttpResponseRedirect(reverse('moneyLawndering:myListing', args=(customer.id,)))
+    return HttpResponseRedirect(reverse('moneyLawndering:myListing'))
     
 def applicantList(request, listing_id):
     listing = get_object_or_404(Listing, pk=listing_id)
@@ -200,30 +208,32 @@ def applicantList(request, listing_id):
     context = {'listing': listing, 'users': users, 'user': user}
     return render(request, "moneyLawndering/listApplicants.html", context)
 
-def workerReviews(request, listing_id, user_id):
-    worker = get_object_or_404(User, pk=user_id)
+def workerReviews(request, listing_id, worker_id):
+    worker = get_object_or_404(User, pk=worker_id)
     listing = get_object_or_404(Listing, pk=listing_id)
     user = get_object_or_404(User, pk=listing.customer.id)
     reviews = worker.workerreview_set.all()
     context = {'listing': listing, 'worker': worker, 'reviews': reviews, 'user':user}
     return render(request, "moneyLawndering/workerReviews.html", context)
 
-def acceptApplicant(request, listing_id, user_id):
-    worker = get_object_or_404(User, pk=user_id)
+def acceptApplicant(request, listing_id, worker_id):
+    worker = get_object_or_404(User, pk=worker_id)
     listing = get_object_or_404(Listing, pk=listing_id)
-    listing.worker = user_id
+    listing.worker = worker_id
     listing.workername = worker.name
     listing.status=2
     listing.save()
-    return HttpResponseRedirect(reverse('moneyLawndering:myListing', args=(listing.customer.id,)))
+    return HttpResponseRedirect(reverse('moneyLawndering:myListing'))
 
 
-def createListing(request, user_id):
+def createListing(request):
+    user_id = request.session['userId']
     user = get_object_or_404(User, pk=user_id)
     categories = Category.objects.all()
     return render(request, "moneyLawndering/createListing.html", {'user':user, 'categories':categories})
 
-def updateListing(request, user_id, listing_id):
+def updateListing(request, listing_id):
+    user_id = request.session['userId']
     user = get_object_or_404(User, pk=user_id)
     listing = get_object_or_404(Listing, pk=listing_id)
     if user_id == listing.customer_id:
@@ -244,26 +254,27 @@ def updateListing(request, user_id, listing_id):
     #     'user_id': user_id,
     #     'user': user,
     # })
-    return HttpResponseRedirect(reverse('moneyLawndering:myListing', args=(user_id,)))
+    return HttpResponseRedirect(reverse('moneyLawndering:myListing'))
 
 
-def deleteListing(request, user_id, listing_id):
-    user = get_object_or_404(User, pk=user_id)
+def deleteListing(request, listing_id):
+    user_id = request.session['userId']
     listing = get_object_or_404(Listing, pk=listing_id)
     if listing.customer_id == user_id:
         listing.delete()
-    categories = Category.objects.all()
-    listings = Listing.objects.get(customer=user_id)
+    # categories = Category.objects.all()
+    # listings = Listing.objects.get(customer=user_id)
     # return render(request, 'moneyLawndering/myListing.html', {
     #     'listings': listings,
     #     'categories': categories,
     #     'user_id': user_id,
     #     'user': user,
     # })
-    return HttpResponseRedirect(reverse('moneyLawndering:myListing', args=(user.id,)))
+    return HttpResponseRedirect(reverse('moneyLawndering:myListing'))
 
 
-def newListing(request, user_id):
+def newListing(request):
+    user_id = request.session['userId']
     user = get_object_or_404(User, pk=user_id)
     try:
         if user.isCustomer:
@@ -309,10 +320,11 @@ def newListing(request, user_id):
         response = JsonResponse(response)
         response['Access-Control-Allow-Origin'] = '*'
         return response
-    return HttpResponseRedirect(reverse('moneyLawndering:myListing', args=(user.id,)))
+    return HttpResponseRedirect(reverse('moneyLawndering:myListing'))
 
 
-def acceptedJobs(request, user_id):
+def acceptedJobs(request):
+    user_id = request.session['userId']
     user = get_object_or_404(User, pk=user_id)
     if(user.type == 1):
         raise Http404("You are not a worker and therefore do not have an accepted jobs page")
@@ -334,7 +346,8 @@ def acceptedJobs(request, user_id):
                 'completedListings': completedListings,}
     return render(request, 'moneyLawndering/acceptedJobs.html', context)
 
-def completedJob(request, listing_id, user_id):
+def completedJob(request, listing_id):
+    user_id = request.session['userId']
     listing = get_object_or_404(Listing, pk=listing_id)
     if(listing.status == 4):
         raise Http404("You have already left a review for this person")
@@ -370,9 +383,10 @@ def completedJob(request, listing_id, user_id):
     customer.rating = overallRating
     customer.save()
 
-    return HttpResponseRedirect(reverse('moneyLawndering:acceptedJobs', args=(worker.id,)))
+    return HttpResponseRedirect(reverse('moneyLawndering:acceptedJobs'))
 
-def history(request, user_id):
+def history(request):
+    user_id = request.session['userId']
     user = get_object_or_404(User, pk=user_id)
     listings = []
     #is a customer
@@ -391,7 +405,8 @@ def history(request, user_id):
     return render(request, 'moneyLawndering/history.html', context)
 
 
-def directTransfer(request, user_id):
+def directTransfer(request):
+    user_id = request.session['userId']
     user = get_object_or_404(User, pk=user_id)
     listings = Listing.objects.filter(customer=user, status=5)
     workers = set()
@@ -402,7 +417,8 @@ def directTransfer(request, user_id):
     return render(request, 'moneyLawndering/directTransfer.html', context)
 
 
-def admin(request, user_id):
+def admin(request):
+    user_id = request.session['userId']
     user = get_object_or_404(User, pk=user_id)
     users = User.objects.all()
     user_types = ['Worker', 'Customer', 'Admin']
@@ -416,16 +432,18 @@ def admin(request, user_id):
     context = {'user': user, 'users': users, 'listings': listings}
     return render(request, 'moneyLawndering/admin.html', context)
 
-def sendMoney(request, user_id):
+def sendMoney(request):
+    user_id = request.session['userId']
     user = get_object_or_404(User, pk=user_id)
     user.accountBalance -= float(request.POST['amount'])
     user.save()
     worker = get_object_or_404(User, pk=int(request.POST['worker']))
     worker.accountBalance += float(request.POST['amount'])
     worker.save()
-    return HttpResponseRedirect(reverse('moneyLawndering:directTransfer', args=(user_id,)))
+    return HttpResponseRedirect(reverse('moneyLawndering:directTransfer'))
 
-def categories(request, user_id):
+def categories(request):
+    user_id = request.session['userId']
     user = get_object_or_404(User, pk=user_id)
     categories = Category.objects.all()
     return render(request, 'moneyLawndering/categories.html', {'categories': categories, 'user': user})
@@ -437,7 +455,7 @@ def createCategory(request):
         category = Category(type = request.POST['category'])
         category.save()
     admin = User.objects.get(type = 2)
-    return HttpResponseRedirect(reverse('moneyLawndering:category', args=(admin.id,)))
+    return HttpResponseRedirect(reverse('moneyLawndering:category'))
 
 def deleteCategory(request, category_id):
     admin = get_object_or_404(User, type=2)
@@ -446,7 +464,7 @@ def deleteCategory(request, category_id):
         category.delete()
     except(KeyError):
         raise Http404("Could not delete the category")
-    return HttpResponseRedirect(reverse('moneyLawndering:category', args=(admin.id,)))
+    return HttpResponseRedirect(reverse('moneyLawndering:category'))
 
 
     

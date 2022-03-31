@@ -12,17 +12,17 @@
         <div class="navBar">
             {% if user.type == 0 %}
                 <div class="navBarBox">Welcome to Money Lawndering!</div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' user.id %}"><div>Account</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:publicListing' user.id %}"><div>Public Listings</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:publicListing' %}"><div>Public Listings</div></a> </div>
                 <div class="selectedNavBarBox"> Accepted Jobs </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:history' user.id %}"><div>History</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:history' %}"><div>History</div></a> </div>
             {% elif user.type == 1 %}
                 <div class="navBarBox">Welcome to Money Lawndering!</div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' user.id %}"><div>Account</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:myListing' user.id %}"><div>Your Listings</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:createListing' user.id %}"><div>New Listing</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:directTransfer' user.id %}"><div>Direct Transfer</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:history' user.id %}"><div>History</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:myListing' %}"><div>Your Listings</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:createListing' %}"><div>New Listing</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:directTransfer' %}"><div>Direct Transfer</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:history' %}"><div>History</div></a> </div>
             {% endif %}
         </div>
     </header>
@@ -56,7 +56,7 @@
     {% for listing in acceptedListings %}
         {% if listing.status != 4 %}
             <div>{{listing.customer.name}}</div>
-            <form action="{% url 'moneyLawndering:completedJob' listing.id user.id%}" method="post">
+            <form action="{% url 'moneyLawndering:completedJob' listing.id %}" method="post">
                 {% csrf_token %}
                 {{ form }}
                 <label for="category">Choose a category:</label>
