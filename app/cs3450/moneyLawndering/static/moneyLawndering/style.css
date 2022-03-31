@@ -375,3 +375,12 @@ html, body {
         margin: 0;
         padding: 0;
         }
+
+.applicantList {
+  margin: 25px;
+}
+
+.applicant {
+  background-color: white;
+  padding: 10px;
+}
