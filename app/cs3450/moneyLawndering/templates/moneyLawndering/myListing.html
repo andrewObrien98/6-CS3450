@@ -189,60 +189,12 @@
         </div>
 
         <div class="listingStatusList listingsScroll" id="acceptedListings">
-        <div class="centered">These are all your accepted Listings: </div>
+            <div class="centered">These are all your accepted Listings: </div>
             {% if acceptedListing|length == 0 %}
                 <p class="centered listingsScrollMin">You haven't accepted anyone for any jobs yet.</p>
             {% else %}
                 <ul>
                 {% for listing in acceptedListing %}
-                    {% if listing.status != 4 %}
-                    <li>
-                        <div class="card blurred listing" style="width: 18rem;">
-                            <div class="form-floating">
-                                <h2>{{listing.workername}}</h2>
-                            </div>
-                            <div class="form-floating">
-                                <h3>{{listing.description|capfirst}}</h3>
-                            </div>
-                            <div class="form-floating">
-                                <form action="{% url 'moneyLawndering:completedJob' listing.id %}" method="post">
-                                    {% csrf_token %}
-                                    {{ form }}
-                                    <label for="category">Rate your experience with this worker:</label>
-                                      <div class="rate" id="rating">
-                                        <input type="radio" id="star5" name="rating" value={{5}} checked/>
-                                        <label for="star5" title="5 stars">5 stars</label>
-                                        <input type="radio" id="star4" name="rating" value={{4}} />
-                                        <label for="star4" title="4 stars">4 stars</label>
-                                        <input type="radio" id="star3" name="rating" value={{3}} />
-                                        <label for="star3" title="3 stars">3 stars</label>
-                                        <input type="radio" id="star2" name="rating" value={{2}} />
-                                        <label for="star2" title="2 stars">2 stars</label>
-                                        <input type="radio" id="star1" name="rating" value={{1}} />
-                                        <label for="star1" title="1 star">1 star</label>
-                                      </div>
-
-
-                                    <label for="review">How did it go?</label>
-                                    <textarea id="review" name="review" rows="4" cols="50"></textarea> <br>
-                                    <button type="submit">Job Completed</button>
-                                </form>
-                            </div>
-                        </div>
-                    </li>
-                    {% endif %}
-                {% endfor %}
-                </ul>
-            {% endif %}
-        </div>
-
-        <div class="listingStatusList listingsScroll" id="completedListings">
-        <div class="centered">These are all your completed Listings: </div>
-            {% if completedListings|length == 0 %}
-                <p class="centered listingsScrollMin">Nobody has completed any jobs for you.</p>
-            {% else %}
-                <ul>
-                {% for listing in completedListings %}
                     <li>
                         <div class="card blurred listing" style="width: 18rem;">
                             <div class="form-floating">
@@ -269,6 +221,52 @@
                             </div>
                             <div class="form-floating">
                                 <div><h3>Where: </h3>{{listing.location|capfirst}}</div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <div class="listingStatusList listingsScroll" id="completedListings">
+        <div class="centered">These are all your completed Listings: </div>
+            {% if completedListing|length == 0 %}
+                <p class="centered listingsScrollMin">Nobody has completed any jobs for you.</p>
+            {% else %}
+                <ul>
+                {% for listing in completedListing %}
+                    <li>
+                        <div class="card blurred listing" style="width: 18rem;">
+                            <div class="form-floating">
+                                <h2>{{listing.workername}}</h2>
+                            </div>
+                            <div class="form-floating">
+                                <h3>{{listing.description|capfirst}}</h3>
+                            </div>
+                            <div class="form-floating">
+                                <form action="{% url 'moneyLawndering:customerReview' listing.id %}" method="post">
+                                    {% csrf_token %}
+                                    {{ form }}
+                                    <label for="category">Rate your experience with this worker:</label>
+                                      <div class="rate" id="rating">
+                                        <input type="radio" id="star5" name="rating" value={{5}} checked/>
+                                        <label for="star5" title="5 stars">5 stars</label>
+                                        <input type="radio" id="star4" name="rating" value={{4}} />
+                                        <label for="star4" title="4 stars">4 stars</label>
+                                        <input type="radio" id="star3" name="rating" value={{3}} />
+                                        <label for="star3" title="3 stars">3 stars</label>
+                                        <input type="radio" id="star2" name="rating" value={{2}} />
+                                        <label for="star2" title="2 stars">2 stars</label>
+                                        <input type="radio" id="star1" name="rating" value={{1}} />
+                                        <label for="star1" title="1 star">1 star</label>
+                                      </div>
+
+
+                                    <label for="review">How did it go?</label>
+                                    <textarea id="review" name="review" rows="4" cols="50"></textarea> <br>
+                                    <button type="submit">Job Completed</button>
+                                </form>
                             </div>
                         </div>
                     </li>
