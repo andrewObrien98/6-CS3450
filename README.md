@@ -8,6 +8,8 @@ The Money LAWNdering web app will be stored in this repository
 
 Documentation and resources for this project will be kept in the “docs” folder. This will include use case diagrams, the project plan, database diagrams, and more as the project progresses.
 
+Sprint reports can be found in the docs/Milestone3 directory.
+
 The actual web app building project will be kept in the folder “app”
 
 ## Version-Control procedures
