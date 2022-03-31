@@ -35,7 +35,14 @@ Go to the location:
 - Type localhost:8000 in browser to see the app running
 
 ## Unit Testing Instructions
-Unit tests will cover all use cases laid out in the use case diagrams. These will be able to be found in the unittests.py file. The unit test class will prompt the user to select which use cases should be executed. After the user has chosen it will display the results.
+Unit tests can be run by typing:
+- python manage.py test
+This will run all the unit tests and will show the results of running them.
+To run a specific test file type:
+- python manage.py test.test_file
+To run a specific class type:
+- python manage.py test.test_file.test_class
+
 
 ## Systems Testing Instructions
 Start by running an instance of the web app by first entering the correct repository and then by entering the following:
