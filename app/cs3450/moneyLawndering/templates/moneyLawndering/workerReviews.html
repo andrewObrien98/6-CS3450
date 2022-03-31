@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>History</title>
+    <title>Worker's Reviews</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"/>
     {% load static %}
@@ -39,57 +39,21 @@
             {% endif %}
         </div>
     </header>
-    <h2>Listings History</h2>
-    <div class="table-div">
-        <table id="history-table">
-            <tr>
-                <th>Customer</th>
-                <th>Category</th>
-                <th>Location</th>
-                <th>Estimated Time</th>
-                <th>Day of Week</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Status</th>
-                <th>Worker</th>
-                <th>Date Published</th>
-            </tr>
-            {% for listing in listings %}
-                <tr>
-                    <th>{{listing.customer.name}}</th>
-                    <th>{{listing.category}}</th>
-                    <th>{{listing.location}}</th>
-                    <th>{{listing.time_est}}</th>
-                    <th>{{listing.dayOfWeek}}</th>
-                    <th>{{listing.startTimeOfDay}}</th>
-                    <th>{{listing.endTimeOfDay}}</th>
-                    <th>{{listing.description}}</th>
-                    <th>{{listing.price}}</th>
-                    <th>{{listing.status}}</th>
-                    <th>{{listing.workername}}</th>
-                    <th>{{listing.pubDate}}</th>
-                </tr>
-            {% endfor %}
-        </table>
+    <div>
+        <h1>Name: {{worker.name}}</h1>
+        <h2>Overall Rating: {{worker.rating}}</h2>
+        <button><a href="{% url 'moneyLawndering:applicantlist' listing.id%}"> Go Back</a> </button>
     </div>
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top bg-light">
-        <div class="col-md-4 d-flex align-items-center">
-          <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-            <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
-          </a>
-          <span class="text-muted">© 2022 Group 6, Inc</span>
-        </div>
+    <h2>Reviews: </h2>
+ {% for review in reviews %}
+    <div>
+        <h3>rating: {{review.rating}}</h3>
+        <h3>Description: </h3>
+        <p>{{review.description}}</p>
+    </div>
+    
+ {% endfor %}
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li><span class="social-text social-box"><p>Follow us!</p></span></li>
-			<li><span class="social-icon social-box social-facebook"><i class="fa fa-facebook"></i></span></li>
-            <li><span class="social-icon social-box social-instagram"><i class="fa fa-instagram"></i></span></li>
-            <li><span class="social-icon social-box social-twitter"><i class="fa fa-twitter"></i></span></li>
-            <li><span class="social-icon social-box social-twitter"><i class="fa fa-linkedin"></i></span></li>
-        </ul>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Listings</title>
+    <title>Your Listings</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"/>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'moneyLawndering/style.css' %}">
 </head>
@@ -12,195 +14,288 @@
         <div class="navBar">
             {% if user.type == 0 %}
                 <div class="navBarBox">Welcome to Money Lawndering!</div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' user.id %}"><div>Account</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:publicListing' user.id %}"><div>Public Listings</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:acceptedJobs' user.id %}"><div>Accepted Jobs</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:history' user.id %}"><div>History</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:publicListing' %}"><div>Public Listings</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:acceptedJobs' %}"><div>Accepted Jobs</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:history' %}"><div>History</div></a> </div>
             {% elif user.type == 1 %}
                 <div class="navBarBox">Welcome to Money Lawndering!</div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' user.id %}"><div>Account</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
                 <div class="selectedNavBarBox"> Your Listings </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:createListing' user.id %}"><div>New Listing</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:directTransfer' user.id %}"><div>Direct Transfer</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:history' user.id %}"><div>History</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:createListing' %}"><div>New Listing</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:directTransfer' %}"><div>Direct Transfer</div></a> </div>
+                <div class="navBarBox"> <a href="{% url 'moneyLawndering:history' %}"><div>History</div></a> </div>
             {% endif %}
         </div>
     </header>
-    <label for="listings-type">Listing Type:</label>
-    <select id="listings-type">
-        <option value="openListings">Open Listings</option>
-        <option value="pendingListings">Pending Listings</option>
-        <option value="acceptedListings">Accepted Listings</option>
-        <option value="completedListings">Completed Listings</option>
-    </select>
+    <div class="centered">
+        <label for="listings-type">Listing Type:</label>
+        <select id="listings-type">
+            <option value="openListings" selected>Open Listings</option>
+            <option value="pendingListings">Pending Listings</option>
+            <option value="acceptedListings">Accepted Listings</option>
+            <option value="completedListings">Completed Listings</option>
+        </select>
+    </div>
+
     <div class="listingsPage">
+
     <div class="listingStatusList listingsScroll" id="openListings">
-    <div class="centered">These are all the open listings</div>
-    <ul>
-    {% for listing in openListing %}
-    <li class="listing">
-        <div class="listingInfo">
-        <form action="{% url 'moneyLawndering:updateListing' user.id listing.id %}" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <label for="category">Choose a category:</label><br>
-            <select name="category" id="category">
-               {% for category in categories %}
-                    {% if category == listing.category %}
-                        <option value="{{category.type}}" selected> {{category.type}}</option>
-                    {% else %}
-                        <option value={{category.type}}> {{category.type}}</option>
-                    {% endif %}
-               {% endfor %}
-            </select><br>
-
-            <label for="location">Location</label><br>
-            <input type="text" name="location" id="location" value="{{listing.location}}"><br>
-
-            <label for="time_est">Estimated time to complete job</label><br>
-            <input type="number" name="time_est" id="time_est" value="{{listing.time_est}}">
-            <small> hrs</small><br>
-
-            <label for="dayOfWeek">Day of week you are available</label><br>
-            <select name="dayOfWeek" id="dayOfWeek" multiple>
-                {% if listing.dayOfWeek == "monday" %}
-                    <option value="monday" selected>Monday</option>
-                {% else %}
-                    <option value="monday">Monday</option>
-                {% endif %}
-                {% if listing.dayOfWeek == "tuesday" %}
-                    <option value="tuesday" selected>Tuesday</option>
-                {% else %}
-                    <option value="tuesday">Tuesday</option>
-                {% endif %}
-                {% if listing.dayOfWeek == "wednesday" %}
-                    <option value="wednesday" selected>Wednesday</option>
-                {% else %}
-                    <option value="wednesday">Wednesday</option>
-                {% endif %}
-                {% if listing.dayOfWeek == "thursday" %}
-                    <option value="thursday" selected>Thursday</option>
-                {% else %}
-                    <option value="thursday">Thursday</option>
-                {% endif %}
-                {% if listing.dayOfWeek == "Friday" %}
-                    <option value="friday" selected>Friday</option>
-                {% else %}
-                    <option value="friday">Friday</option>
-                {% endif %}
-                {% if listing.dayOfWeek == "saturday" %}
-                    <option value="saturday" selected>Saturday</option>
-                {% else %}
-                    <option value="saturday">Saturday</option>
-                {% endif %}
-                {% if listing.dayOfWeek == "sunday" %}
-                    <option value="sunday" selected>Sunday</option>
-                {% else %}
-                    <option value="sunday">Sunday</option>
-                {% endif %}
-            </select><br>
-
-            <label for="startTime">You are available from: </label><br>
-            <input type="time" id="startTime" name="startTime"
-               min="07:00:00" max="20:00:00" value="{{listing.startTimeOfDay}}" required><br>
-
-            <label for="endTime">To: </label><br>
-            <input type="time" id="endTime" name="endTime"
-               min="07:00:00" max="20:00:00" value="{{listing.endTimeOfDay}}" required><br>
-
-            <label for="description">Description of Job:</label><br>
-            <textarea id="description" name="description" rows="4" width="12vh">{{listing.description}}</textarea> <br>
-
-            <label for="price">Price</label><br>
-            <input type="number" name="price" id="price" value="{{listing.price}}"><small>$</small><br>
-
-            <input type="submit" value="Update">
-        </form>
-        <form action="{% url 'moneyLawndering:deleteListing' user.id listing.id %}" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="Delete">
-        </form>
-    </div>
-    </li>
-    {% endfor %}
-    </ul>
-    </div>
-
-    <div class="listingStatusList listingsScroll" id="pendingListings">
-    <div class="centered">These are all the pending listings</div>
-    <ul>
-    {% for listing in pendingListing %}
-        <li class="listing">
-            <h2>{{listing.category|capfirst}}</h2>
-            <h3>${{listing.price|floatformat:"-2g"}}</h3>
-            <div>
-                <h3>Description: </h3>{{listing.description|capfirst}}
-                {% if listing.time_est == 1.0 %}
-                    <p>It'll probably take about 1 hour.</p>
-                {% else %}
-                    <p>It'll probably take about {{listing.time_est|floatformat:"-1g"}} hours.</p>
-                {% endif %}
-            </div>
-            <div><h3>When: </h3>{{listing.dayOfWeek|capfirst}} between {{listing.startTimeOfDay}} and {{listing.endTimeOfDay}}</div>
-            <a href="{% url 'moneyLawndering:applicantlist' listing.id %}">Click here to view applicant(s)</a>
-        </li>
-    {% endfor %}
-    </ul>
-    </div>
-
-    <div class="listingStatusList listingsScroll" id="acceptedListings">
-    <div class="centered">These are all the accepted listings</div>
-    <ul>
- {% for listing in acceptedListing %}
-    <li class="listing">
-        <h2>{{listing.category|capfirst}}</h2>
-        <h3>${{listing.price|floatformat:"-2g"}}</h3>
-        <div>
-            <h3>Description: </h3>{{listing.description|capfirst}}
-            {% if listing.time_est == 1.0 %}
-                <p>It'll probably take about 1 hour.</p>
+        <div class="centered">These are all your open listings</div>
+            {% if openListing|length == 0 %}
+                <p class="centered">You don't have any open listings! Hop on over to the new listings page to create one!</p>
             {% else %}
-                <p>It'll probably take about {{listing.time_est|floatformat:"-1g"}} hours.</p>
+                <ul>
+                {% for listing in openListing %}
+                    <li>
+                        <div class="card blurred listing" style="width: 18rem;">
+                            <form action="{% url 'moneyLawndering:updateListing' listing.id %}" method="post">
+                                {% csrf_token %}
+                                {{ form }}
+                                <div class="form-floating">
+                                    <label for="category">Choose a category:</label><br>
+                                        <select name="category" id="category">
+                                            {% for category in categories %}
+                                                {% if category == listing.category %}
+                                                    <option value="{{category.type}}" selected> {{category.type}}</option>
+                                                {% else %}
+                                                    <option value={{category.type}}> {{category.type}}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select><br>
+                                </div>
+                                <div class="form-floating">
+                                    <label for="price">Price</label><br>
+                                    <input type="number" name="price" id="price" value="{{listing.price}}" required><small>$</small><br>
+                                </div>
+                                <div class="form-floating">
+                                    <label for="description">Description of Job:</label><br>
+                                    <textarea id="description" name="description" rows=4 width="12vh" required>{{listing.description}}</textarea> <br>
+                                </div>
+                                <div class="form-floating">
+                                    <label for="time_est">Estimated time to complete job</label><br>
+                                    <input type="number" name="time_est" id="time_est" value="{{listing.time_est}}" required>
+                                    <small> hrs</small><br>
+                                </div>
+                                <div class="form-floating">
+                                    <label for="dayOfWeek">Day of week you are available</label><br>
+                                    <select name="dayOfWeek" id="dayOfWeek" multiple>
+                                        {% if listing.dayOfWeek == "monday" %}
+                                            <option value="monday" selected>Monday</option>
+                                        {% else %}
+                                            <option value="monday">Monday</option>
+                                        {% endif %}
+                                        {% if listing.dayOfWeek == "tuesday" %}
+                                            <option value="tuesday" selected>Tuesday</option>
+                                        {% else %}
+                                            <option value="tuesday">Tuesday</option>
+                                        {% endif %}
+                                        {% if listing.dayOfWeek == "wednesday" %}
+                                            <option value="wednesday" selected>Wednesday</option>
+                                        {% else %}
+                                            <option value="wednesday">Wednesday</option>
+                                        {% endif %}
+                                        {% if listing.dayOfWeek == "thursday" %}
+                                            <option value="thursday" selected>Thursday</option>
+                                        {% else %}
+                                            <option value="thursday">Thursday</option>
+                                        {% endif %}
+                                        {% if listing.dayOfWeek == "Friday" %}
+                                            <option value="friday" selected>Friday</option>
+                                        {% else %}
+                                            <option value="friday">Friday</option>
+                                        {% endif %}
+                                        {% if listing.dayOfWeek == "saturday" %}
+                                            <option value="saturday" selected>Saturday</option>
+                                        {% else %}
+                                            <option value="saturday">Saturday</option>
+                                        {% endif %}
+                                        {% if listing.dayOfWeek == "sunday" %}
+                                            <option value="sunday" selected>Sunday</option>
+                                        {% else %}
+                                            <option value="sunday">Sunday</option>
+                                        {% endif %}
+                                    </select><br>
+                                </div>
+                                <div class="form-floating">
+                                    <label for="startTime">You are available from: </label><br>
+                                    <input type="time" id="startTime" name="startTime" min="07:00:00" max="20:00:00" value="{{listing.startTimeOfDay}}" required><br>
+                                </div>
+                                <div class="form-floating">
+                                    <label for="endTime">To: </label><br>
+                                    <input type="time" id="endTime" name="endTime" min="07:00:00" max="20:00:00" value="{{listing.endTimeOfDay}}" required><br>
+                                </div>
+                                <div class="form-floating">
+                                    <label for="location">Location</label><br>
+                                    <input type="text" name="location" id="location" value="{{listing.location}}" required><br>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="submit" value="Update">
+                                </div>
+                            </form>
+                            <form action="{% url 'moneyLawndering:deleteListing' listing.id %}" method="post">
+                                {% csrf_token %}
+                                {{ form }}
+                                <div class="form-floating">
+                                    <input type="submit" value="Delete">
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                {% endfor %}
+                </ul>
             {% endif %}
         </div>
-        <div><h3>When: </h3>{{listing.dayOfWeek|capfirst}} between {{listing.startTimeOfDay}} and {{listing.endTimeOfDay}}</div>
-    </li>
-    {% endfor %}
-    </ul>
+
+        <div class="listingStatusList listingsScroll" id="pendingListings">
+            <div class="centered">These are all your pending listings.</div>
+            {% if pendingListing|length == 0 %}
+                <p class="centered listingsScrollMin">You don't have any pending listings! You can try modifying your existing ones to make them more attractive!</p>
+            {% else %}
+                <ul>
+                {% for listing in pendingListing %}
+                    <li>
+                        <div class="card blurred listing" style="width: 18rem;">
+                            <div class="form-floating">
+                                <h2>{{listing.category|capfirst}}</h2>
+                            </div>
+                            <div class="form-floating">
+                                <h3>${{listing.price|floatformat:"-2g"}}</h3>
+                            </div>
+                            <div class="form-floating">
+                                <h3>Description: </h3>{{listing.description|capfirst}}
+                            </div>
+                            <div class="form-floating">
+                                {% if listing.time_est == 1.0 %}
+                                    <p>It'll probably take about 1 hour.</p>
+                                {% else %}
+                                    <p>It'll probably take about {{listing.time_est|floatformat:"-1g"}} hours.</p>
+                                {% endif %}
+                            </div>
+                            <div class="form-floating">
+                                <div><h3>When: </h3>{{listing.dayOfWeek|capfirst}} between {{listing.startTimeOfDay}} and {{listing.endTimeOfDay}}</div>
+                            </div>
+                            <div class="form-floating">
+                                <div><h3>Where: </h3>{{listing.location|capfirst}}</div>
+                            </div>
+                            <div class="form-floating">
+                                <div><h3>Who: </h3><a href="{% url 'moneyLawndering:applicantlist' listing.id %}">Click here to view applicant(s)</a></div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <div class="listingStatusList listingsScroll" id="acceptedListings">
+        <div class="centered">These are all your accepted Listings: </div>
+            {% if acceptedListing|length == 0 %}
+                <p class="centered listingsScrollMin">You haven't accepted anyone for any jobs yet.</p>
+            {% else %}
+                <ul>
+                {% for listing in acceptedListing %}
+                    {% if listing.status != 4 %}
+                    <li>
+                        <div class="card blurred listing" style="width: 18rem;">
+                            <div class="form-floating">
+                                <h2>{{listing.workername}}</h2>
+                            </div>
+                            <div class="form-floating">
+                                <h3>{{listing.description|capfirst}}</h3>
+                            </div>
+                            <div class="form-floating">
+                                <form action="{% url 'moneyLawndering:completedJob' listing.id %}" method="post">
+                                    {% csrf_token %}
+                                    {{ form }}
+                                    <label for="category">Rate your experience with this worker:</label>
+                                      <div class="rate" id="rating">
+                                        <input type="radio" id="star5" name="rating" value={{5}} checked/>
+                                        <label for="star5" title="5 stars">5 stars</label>
+                                        <input type="radio" id="star4" name="rating" value={{4}} />
+                                        <label for="star4" title="4 stars">4 stars</label>
+                                        <input type="radio" id="star3" name="rating" value={{3}} />
+                                        <label for="star3" title="3 stars">3 stars</label>
+                                        <input type="radio" id="star2" name="rating" value={{2}} />
+                                        <label for="star2" title="2 stars">2 stars</label>
+                                        <input type="radio" id="star1" name="rating" value={{1}} />
+                                        <label for="star1" title="1 star">1 star</label>
+                                      </div>
+
+
+                                    <label for="review">How did it go?</label>
+                                    <textarea id="review" name="review" rows="4" cols="50"></textarea> <br>
+                                    <button type="submit">Job Completed</button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <div class="listingStatusList listingsScroll" id="completedListings">
+        <div class="centered">These are all your completed Listings: </div>
+            {% if completedListings|length == 0 %}
+                <p class="centered listingsScrollMin">Nobody has completed any jobs for you.</p>
+            {% else %}
+                <ul>
+                {% for listing in completedListings %}
+                    <li>
+                        <div class="card blurred listing" style="width: 18rem;">
+                            <div class="form-floating">
+                                <h2>{{listing.category|capfirst}}</h2>
+                            </div>
+                            <div class="form-floating">
+                                <h3>${{listing.price|floatformat:"-2g"}}</h3>
+                            </div>
+                            <div class="form-floating">
+                                <h3>Description: </h3>{{listing.description|capfirst}}
+                            </div>
+                            <div class="form-floating">
+                                {% if listing.time_est == 1.0 %}
+                                    <p>It probably took about 1 hour.</p>
+                                {% else %}
+                                    <p>It probably took about {{listing.time_est|floatformat:"-1g"}} hours.</p>
+                                {% endif %}
+                            </div>
+                            <div class="form-floating">
+                                <div><h3>When: </h3>{{listing.dayOfWeek|capfirst}} between {{listing.startTimeOfDay}} and {{listing.endTimeOfDay}}</div>
+                            </div>
+                            <div class="form-floating">
+                                <div><h3>Who: </h3>{{listing.workername|capfirst}}</div>
+                            </div>
+                            <div class="form-floating">
+                                <div><h3>Where: </h3>{{listing.location|capfirst}}</div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
     </div>
 
-    <div class="listingStatusList listingsScroll" id="completedListings">
-    <div class="centered">These are all the recently completed listings</div>
-    <ul>
-        {% for listing in completedListing %}
-        <li class="listing">
-        <div> listing {{listing.id}} </div>
-    <!-- this will display all completed listings -->
-        <div>{{listing.customer.name}}</div>
-        <form action="{% url 'moneyLawndering:customerReview' listing.id user.id%}" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <label for="category">Choose a category:</label>
-            <select name="rating" id="rating">
-                <option value={{1}}> 1 star</option>
-                <option value={{2}}> 2 star</option>
-                <option value={{3}}> 3 star</option>
-                <option value={{4}}> 4 star</option>
-                <option value={{5}}> 5 star</option>
-            </select> <br>
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top bg-light">
+        <div class="col-md-4 d-flex align-items-center">
+          <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+            <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+          </a>
+          <span class="text-muted">© 2022 Group 6, Inc</span>
+        </div>
 
-            <label for="review">Feedback:</label>
-            <textarea id="review" name="review" rows="4" width="12vh"></textarea> <br>
-
-            <input type="submit"  value="Job Completed"><br>
-        </form>
-        </li>
-        {% endfor %}
-    </ul>
-    </div>
-    </div>
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+            <li><span class="social-text social-box"><p>Follow us!</p></span></li>
+			<li><span class="social-icon social-box social-facebook"><i class="fa fa-facebook"></i></span></li>
+            <li><span class="social-icon social-box social-instagram"><i class="fa fa-instagram"></i></span></li>
+            <li><span class="social-icon social-box social-twitter"><i class="fa fa-twitter"></i></span></li>
+            <li><span class="social-icon social-box social-twitter"><i class="fa fa-linkedin"></i></span></li>
+        </ul>
+    </footer>
     {% load static %}
     <script src="{% static 'moneyLawndering/myListing.js' %}"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    </body>
 </html>
