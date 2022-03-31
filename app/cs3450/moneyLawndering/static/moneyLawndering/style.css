@@ -75,10 +75,10 @@
   justify-content: center;
   align-items: center;
   background-color: #1a1a6e;
-  padding-top: 1vh;
-  padding-bottom: 1vh;
-  padding-right: 1vh;
-  padding-left: 1vh;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  padding-right: 2vh;
+  padding-left: 2vh;
 }
 
 .navBarBox {
@@ -375,3 +375,12 @@ html, body {
         margin: 0;
         padding: 0;
         }
+
+.applicantList {
+  margin: 25px;
+}
+
+.applicant {
+  background-color: white;
+  padding: 10px;
+}
