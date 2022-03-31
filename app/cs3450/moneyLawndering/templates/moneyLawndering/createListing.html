@@ -27,51 +27,68 @@
             {% endif %}
         </div>
     </header>
-    <div class="listingInfo">
-        <form action="{% url 'moneyLawndering:newListing' %}" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <label for="category">Choose a category:</label><br>
-            <select name="category" id="category">
-               {% for category in categories%}
-                 <option value={{category.type}}> {{category.type}}</option>
-               {% endfor %}
-            </select><br>
+    <div class="container d-flex justify-content-center">
+        <div class="w-50 backgroundBox">
+            <form action="{% url 'moneyLawndering:newListing' %}" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <div class="form-group">
+                    <label for="category" class="form-label">Choose a category:</label>
+                    <select name="category" id="category" class="form-control">
+                       {% for category in categories%}
+                         <option value={{category.type}}> {{category.type}}</option>
+                       {% endfor %}
+                    </select>
+                </div>
 
-            <label for="location">Location</label><br>
-            <input type="text" name="location" id="location" value="{{user.address}}"><br>
+                <div class="form-group">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" name="location" id="location" class="form-control" value="{{user.address}}">
+                </div>
 
-            <label for="time_est">Estimated time to complete job (hrs)</label><br>
-            <input type="number" name="time_est" id="time_est" value=1>
-            <small> hrs</small><br>
+                <div class="form-group">
+                    <label for="time_est" class="form-label">Estimated time to complete job (hrs)</label>
+                    <input type="number" name="time_est" id="time_est" class="form-control" value=1>
+                </div>
 
-            <label for="dayOfWeek">Day of week you are available</label><br>
-            <select name="dayOfWeek" id="dayOfWeek" multiple>
-              <option value="monday">Monday</option>
-              <option value="tuesday">Tuesday</option>
-              <option value="wednesday">Wednesday</option>
-              <option value="thursday">Thursday</option>
-              <option value="friday">Friday</option>
-              <option value="saturday">Satuday</option>
-              <option value="sunday">Sunday</option>
-            </select><br>
+                <div class="form-group">
+                    <label for="dayOfWeek" class="form-label">Day of week you are available</label>
+                    <select name="dayOfWeek" id="dayOfWeek" class="form-control" multiple>
+                      <option value="monday">Monday</option>
+                      <option value="tuesday">Tuesday</option>
+                      <option value="wednesday">Wednesday</option>
+                      <option value="thursday">Thursday</option>
+                      <option value="friday">Friday</option>
+                      <option value="saturday">Satuday</option>
+                      <option value="sunday">Sunday</option>
+                    </select>
+                </div>
 
-            <label for="startTime">You are available from: </label><br>
-            <input type="time" id="startTime" name="startTime"
-               min="07:00:00" max="20:00:00" required><br>
+                <div class="form-group">
+                    <label for="startTime" class="form-label">You are available from: </label>
+                    <input type="time" id="startTime" class="form-control" name="startTime"
+                       min="07:00:00" max="20:00:00" required>
+                </div>
 
-            <label for="endTime">To: </label><br>
-            <input type="time" id="endTime" name="endTime"
-               min="07:00:00" max="20:00:00" required><br>
+                <div class="form-group">
+                    <label for="endTime" class="form-label">To: </label>
+                    <input type="time" id="endTime" class="form-control" name="endTime"
+                       min="07:00:00" max="20:00:00" required>
+                </div>
 
-            <label for="description">Description of Job:</label><br>
-            <textarea id="description" name="description" rows="4" cols="50"></textarea> <br>
+                <div class="form-group">
+                    <label for="description" class="form-label">Description of Job:</label>
+                    <textarea id="description" class="form-control" name="description" rows="4" cols="50"></textarea>
+                </div>
 
-            <label for="price">Price</label><br>
-            <input type="number" name="price" id="price"><small>$</small><br>
+                <div class="form-group">
+                    <label for="price" class="form-label">Price ($):</label>
+                    <input type="number" name="price" id="price" class="form-control">
+                </div>
 
-            <input type="submit" value="createListing">
-        </form>
+                <input type="submit" class="btn btn-primary" value="Create Listing">
+            </form>
+        </div>
     </div>
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top bg-light">
         <div class="col-md-4 d-flex align-items-center">
