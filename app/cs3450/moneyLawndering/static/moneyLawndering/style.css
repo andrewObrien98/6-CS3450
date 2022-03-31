@@ -5,6 +5,17 @@
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
+  width: 100%;
+}
+
+.small-title-page-background {
+  background-image: url('/static/moneyLawndering/defaultBackground.png');
+  background-color: #1a1a6e;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
 }
 
 .normal-page-background {
@@ -15,6 +26,47 @@
   background-size: cover;
   height: 100vh;
   background-attachment: fixed;
+}
+
+.smallLogin {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 35px;
+  padding-bottom: 35px;
+}
+
+.normalLogin {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 35px;
+  margin-bottom: 20px;
+}
+
+.largeLogin {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.loginContents {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.loginItem {
+  margin-bottom: 16px !important;
+}
+
+.loginRadio {
+  margin-right: 24px !important;
+}
+
+.blurred {
+  backdrop-filter: blur(2px);
+  opacity: 0.85;
 }
 
 .navBar {
@@ -94,7 +146,10 @@
   padding-right: 3vh;
   padding-left: 3vh;
   padding-bottom: 3vh;
-
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+  margin-right: 3vh;
+  margin-left: 3vh;
   background-color: #99abba;
   list-style: none
  }
@@ -122,9 +177,12 @@ table, th {
 
 div.listingsScroll {
     width: 100%;
-    height: 84vh;
-    overflow-x: hidden;
-    overflow-y: auto;
+    height: 100%;
+}
+
+p.listingsScrollMin {
+    width: 100%;
+    height: 60vh;
 }
 
 .listingsPage {
@@ -133,7 +191,6 @@ div.listingsScroll {
 
 .listingStatusList {
     flex: 1;
-
 }
 
 .centered {
@@ -145,6 +202,156 @@ div.listingsScroll {
 textarea {
   width: 31vh;
   height: 10vh;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#footer {
+  bottom: 0;
+  position: absolute;
+}
+
+.social-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 11px;
+    cursor: pointer
+}
+
+.social-icon {
+    color: #fff;
+    font-size: 26px;
+    height: 40px;
+    width: 40px;
+}
+
+.social-text {
+    color: Black;
+    font-size: 20px;
+    height: 40px;
+    width: 100px;
+}
+
+.social-twitter {
+    background-color: #55acee
+}
+
+.social-facebook {
+    background-color: #3b5999
+}
+
+.social-instagram {
+    background-color: #dd4b39
+}
+
+.social-linkedin {
+    background-color: #dd4b39
+}
+
+.social-icon i {
+    transition: 0.4s all
+}
+
+coloredFooter {
+  background-color: red;
+}
+
+.social-icon:hover i {
+    transform: scale(1.4)
+}
+
+.copyright {
+      background-color: #1a1a6e;
+}
+
+/* Scrolling text animation tutorial and credit to https://blog.hubspot.com/website/scrolling-text-css. Used with permission. */
+#scroll-container {
+  border: 3px solid black;
+  border-radius: 5px;
+  height: 100px;
+  overflow: hidden;
+}
+
+#scroll-text {
+  height: 100%;
+  text-align: center;
+
+  /* animation properties */
+  -moz-transform: translateY(100%);
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
+
+  -moz-animation: my-animation 30s linear infinite;
+  -webkit-animation: my-animation 30s linear infinite;
+  animation: my-animation 30s linear infinite;
+}
+
+/* for Firefox */
+@-moz-keyframes my-animation {
+  from { -moz-transform: translateY(100%); }
+  to { -moz-transform: translateY(-550%); }
+}
+
+/* for Chrome */
+@-webkit-keyframes my-animation {
+  from { -webkit-transform: translateY(100%); }
+  to { -webkit-transform: translateY(-550%); }
+}
+
+@keyframes my-animation {
+  from {
+    -moz-transform: translateY(100%);
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+  }
+  to {
+    -moz-transform: translateY(-550%);
+    -webkit-transform: translateY(-550%);
+    transform: translateY(-550%);
+  }
+}
+
+
+/* Star selector animation and credit to https://codepen.io/hesguru/pen/BaybqXv. Used with permission. */
+
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
 }
 
 html, body {
