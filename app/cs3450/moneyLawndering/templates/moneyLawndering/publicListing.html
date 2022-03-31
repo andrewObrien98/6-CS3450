@@ -21,23 +21,19 @@
                 <div class="col mr-4 text-primary"> <a href="{% url 'moneyLawndering:acceptedJobs' %}">Accepted Jobs</a></div>
                 <div class="col text-primary"> <a href="{% url 'moneyLawndering:history' %}">History</a></div>
             {% elif user.type == 1 %}
-                <div class="navBarBox">Welcome to Money Lawndering!</div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:myListing' %}"><div>Your Listings</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:createListing' %}"><div>New Listing</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:directTransfer' %}"><div>Direct Transfer</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:history' %}"><div>History</div></a> </div>
+                <div class="col-4 mr-4 text-primary">Welcome to Money Lawndering!</div>
+                <div class="col mr-4 text-primary"> <a href="{% url 'moneyLawndering:account' %}">Account</a></div>
+                <div class="col mr-4 text-primary"> <a href="{% url 'moneyLawndering:myListing' %}">Your Listings</a></div>
+                <div class="col mr-4 text-primary"> <a href="{% url 'moneyLawndering:createListing' %}">New Listing</a></div>
+                <div class="col mr-4 text-primary"> <a href="{% url 'moneyLawndering:directTransfer' %}">Direct Transfer<</a></div>
+                <div class="col mr-4 text-primary"> <a href="{% url 'moneyLawndering:history' %}">History</a></div>
             {% elif user.type == 2 %}
-                <div class="navBarBox">Welcome to Money Lawndering!</div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:admin' %}"><div>Admin</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
-                <div class="selectedNavBarBox"> Public Listings </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:history' %}"><div>History</div></a> </div>
-                <div class="navBarBox">
-                    <a href="{% url 'moneyLawndering:category' %}">
-                        <div>Categories</div>
-                    </a>
-                </div>
+                <div class="col-4 mr-4 text-primary">Welcome to Money Lawndering!</div>
+                <div class="col mr-4 text-primary"> <a href="{% url 'moneyLawndering:admin' %}">Admin</a></div>
+                <div class="col mr-4 text-primary"> <a href="{% url 'moneyLawndering:account' %}">Account</a></div>
+                <div class="col mr-4 text-secondary"> Public Listings </div>
+                <div class="col mr-4 text-primary"> <a href="{% url 'moneyLawndering:history' %}">History</a></div>
+                <div class="col mr-4 text-primary"><a href="{% url 'moneyLawndering:category' %}">Categories</a></div>
             {% endif %}
 		</div>
 		</div>
