@@ -151,7 +151,8 @@
   margin-right: 3vh;
   margin-left: 3vh;
   background-color: #99abba;
-  list-style: none
+  list-style: none;
+  border-radius: 3rem;
  }
 
 .table-light {
@@ -221,7 +222,6 @@ ul {
     justify-content: center;
     align-items: center;
     margin-right: 11px;
-    cursor: pointer
 }
 
 .social-icon {
@@ -229,6 +229,7 @@ ul {
     font-size: 26px;
     height: 40px;
     width: 40px;
+    cursor: pointer
 }
 
 .social-text {
