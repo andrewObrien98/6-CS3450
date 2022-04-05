@@ -154,25 +154,14 @@
   list-style: none
  }
 
-div.table-div {
-    width: 100%;
-    height: 70%;
-    overflow-x: hidden;
-    overflow-y: auto;
+.table-light {
+    background-color: #c1d2e0;
+    border: 2px solid black;
+    border-collapse: collapse;
 }
 
-table, th {
-    border: 1px solid black;
-    border-collapse: collapse;
-    background-color: #c1d2e0;
-    padding-top: 3vh;
-    padding-right: 3vh;
-    padding-left: 3vh;
-    padding-bottom: 3vh;
-    margin-top: 3vh;
-    margin-bottom: 3vh;
-    margin-right: 3vh;
-    margin-left: 3vh;
+.table-light td, .table-light th, .table-light thead th {
+    border-color: #454d55;
 }
 
 div.listingsScroll {
