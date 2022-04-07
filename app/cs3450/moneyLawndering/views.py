@@ -476,6 +476,7 @@ def deleteCategory(request, category_id):
 
 def logout(request):
     request.session.flush()
+    return HttpResponseRedirect(reverse('moneyLawndering:signin'))
 
 
     
