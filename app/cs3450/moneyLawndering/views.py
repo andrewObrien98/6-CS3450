@@ -113,6 +113,7 @@ def publicListing(request):
     #this means that they are not a worker
     listings = Listing.objects.all()
     #we might want to order the listing by date created
+
     context = {'listings' : listings,
                 'user': user}
     return render(request, 'moneyLawndering/publicListing.html', context)

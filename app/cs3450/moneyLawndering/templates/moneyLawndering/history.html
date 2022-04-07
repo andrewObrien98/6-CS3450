@@ -40,40 +40,48 @@
             {% endif %}
         </div>
     </header>
-    <h2>Listings History</h2>
-    <div class="table-div">
-        <table id="history-table">
-            <tr>
-                <th>Customer</th>
-                <th>Category</th>
-                <th>Location</th>
-                <th>Estimated Time</th>
-                <th>Day of Week</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Status</th>
-                <th>Worker</th>
-                <th>Date Published</th>
-            </tr>
-            {% for listing in listings %}
-                <tr>
-                    <th>{{listing.customer.name}}</th>
-                    <th>{{listing.category}}</th>
-                    <th>{{listing.location}}</th>
-                    <th>{{listing.time_est}}</th>
-                    <th>{{listing.dayOfWeek}}</th>
-                    <th>{{listing.startTimeOfDay}}</th>
-                    <th>{{listing.endTimeOfDay}}</th>
-                    <th>{{listing.description}}</th>
-                    <th>{{listing.price}}</th>
-                    <th>{{listing.status}}</th>
-                    <th>{{listing.workername}}</th>
-                    <th>{{listing.pubDate}}</th>
-                </tr>
-            {% endfor %}
-        </table>
+    <div class="container d-flex justify-content-center">
+        <h2 class="m-3">Listing History</h2>
+    </div>
+    <div class="container d-flex justify-content-center">
+        <div class="m-3">
+            <table class="table table-light table-hover">
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Category</th>
+                        <th>Location</th>
+                        <th>Estimated Time</th>
+                        <th>Day of Week</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        <th>Worker</th>
+                        <th>Date Published</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for listing in listings %}
+                    <tr>
+                        <td>{{listing.customer.name}}</td>
+                        <td>{{listing.category}}</td>
+                        <td>{{listing.location}}</td>
+                        <td>{{listing.time_est}}</td>
+                        <td>{{listing.dayOfWeek}}</td>
+                        <td>{{listing.startTimeOfDay}}</td>
+                        <td>{{listing.endTimeOfDay}}</td>
+                        <td>{{listing.description}}</td>
+                        <td>{{listing.price}}</td>
+                        <td>{{listing.status}}</td>
+                        <td>{{listing.workername}}</td>
+                        <td>{{listing.pubDate}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top bg-light">
         <div class="col-md-4 d-flex align-items-center">

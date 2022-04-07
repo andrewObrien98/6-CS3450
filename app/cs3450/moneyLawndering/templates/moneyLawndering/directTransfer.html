@@ -29,26 +29,32 @@
             {% endif %}
         </div>
     </header>
-    <div class="transferInfo">
+    <div class="container d-flex justify-content-center">
+        <div class="w-50 backgroundBox">
         {% if workers|length == 0 %}
             <div>You need to hire someone once before you can send them money.</div>
         {% else %}
         <form action="{% url 'moneyLawndering:sendMoney' %}" method="post">
             {% csrf_token %}
             {{ form }}
-            <label for="worker">Worker</label><br>
-            <select name="worker" id="worker">
-            {% for worker in workers %}
-                <option value="{{worker.pk}}">{{worker.name}}</option>
-            {% endfor %}
-            </select><br>
+            <div class="form-group">
+                <label for="worker" class="form-label">Worker</label>
+                <select name="worker" id="worker" class="form-control">
+                {% for worker in workers %}
+                    <option value="{{worker.pk}}">{{worker.name}}</option>
+                {% endfor %}
+                </select>
+            </div>
 
-            <label for="amount">Amount</label><br>
-            <input type="number" name="amount" id="amount"><br>
+            <div class="form-group">
+                <label for="amount" class="form-label">Amount</label>
+                <input type="number" name="amount" id="amount" class="form-control">
+            </div>
 
-            <input type="submit" value="Send">
+            <input type="submit" class="btn btn-primary" value="Send">
         </form>
         {% endif %}
+    </div>
     </div>
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top bg-light">
         <div class="col-md-4 d-flex align-items-center">

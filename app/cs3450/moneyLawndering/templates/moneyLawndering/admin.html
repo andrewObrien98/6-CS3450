@@ -36,74 +36,84 @@
                 </div>
             </div>
         </header>
-        <div>
-            <label for="model-type">Model Type:</label>
+        <div class="container d-flex justify-content-center mt-3 mb-3">
+            <label for="model-type" class="pr-2">Type: </label>
             <select id="model-type">
                 <option value="users">Users</option>
                 <option value="listings">Listings</option>
             </select>
         </div>
-        <div class="table-div" id="admin-tables">
-            <table id="users">
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Type</th>
-                    <th>Password</th>
-                    <th>Phone Number</th>
-                    <th>Address</th>
-                    <th>Account Balance</th>
-                    <th>Rating</th>
-                </tr>
+        <div class="container d-flex justify-content-center" id="admin-tables">
+            <div class="m-3">
+                <table id="users" class="table table-light table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Type</th>
+                        <th>Password</th>
+                        <th>Phone Number</th>
+                        <th>Address</th>
+                        <th>Account Balance</th>
+                        <th>Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
                 {% for user in users %}
                     <tr>
-                        <th>{{user.name}}</th>
-                        <th>{{user.email}}</th>
-                        <th>{{user.type}}</th>
-                        <th>{{user.password}}</th>
-                        <th>{{user.phoneNumber}}</th>
-                        <th>{{user.address}}</th>
-                        <th>{{user.accountBalance}}</th>
-                        <th>{{user.rating}}</th>
+                        <td>{{user.name}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.type}}</td>
+                        <td>{{user.password}}</td>
+                        <td>{{user.phoneNumber}}</td>
+                        <td>{{user.address}}</td>
+                        <td>{{user.accountBalance}}</td>
+                        <td>{{user.rating}}</td>
                     </tr>
                 {% endfor %}
+                </tbody>
             </table>
-            <table id="listings">
-                <tr>
-                    <th>Customer</th>
-                    <th>Category</th>
-                    <th>Location</th>
-                    <th>Estimated Time</th>
-                    <th>Day of Week</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Status</th>
-                    <th>Worker</th>
-                    <th>Date Published</th>
-                </tr>
+                <table id="listings" class="table table-light table-hover">
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Category</th>
+                        <th>Location</th>
+                        <th>Estimated Time</th>
+                        <th>Day of Week</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        <th>Worker</th>
+                        <th>Date Published</th>
+                    </tr>
+                </thead>
+                <tbody>
                 {% for listing in listings %}
                     <tr>
-                        <th>{{listing.customer.name}}</th>
-                        <th>{{listing.category}}</th>
-                        <th>{{listing.location}}</th>
-                        <th>{{listing.time_est}}</th>
-                        <th>{{listing.dayOfWeek}}</th>
-                        <th>{{listing.startTimeOfDay}}</th>
-                        <th>{{listing.endTimeOfDay}}</th>
-                        <th>{{listing.description}}</th>
-                        <th>{{listing.price}}</th>
-                        <th>{{listing.status}}</th>
+                        <td>{{listing.customer.name}}</td>
+                        <td>{{listing.category}}</td>
+                        <td>{{listing.location}}</td>
+                        <td>{{listing.time_est}}</td>
+                        <td>{{listing.dayOfWeek}}</td>
+                        <td>{{listing.startTimeOfDay}}</td>
+                        <td>{{listing.endTimeOfDay}}</td>
+                        <td>{{listing.description}}</td>
+                        <td>{{listing.price}}</td>
+                        <td>{{listing.status}}</td>
                         {% if listing.workername == "" %}
-                            <th>N/A </th>
+                            <td>N/A </td>
                         {% else %}
-                            <th>{{listing.workername}}</th>
+                            <td>{{listing.workername}}</td>
                         {% endif %}
-                        <th>{{listing.pubDate}}</th>
+                        <td>{{listing.pubDate}}</td>
                     </tr>
                 {% endfor %}
+                </tbody>
             </table>
+            </div>
         </div>
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top bg-light">
             <div class="col-md-4 d-flex align-items-center">
