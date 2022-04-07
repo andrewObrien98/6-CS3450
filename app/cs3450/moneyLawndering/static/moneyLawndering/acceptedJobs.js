@@ -8,6 +8,8 @@ function hideAll() {
 }
 
 hideAll()
+// Set selector value to match initial section being shown
+selector.value = 'accepted';
 document.getElementById('accepted').hidden = false;
 
 selector.addEventListener('change', (event) => {
