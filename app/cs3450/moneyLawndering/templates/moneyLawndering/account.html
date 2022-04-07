@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"/>
     {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'moneyLawndering/favicon.ico' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'moneyLawndering/style.css' %}">
 </head>
 
@@ -39,75 +40,260 @@
             {% endif %}
         </div>
     </header>
-    <div>You're on your account page, {{ user.name }}.</div>
-    <div class="accountBox">
-        <div class="accountInfo">
+
+    <! -- Extra Small, Small, and Medium Screens -->
+    <div class="d-lg-none">
+    <div class="container d-flex justify-content-center centered">
+        <div class="w-50 card blurred loginContents largeLogin centered">
             <form action="{% url 'moneyLawndering:updateUser' %}" method="post">
                 {% csrf_token %}
                 {{ form }}
-                <label for="name">Name</label><br>
-                <input type="text" name="name" id="name" value="{{ user.name }}"><br>
 
-                <label for="email">Email</label><br>
-                <input type="email" name="email" id="email" value="{{ user.email }}"><br>
+                <div class="form-group">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" class="form-control" name="name" value="{{ user.name }}">
+                </div>
 
-                <label for="password">Password</label><br>
-                <input type="password" name="password" id="password" value="{{ user.password }}"><br>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" id="email" class="form-control" name="email" value="{{ user.email }}">
+                </div>
 
-                <label for="confirmedPassword">Confirm Password</label><br>
-                <input type="password" name="confirmedPassword" id="confirmedPassword" value="{{ user.password }}"><br>
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-control" name="password" value="{{ user.password }}">
+                </div>
 
-                <label for="phoneNumber">Phone Number</label><br>
-                <input type="number" name="phoneNumber" id="phoneNumber" value="{{ user.phoneNumber }}"><br>
+                <div class="form-group">
+                    <label for="confirmedPassword" class="form-label">Confirm Password</label>
+                    <input type="password" id="confirmedPassword" class="form-control" name="confirmedPassword" value="{{ user.password }}">
+                </div>
 
-                <label for="address">Address</label><br>
-                <input type="text" name="address" id="address" value="{{ user.address }}"><br>
+                <div class="form-group">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="tel" id="phoneNumber" class="form-control" name="phoneNumber" value="{{ user.phoneNumber }}">
+                </div>
 
-                <label for="accountBalance">Account Balance</label><br>
-                <input type="number" name="accountBalance" id="accountBalance" value="{{ user.accountBalance }}"><br>
+                <div class="form-group">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" name="address" id="address" class="form-control" value="{{user.address}}">
+                </div>
 
-                <input type="submit" value="Update Info">
+                <div class="form-group">
+                    <label for="accountBalance" class="form-label">Account Balance</label>
+                    <input type="text" name="accountBalance" id="accountBalance" class="form-control" value="{{user.accountBalance}}">
+                </div>
+
+                <input type="submit" class="btn btn-primary" value="Update Info">
             </form>
         </div>
-
+    </div>
+        <div class="container d-flex justify-content-center centered">
+        <div class="w-50 card blurred loginContents largeLogin centered">
         <div class="starRatingBox">
-            <h1>Your Rating:</h1>
-            {% if user.rating == 0 %}
-                <img style="width: 50vh;" src='/static/moneyLawndering/Star_rating_0_of_5.png' alt="0 Stars">
-            {% elif user.rating == 1 %}
-                <img style="width: 50vh;" src='/static/moneyLawndering/Star_rating_1_of_5.png' alt="1 Star">
-            {% elif user.rating == 2 %}
-                <img style="width: 50vh;" src='/static/moneyLawndering/Star_rating_2_of_5.png' alt="2 Stars">
-            {% elif user.rating == 3 %}
-                <img style="width: 50vh;" src='/static/moneyLawndering/Star_rating_3_of_5.png' alt="3 Stars">
-            {% elif user.rating == 4 %}
-                <img style="width: 50vh;" src='/static/moneyLawndering/Star_rating_4_of_5.png' alt="4 Stars">
-            {% else %}
-                <img style="width: 50vh;" src='/static/moneyLawndering/Star_rating_5_of_5.png' alt="5 Stars">
-            {% endif %}
+                <h1>Your Rating:</h1>
+                <div>
+                {% if user.rating == 0 %}
+                    <img style="width: 100%;" src='/static/moneyLawndering/Star_rating_0_of_5.png' alt="0 Stars">
+                {% elif user.rating == 1 %}
+                    <img style="width: 100%;" src='/static/moneyLawndering/Star_rating_1_of_5.png' alt="1 Star">
+                {% elif user.rating == 2 %}
+                    <img style="width: 100%;" src='/static/moneyLawndering/Star_rating_2_of_5.png' alt="2 Stars">
+                {% elif user.rating == 3 %}
+                    <img style="width: 100%;" src='/static/moneyLawndering/Star_rating_3_of_5.png' alt="3 Stars">
+                {% elif user.rating == 4 %}
+                    <img style="width: 100%;" src='/static/moneyLawndering/Star_rating_4_of_5.png' alt="4 Stars">
+                {% else %}
+                    <img style="width: 100%;" src='/static/moneyLawndering/Star_rating_5_of_5.png' alt="5 Stars">
+                {% endif %}
+                </div>
+            </div>
+        {% if reviews|length != 0 %}
+        <hr>
+        <div class="card-body">
+            <h5 class="card-title centered">Your Past Reviews:</h5>
+            <div>
+                <div>
+                {% if isWorker %}
+                    {% for review in reviews %}
+                        <p class="card-text centered">
+                            {% if user.rating == 0 %}
+                                <img style="width: 75%;" src='/static/moneyLawndering/Star_rating_0_of_5.png' alt="0 Stars">
+                            {% elif user.rating == 1 %}
+                                <img style="width: 75%;" src='/static/moneyLawndering/Star_rating_1_of_5.png' alt="1 Star">
+                            {% elif user.rating == 2 %}
+                                <img style="width: 75%;" src='/static/moneyLawndering/Star_rating_2_of_5.png' alt="2 Stars">
+                            {% elif user.rating == 3 %}
+                                <img style="width: 75%;" src='/static/moneyLawndering/Star_rating_3_of_5.png' alt="3 Stars">
+                            {% elif user.rating == 4 %}
+                                <img style="width: 75%;" src='/static/moneyLawndering/Star_rating_4_of_5.png' alt="4 Stars">
+                            {% else %}
+                                <img style="width: 75%;" src='/static/moneyLawndering/Star_rating_5_of_5.png' alt="5 Stars">
+                            {% endif %}
+                            <br>
+                            {{review.description}}<br>
+                            -{{review.customer}}
+                        </p>
+                        <hr>
+                    {% endfor %}
+                {% else %}
+                    {% for review in reviews %}
+                    <p class="card-text centered">
+                        {% if review.rating == 0 %}
+                            <img style="width: 75%;" src='/static/moneyLawndering/Star_rating_0_of_5.png' alt="0 Stars">
+                        {% elif review.rating == 1 %}
+                            <img style="width: 75%;" src='/static/moneyLawndering/Star_rating_1_of_5.png' alt="1 Star">
+                        {% elif review.rating == 2 %}
+                            <img style="width: 75%;" src='/static/moneyLawndering/Star_rating_2_of_5.png' alt="2 Stars">
+                        {% elif review.rating == 3 %}
+                            <img style="width: 75%;" src='/static/moneyLawndering/Star_rating_3_of_5.png' alt="3 Stars">
+                        {% elif review.rating == 4 %}
+                            <img style="width: 75%;" src='/static/moneyLawndering/Star_rating_4_of_5.png' alt="4 Stars">
+                        {% else %}
+                            <img style="width: 75%;" src='/static/moneyLawndering/Star_rating_5_of_5.png' alt="5 Stars">
+                        {% endif %}
+                        {{review.description}}<br>
+                        -{{review.worker}}
+                    </p>
+                    <hr>
+                    {% endfor %}
+                {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        </div>
         </div>
     </div>
-    {% if reviews|length != 0 %}
-    <div>
-        <h2>Your Past Ratings:</h2>
+    <! -- End Extra Small, Small, and Medium Screens -->
+
+    <! –– Large and Extra Large screens ––>
+	<div class="d-none d-lg-block">
+    <div class="container d-flex justify-content-center centered">
+        <div class="w-50 card blurred loginContents largeLogin centered">
+            <form action="{% url 'moneyLawndering:updateUser' %}" method="post">
+                {% csrf_token %}
+                {{ form }}
+
+                <div class="form-group">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" class="form-control" name="name" value="{{ user.name }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" id="email" class="form-control" name="email" value="{{ user.email }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-control" name="password" value="{{ user.password }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmedPassword" class="form-label">Confirm Password</label>
+                    <input type="password" id="confirmedPassword" class="form-control" name="confirmedPassword" value="{{ user.password }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="tel" id="phoneNumber" class="form-control" name="phoneNumber" value="{{ user.phoneNumber }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" name="address" id="address" class="form-control" value="{{user.address}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="accountBalance" class="form-label">Account Balance</label>
+                    <input type="text" name="accountBalance" id="accountBalance" class="form-control" value="{{user.accountBalance}}">
+                </div>
+
+                <input type="submit" class="btn btn-primary" value="Update Info">
+            </form>
+        </div>
     </div>
-    <div class="table-div">
-        <table id="review-table">
-            <tr>
-                <th>Customer</th>
-                <th>Rating</th>
-                <th>Description</th>
-            </tr>
-            {% for review in reviews %}
-                <tr>
-                    <th>{{review.customer}}</th>
-                    <th>{{review.rating}}</th>
-                    <th>{{review.description}}</th>
-                </tr>
-            {% endfor %}
-        </table>
+        <div class="container d-flex justify-content-center centered">
+        <div class="w-50 card blurred loginContents largeLogin centered">
+        <div class="starRatingBox">
+            <h1>Your Rating:</h1>
+            <div>
+            {% if user.rating == 0 %}
+                <img style="width: 50%;" src='/static/moneyLawndering/Star_rating_0_of_5.png' alt="0 Stars">
+            {% elif user.rating == 1 %}
+                <img style="width: 50%;" src='/static/moneyLawndering/Star_rating_1_of_5.png' alt="1 Star">
+            {% elif user.rating == 2 %}
+                <img style="width: 50%;" src='/static/moneyLawndering/Star_rating_2_of_5.png' alt="2 Stars">
+            {% elif user.rating == 3 %}
+                <img style="width: 50%;" src='/static/moneyLawndering/Star_rating_3_of_5.png' alt="3 Stars">
+            {% elif user.rating == 4 %}
+                <img style="width: 50%;" src='/static/moneyLawndering/Star_rating_4_of_5.png' alt="4 Stars">
+            {% else %}
+                <img style="width: 50%;" src='/static/moneyLawndering/Star_rating_5_of_5.png' alt="5 Stars">
+            {% endif %}
+            </div>
+            <hr>
+        </div>
+
+        {% if reviews|length != 0 %}
+        <div class="card-body">
+            <h5 class="card-title centered">Your Past Reviews:</h5>
+            <div>
+                <div>
+                {% if isWorker %}
+                    {% for review in reviews %}
+                        <p class="card-text centered">
+                            {% if user.rating == 0 %}
+                                <img style="width: 35%;" src='/static/moneyLawndering/Star_rating_0_of_5.png' alt="0 Stars">
+                            {% elif user.rating == 1 %}
+                                <img style="width: 35%;" src='/static/moneyLawndering/Star_rating_1_of_5.png' alt="1 Star">
+                            {% elif user.rating == 2 %}
+                                <img style="width: 35%;" src='/static/moneyLawndering/Star_rating_2_of_5.png' alt="2 Stars">
+                            {% elif user.rating == 3 %}
+                                <img style="width: 35%;" src='/static/moneyLawndering/Star_rating_3_of_5.png' alt="3 Stars">
+                            {% elif user.rating == 4 %}
+                                <img style="width: 35%;" src='/static/moneyLawndering/Star_rating_4_of_5.png' alt="4 Stars">
+                            {% else %}
+                                <img style="width: 35%;" src='/static/moneyLawndering/Star_rating_5_of_5.png' alt="5 Stars">
+                            {% endif %}
+                            <br>
+                            {{review.description}}<br>
+                            -{{review.customer}}
+                        </p>
+                        <hr>
+                    {% endfor %}
+                {% else %}
+                    {% for review in reviews %}
+                    <p class="card-text centered">
+                        {% if review.rating == 0 %}
+                            <img style="width: 35%;" src='/static/moneyLawndering/Star_rating_0_of_5.png' alt="0 Stars">
+                        {% elif review.rating == 1 %}
+                            <img style="width: 35%;" src='/static/moneyLawndering/Star_rating_1_of_5.png' alt="1 Star">
+                        {% elif review.rating == 2 %}
+                            <img style="width: 35%;" src='/static/moneyLawndering/Star_rating_2_of_5.png' alt="2 Stars">
+                        {% elif review.rating == 3 %}
+                            <img style="width: 35%;" src='/static/moneyLawndering/Star_rating_3_of_5.png' alt="3 Stars">
+                        {% elif review.rating == 4 %}
+                            <img style="width: 35%;" src='/static/moneyLawndering/Star_rating_4_of_5.png' alt="4 Stars">
+                        {% else %}
+                            <img style="width: 35%;" src='/static/moneyLawndering/Star_rating_5_of_5.png' alt="5 Stars">
+                        {% endif %}
+                        {{review.description}}<br>
+                        -{{review.worker}}
+                    </p>
+                    <hr>
+                    {% endfor %}
+                {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        </div>
+        </div>
     </div>
-    {% endif %}
+    <! –– End Large and Extra Large screens ––>
+
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top bg-light">
         <div class="col-md-4 d-flex align-items-center">
           <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">

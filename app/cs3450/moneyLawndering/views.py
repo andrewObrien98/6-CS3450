@@ -90,11 +90,12 @@ def account(request):
         for review in reviews:
             review.worker = User.objects.get(pk=review.worker)
         isWorker = False
-    else :
+    else:
         isWorker = False
 
     context = {'user': user, 'reviews': reviews, 'isWorker': isWorker}
     return render(request, 'moneyLawndering/account.html', context)
+
 
 def publicListing(request):
     user_id = request.session['userId']
@@ -110,17 +111,9 @@ def publicListing(request):
         response['Access-Control-Allow-Origin'] = '*'
         return response
     #this means that they are not a worker
-    listings = Listing.objects.all().order_by('-pubDate')
-    listings.exclude(status=1)
-    listings.exclude(status=2)
-    listings.exclude(status=4)
+    listings = Listing.objects.all()
+    #we might want to order the listing by date created
 
-    #this will make sure newest listing is now on top
-    # allListings = []
-    # for i in range(len(listings) - 1,0):
-    #     allListings.append(listings[i])
-    
-    # listings = allListings
     context = {'listings' : listings,
                 'user': user}
     return render(request, 'moneyLawndering/publicListing.html', context)

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const selector = document.getElementById('status')
 
 function hideAll() {
@@ -12,9 +13,13 @@ hideAll()
 selector.value = 'accepted';
 document.getElementById('accepted').hidden = false;
 
+=======
+const selector = document.getElementById('status');
+>>>>>>> 4fca2fa09f3d02a422f6f2c6398a0870636db4df
 selector.addEventListener('change', (event) => {
-    var selectorValue = selector.value;
-    hideAll()
-    document.getElementById(selectorValue).hidden = false;
+    const possibleValues = new Array('appliedFor', 'accepted', 'completed');
+    let index = possibleValues.findIndex(x => x === selector.value);
+    $('.carousel').carousel(index);
 });
 
+$('.carousel').carousel('pause');

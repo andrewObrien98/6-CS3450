@@ -1,18 +1,8 @@
-const selector = document.getElementById('listings-type')
-
-function hideAll() {
-    const possibleValues = ['openListings', 'pendingListings', 'acceptedListings', 'completedListings'];
-    for (let i = 0; i < 4; i++) {
-        document.getElementById(possibleValues[i]).hidden = true;
-    };
-}
-
-hideAll()
-document.getElementById('openListings').hidden = false;
-
+const selector = document.getElementById('listings-type');
 selector.addEventListener('change', (event) => {
-    var selectorValue = selector.value;
-    hideAll()
-    document.getElementById(selectorValue).hidden = false;
+    const possibleValues = new Array('openListings', 'pendingListings', 'acceptedListings', 'completedListings');
+    let index = possibleValues.findIndex(x => x === selector.value);
+    $('.carousel').carousel(index);
 });
 
+$('.carousel').carousel('pause');
