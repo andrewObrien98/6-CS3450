@@ -34,7 +34,7 @@ Finally to get it up and running:
 - python manage.py runserver
 
 Go to the location:
-- Type localhost:8000 in browser to see the app running
+- Type localhost:8000/moneyLawndering in browser to see the app running
 
 ## Unit Testing Instructions
 Unit tests can be run by typing:
