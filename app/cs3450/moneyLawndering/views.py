@@ -474,6 +474,9 @@ def deleteCategory(request, category_id):
         raise Http404("Could not delete the category")
     return HttpResponseRedirect(reverse('moneyLawndering:category'))
 
+def logout(request):
+    request.session.flush()
+
 
     
 
