@@ -20,6 +20,7 @@
 							<div class="col mr-4 text-secondary"> Public Listings </div>
 							<div class="col mr-4 text-primary"> <a href="{% url 'moneyLawndering:acceptedJobs' %}">Accepted Jobs</a></div>
 							<div class="col text-primary"> <a href="{% url 'moneyLawndering:history' %}">History</a></div>
+							<div class="col text-primary"> <a href="{% url 'moneyLawndering:logout' %}">Logout</a></div>
 						{% elif user.type == 1 %}
 							<div class="col-4 mr-4 text-primary">Welcome to Money Lawndering!</div>
 							<div class="col mr-4 text-primary"> <a href="{% url 'moneyLawndering:account' %}">Account</a></div>
@@ -27,6 +28,7 @@
 							<div class="col mr-4 text-primary"> <a href="{% url 'moneyLawndering:createListing' %}">New Listing</a></div>
 							<div class="col mr-4 text-primary"> <a href="{% url 'moneyLawndering:directTransfer' %}">Direct Transfer<</a></div>
 							<div class="col mr-4 text-primary"> <a href="{% url 'moneyLawndering:history' %}">History</a></div>
+							<div class="col text-primary"> <a href="{% url 'moneyLawndering:logout' %}">Logout</a></div>
 						{% elif user.type == 2 %}
 							<div class="col-2 mr-4 text-primary"><strong><b>Welcome to Money Lawndering!</b></strong></div>
 							<div class="col mr-4 text-primary"> <a href="{% url 'moneyLawndering:admin' %}"><strong><b>Admin</b></strong></a></div>
@@ -34,6 +36,7 @@
 							<div class="col mr-4 text-secondary"><strong><b>Public Listings</b></strong></div>
 							<div class="col mr-4 text-primary"> <a href="{% url 'moneyLawndering:history' %}"><strong><b>History</b></strong></a></div>
 							<div class="col mr-4 text-primary"><a href="{% url 'moneyLawndering:category' %}"><strong><b>Categories</b></strong></a></div>
+							<div class="col text-primary"> <a href="{% url 'moneyLawndering:logout' %}">Logout</a></div>
 						{% endif %}
 					</div>
 				</div>
