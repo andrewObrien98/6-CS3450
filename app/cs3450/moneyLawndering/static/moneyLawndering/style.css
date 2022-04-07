@@ -206,6 +206,20 @@ p.listingsScrollMin {
     border: 2px solid black;
 }
 
+.backgroundBoxSlim {
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+    padding-right: 3vh;
+    padding-left: 3vh;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    margin-right: 3vh;
+    margin-left: 3vh;
+    width: 25% !important;
+    background-color: #c1d2e0;
+    border: 2px solid black;
+}
+
 .centered {
   justify-content: center;
   align-items: center;
@@ -289,7 +303,7 @@ coloredFooter {
   overflow: hidden;
 }
 
-#scroll-text {
+#scroll-text-signin {
   height: 100%;
   text-align: center;
 
@@ -301,6 +315,16 @@ coloredFooter {
   -moz-animation: my-animation 30s linear infinite;
   -webkit-animation: my-animation 30s linear infinite;
   animation: my-animation 30s linear infinite;
+}
+
+#scroll-text-account {
+  height: 100%;
+  text-align: center;
+
+  /* animation properties */
+  -moz-transform: translateY(100%);
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
 }
 
 /* for Firefox */
@@ -383,4 +407,21 @@ html, body {
 .applicant {
   background-color: white;
   padding: 10px;
+}
+
+.logoSigninSmall {
+  width: 15%;
+  height: 15%;
+}
+
+.logoSigninBig {
+  width: 30%;
+  height: 30%;
+}
+
+.pageSelector {
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }

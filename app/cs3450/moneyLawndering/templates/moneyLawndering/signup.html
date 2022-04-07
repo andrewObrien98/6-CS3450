@@ -6,6 +6,7 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"/>
 		{% load static %}
+		<link rel="shortcut icon" type="image/png" href="{% static 'moneyLawndering/favicon.ico' %}"/>
 		<link rel="stylesheet" type="text/css" href="{% static 'moneyLawndering/style.css' %}">
 	</head>
     <body>
@@ -13,6 +14,10 @@
 	<div class="d-lg-none d-flex centered smallLogin small-title-page-background">
 		<div class="card loginContents blurred" style="width: 18rem;">
 			<main class="form-signin">
+				<div class="d-flex justify-content-center">
+					<img class="logoSigninBig" src="{% static 'moneyLawndering/ML-logo.png' %}" alt="MoneyLawndering Logo">
+					<h1 class="btn-lg loginItem">Money Lawndering™</h1>
+				</div>
 				<form action="{% url 'moneyLawndering:createUser' %}" method="post">
 					{% csrf_token %}
 					{{ form }}
@@ -49,6 +54,9 @@
 					</div>
 					<input class="w-100 btn btn-lg btn-primary loginItem" type="submit" value="Sign Up">
 				</form>
+				<form method="get" action="{% url 'moneyLawndering:signin' %}">
+					<button class="w-100 btn btn-lg btn-secondary" type="submit">Back to Sign In</button>
+				</form>
 			</main>
 		</div>
 	</div>
@@ -60,6 +68,10 @@
 			<div class="title-page-background">
                 <div class="card loginContents blurred largeLogin" style="width: 22rem;">
                     <main class="form-signin">
+						<div class="d-flex justify-content-center">
+							<img class="logoSigninSmall" src="{% static 'moneyLawndering/ML-logo.png' %}" alt="MoneyLawndering Logo">
+							<h1 class="btn-lg loginItem">Money Lawndering™</h1>
+						</div>
             			<form action="{% url 'moneyLawndering:createUser' %}" method="post">
                             {% csrf_token %}
                             {{ form }}
@@ -96,6 +108,9 @@
 							</div>
 							<input class="w-100 btn btn-lg btn-primary loginItem" type="submit" value="Sign Up">
                         </form>
+						<form method="get" action="{% url 'moneyLawndering:signin' %}">
+							<button class="w-100 btn btn-lg btn-secondary" type="submit">Back to Sign In</button>
+						</form>
                     </main>
                 </div>
             </div>
