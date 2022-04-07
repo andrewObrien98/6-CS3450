@@ -111,10 +111,13 @@ def publicListing(request):
         response['Access-Control-Allow-Origin'] = '*'
         return response
     #this means that they are not a worker
-    listings = Listing.objects.all()
-    #we might want to order the listing by date created
-
-    context = {'listings' : listings,
+    listings = Listing.objects.all().order_by('-pubDate')
+    realListings = []
+    for listing in listings:
+        if(listing.status == 0 or listing.status == 3):
+            realListings.append(listing)
+            
+    context = {'listings' : realListings,
                 'user': user}
     return render(request, 'moneyLawndering/publicListing.html', context)
 
