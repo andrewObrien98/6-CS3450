@@ -30,7 +30,7 @@
         </div>
     </header>
     <div class="container d-flex justify-content-center">
-        <div class="w-50 backgroundBox">
+        <div class="card loginContents blurred m-3 w-50 text-center">
         {% if workers|length == 0 %}
             <div>You need to hire someone once before you can send them money.</div>
         {% else %}
@@ -38,7 +38,7 @@
             {% csrf_token %}
             {{ form }}
             <div class="form-group">
-                <label for="worker" class="form-label">Worker</label>
+                <label for="worker" class="form-label"><b>Worker</b></label>
                 <select name="worker" id="worker" class="form-control">
                 {% for worker in workers %}
                     <option value="{{worker.pk}}">{{worker.name}}</option>
@@ -47,7 +47,7 @@
             </div>
 
             <div class="form-group">
-                <label for="amount" class="form-label">Amount</label>
+                <label for="amount" class="form-label"><b>Amount</b></label>
                 <input type="number" name="amount" id="amount" class="form-control">
             </div>
 
