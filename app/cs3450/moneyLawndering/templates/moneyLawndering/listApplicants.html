@@ -40,13 +40,9 @@
             {% endif %}
         </div>
     </header>
-    <div class="container d-flex justify-content-center">
-        <div>
-            <h1>Applicants:</h1>
-        </div>
-    </div>
     <div class="container d-flex justify-content-center loginItem">
-        <div class="card loginContents blurred m-3 text-center">
+        <div class="card loginContents blurred m-3 w-50 text-center">
+            <h1>Applicants</h1><hr>
             {% for u in users %}
                 <form action="{% url 'moneyLawndering:acceptApplicant' listing.id u.id %}" method="get">
                     {% csrf_token %}
@@ -63,8 +59,8 @@
                         <label for="link"><b>Worker's Reviews:</b></label>
                         <a id="link" href="{% url 'moneyLawndering:workerreviews'  listing.id u.id %}">See Reviews</a>
                     </div>
-                    <input class="btn btn-primary" type="submit" value="Accept">
-                </form>
+                    <input class="btn btn-primary loginItem" type="submit" value="Accept">
+                </form><hr>
             {% endfor %}
         </div>
     </div>

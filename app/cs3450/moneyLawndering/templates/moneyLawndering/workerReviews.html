@@ -1,60 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Worker's Reviews</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"/>
-    {% load static %}
-    <link rel="shortcut icon" type="image/png" href="{% static 'moneyLawndering/favicon.ico' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'moneyLawndering/style.css' %}">
-</head>
-
-<body class="normal-page-background">
-    <header>
-        <div class="navBar">
-            {% if user.type == 0 %}
-                <div class="navBarBox">Welcome to Money Lawndering!</div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:publicListing' %}"><div>Public Listings</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:acceptedJobs' %}"><div>Accepted Jobs</div></a> </div>
-                <div class="selectedNavBarBox"> History </div>
-            {% elif user.type == 1 %}
-                <div class="navBarBox">Welcome to Money Lawndering!</div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:myListing' %}"><div>Your Listings</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:createListing' %}"><div>New Listing</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:directTransfer' %}"><div>Direct Transfer</div></a> </div>
-                <div class="selectedNavBarBox"> History </div>
-            {% elif user.type == 2 %}
-                <div class="navBarBox">Welcome to Money Lawndering!</div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:admin' %}"><div>Admin</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:publicListing' %}"><div>Public Listings</div></a> </div>
-                <div class="selectedNavBarBox"> History </div>
-                <div class="navBarBox">
-                    <a href="{% url 'moneyLawndering:category' %}">
-                        <div>Categories</div>
-                    </a>
+    <head>
+        <meta charset="UTF-8">
+        <title>Worker's Reviews</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"/>
+        {% load static %}
+        <link rel="shortcut icon" type="image/png" href="{% static 'moneyLawndering/favicon.ico' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'moneyLawndering/style.css' %}">
+    </head>
+    <body class="normal-page-background">
+        <header>
+            <div class="navBar">
+                {% if user.type == 0 %}
+                    <div class="navBarBox">Welcome to Money Lawndering!</div>
+                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
+                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:publicListing' %}"><div>Public Listings</div></a> </div>
+                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:acceptedJobs' %}"><div>Accepted Jobs</div></a> </div>
+                    <div class="selectedNavBarBox"> History </div>
+                {% elif user.type == 1 %}
+                    <div class="navBarBox">Welcome to Money Lawndering!</div>
+                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
+                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:myListing' %}"><div>Your Listings</div></a> </div>
+                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:createListing' %}"><div>New Listing</div></a> </div>
+                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:directTransfer' %}"><div>Direct Transfer</div></a> </div>
+                    <div class="selectedNavBarBox"> History </div>
+                {% elif user.type == 2 %}
+                    <div class="navBarBox">Welcome to Money Lawndering!</div>
+                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:admin' %}"><div>Admin</div></a> </div>
+                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
+                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:publicListing' %}"><div>Public Listings</div></a> </div>
+                    <div class="selectedNavBarBox"> History </div>
+                    <div class="navBarBox">
+                        <a href="{% url 'moneyLawndering:category' %}">
+                            <div>Categories</div>
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </header>
+        <div class="container d-flex justify-content-center">
+            <div class="d-flex flex-column w-75">
+                <div class="card loginContents blurred m-3 text-center loginItem">
+                    <form action="{% url 'moneyLawndering:applicantlist' listing.id %}" method="get">
+                        {% csrf_token %}
+                        {{ form }}
+                        <div class="form-floating loginItem">
+                            <h1>{{worker.name}}'s Overall Rating</h1>
+                            {% if user.rating == 0 %}
+                                <img style="width: 50%;" src='/static/moneyLawndering/Star_rating_0_of_5.png' alt="0 Stars">
+                            {% elif user.rating == 1 %}
+                                <img style="width: 50%;" src='/static/moneyLawndering/Star_rating_1_of_5.png' alt="1 Star">
+                            {% elif user.rating == 2 %}
+                                <img style="width: 50%;" src='/static/moneyLawndering/Star_rating_2_of_5.png' alt="2 Stars">
+                            {% elif user.rating == 3 %}
+                                <img style="width: 50%;" src='/static/moneyLawndering/Star_rating_3_of_5.png' alt="3 Stars">
+                            {% elif user.rating == 4 %}
+                                <img style="width: 50%;" src='/static/moneyLawndering/Star_rating_4_of_5.png' alt="4 Stars">
+                            {% else %}
+                                <img style="width: 50%;" src='/static/moneyLawndering/Star_rating_5_of_5.png' alt="5 Stars">
+                            {% endif %}
+                        </div>
+                        <input class="btn btn-primary loginItem" type="submit" value="Go Back">
+                    </form><hr>
+                    {% if reviews|length == 0 %}
+                        <h2>{{worker.name}} Has No Reviews</h2>
+                    {% else %}
+                        <h2>Reviews</h2>
+                        {% for review in reviews %}
+                            <p class="card-text centered">
+                                {% if user.rating == 0 %}
+                                    <img style="width: 35%;" src='/static/moneyLawndering/Star_rating_0_of_5.png' alt="0 Stars">
+                                {% elif user.rating == 1 %}
+                                    <img style="width: 35%;" src='/static/moneyLawndering/Star_rating_1_of_5.png' alt="1 Star">
+                                {% elif user.rating == 2 %}
+                                    <img style="width: 35%;" src='/static/moneyLawndering/Star_rating_2_of_5.png' alt="2 Stars">
+                                {% elif user.rating == 3 %}
+                                    <img style="width: 35%;" src='/static/moneyLawndering/Star_rating_3_of_5.png' alt="3 Stars">
+                                {% elif user.rating == 4 %}
+                                    <img style="width: 35%;" src='/static/moneyLawndering/Star_rating_4_of_5.png' alt="4 Stars">
+                                {% else %}
+                                    <img style="width: 35%;" src='/static/moneyLawndering/Star_rating_5_of_5.png' alt="5 Stars">
+                                {% endif %}
+                                <br>
+                                {{review.description}}<br>
+                                -{{review.customer}}
+                            </p>
+                            <hr>
+                        {% endfor %}
+                    {% endif %}
                 </div>
-            {% endif %}
+            </div>
         </div>
-    </header>
-    <div>
-        <h1>Name: {{worker.name}}</h1>
-        <h2>Overall Rating: {{worker.rating}}</h2>
-        <button><a href="{% url 'moneyLawndering:applicantlist' listing.id%}"> Go Back</a> </button>
-    </div>
-    <h2>Reviews: </h2>
- {% for review in reviews %}
-    <div>
-        <h3>rating: {{review.rating}}</h3>
-        <h3>Description: </h3>
-        <p>{{review.description}}</p>
-    </div>
-    
- {% endfor %}
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    </body>
 </html>
