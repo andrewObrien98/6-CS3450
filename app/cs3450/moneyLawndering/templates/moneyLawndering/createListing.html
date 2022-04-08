@@ -10,24 +10,19 @@
     <link rel="stylesheet" type="text/css" href="{% static 'moneyLawndering/style.css' %}">
 </head>
 <body class="normal-page-background">
-    <header>
-        <div class="navBar">
-            {% if user.type == 0 %}
-                <div class="navBarBox">Welcome to Money Lawndering!</div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
-                <div class="selectedNavBarBox"> Public Listings </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:acceptedJobs' %}"><div>Accepted Jobs</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:history' %}"><div>History</div></a> </div>
-            {% elif user.type == 1 %}
-                <div class="navBarBox">Welcome to Money Lawndering!</div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:myListing' %}"><div>Your Listings</div></a> </div>
-                <div class="selectedNavBarBox"> New Listing </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:directTransfer' %}"><div>Direct Transfer</div></a> </div>
-                <div class="navBarBox"> <a href="{% url 'moneyLawndering:history' %}"><div>History</div></a> </div>
-            {% endif %}
-        </div>
-    </header>
+		<header>
+			<div class="conatainer-sm">
+				<div class="row navBar pl-3">
+					<img class="col logoHeader mr-4" src="{% static 'moneyLawndering/ML-logo.png' %}" alt="MoneyLawndering Logo">
+					<div class="col mr-4"> <a class="text-white" href="{% url 'moneyLawndering:account' %}">Account</a></div>
+					<div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:myListing' %}">Your Listings</a></div>
+					<div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:createListing' %}"><b>New Listing</b></a></div>
+					<div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:directTransfer' %}">Direct Transfer</a></div>
+					<div class="col"> <a class="text-white" href="{% url 'moneyLawndering:history' %}">History</a></div>
+					<div class="col text-warning"><a class="text-warning" href="{% url 'moneyLawndering:logout' %}">Logout</a></div>
+				</div>
+			</div>
+		</header>
     <div class="container d-flex justify-content-center">
         <div class="card loginContents blurred m-3 w-50 text-center">
             <form action="{% url 'moneyLawndering:newListing' %}" method="post">
@@ -91,22 +86,21 @@
             </form>
         </div>
     </div>
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top bg-light">
-        <div class="col-md-4 d-flex align-items-center">
-          <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-            <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
-          </a>
-          <span class="text-muted">© 2022 Group 6, Inc</span>
-        </div>
-
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li><span class="social-text social-box"><p>Follow us!</p></span></li>
-			<li><span class="social-icon social-box social-facebook"><i class="fa fa-facebook"></i></span></li>
-            <li><span class="social-icon social-box social-instagram"><i class="fa fa-instagram"></i></span></li>
-            <li><span class="social-icon social-box social-twitter"><i class="fa fa-twitter"></i></span></li>
-            <li><span class="social-icon social-box social-twitter"><i class="fa fa-linkedin"></i></span></li>
-        </ul>
-    </footer>
+		<div class="margin"></div>
+		<footer class="absolute-bottom">
+			<div class="container-sm">
+				<div class="row py-3 bg-light">
+					<div class="w-100 mt-2 d-flex justify-content-end">
+						<span class="social-text">Follow us!</span>
+						<span class="social-icon social-box social-facebook"><i class="fa fa-facebook"></i></span>
+						<span class="social-icon social-box social-instagram"><i class="fa fa-instagram"></i></span>
+						<span class="social-icon social-box social-twitter"><i class="fa fa-twitter"></i></span>
+						<span class="social-icon social-box social-twitter"><i class="fa fa-linkedin"></i></span>
+					</div>
+					<div class='text-muted ml-3'><p>© 2022 Group 6, Inc</p></div>
+				</div>
+			</div>
+		</footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -9,9 +9,9 @@
 	    <link rel="shortcut icon" type="image/png" href="{% static 'moneyLawndering/favicon.ico' %}"/>
 		<link rel="stylesheet" type="text/css" href="{% static 'moneyLawndering/style.css' %}">
 	</head>
-    <body>
+    <body class=" small-title-page-background">
 	<! –– Extra Small screens ––>
-	<div class="d-sm-none d-flex centered smallLogin small-title-page-background">
+	<div class="d-sm-none d-flex centered smallLogin">
 	<div class="card loginContents blurred" style="width: 18rem;">
 		<main class="form-signin">
 			<div class="d-flex justify-content-center">
@@ -178,22 +178,20 @@
 		</div>
 	</div>
 	<! –– End Large and Extra Large Screens ––>
-
-	<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top bg-light">
-        <div class="col-md-4 d-flex align-items-center">
-          <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-            <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
-          </a>
-          <span class="text-muted">© 2022 Group 6, Inc</span>
-        </div>
-
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li><span class="social-text social-box"><p>Follow us!</p></span></li>
-			<li><span class="social-icon social-box social-facebook"><i class="fa fa-facebook"></i></span></li>
-            <li><span class="social-icon social-box social-instagram"><i class="fa fa-instagram"></i></span></li>
-            <li><span class="social-icon social-box social-twitter"><i class="fa fa-twitter"></i></span></li>
-            <li><span class="social-icon social-box social-twitter"><i class="fa fa-linkedin"></i></span></li>
-        </ul>
-	</footer>
+		<div class="margin"></div>
+		<footer class="absolute-bottom">
+			<div class="container-sm">
+				<div class="row py-3 bg-light">
+					<div class="w-100 mt-2 d-flex justify-content-end">
+						<span class="social-text">Follow us!</span>
+						<span class="social-icon social-box social-facebook"><i class="fa fa-facebook"></i></span>
+						<span class="social-icon social-box social-instagram"><i class="fa fa-instagram"></i></span>
+						<span class="social-icon social-box social-twitter"><i class="fa fa-twitter"></i></span>
+						<span class="social-icon social-box social-twitter"><i class="fa fa-linkedin"></i></span>
+					</div>
+					<div class='text-muted ml-3'><p>© 2022 Group 6, Inc</p></div>
+				</div>
+			</div>
+		</footer>
 	</body>
 </html>
