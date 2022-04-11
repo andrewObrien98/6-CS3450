@@ -9,36 +9,29 @@
         <link rel="shortcut icon" type="image/png" href="{% static 'moneyLawndering/favicon.ico' %}"/>
         <link rel="stylesheet" type="text/css" href="{% static 'moneyLawndering/style.css' %}">
     </head>
-    <body class="normal-page-background">
-        <header>
-            <div class="navBar">
-                {% if user.type == 0 %}
-                    <div class="navBarBox">Welcome to Money Lawndering!</div>
-                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
-                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:publicListing' %}"><div>Public Listings</div></a> </div>
-                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:acceptedJobs' %}"><div>Accepted Jobs</div></a> </div>
-                    <div class="selectedNavBarBox"> History </div>
-                {% elif user.type == 1 %}
-                    <div class="navBarBox">Welcome to Money Lawndering!</div>
-                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
-                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:myListing' %}"><div>Your Listings</div></a> </div>
-                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:createListing' %}"><div>New Listing</div></a> </div>
-                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:directTransfer' %}"><div>Direct Transfer</div></a> </div>
-                    <div class="selectedNavBarBox"> History </div>
-                {% elif user.type == 2 %}
-                    <div class="navBarBox">Welcome to Money Lawndering!</div>
-                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:admin' %}"><div>Admin</div></a> </div>
-                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:account' %}"><div>Account</div></a> </div>
-                    <div class="navBarBox"> <a href="{% url 'moneyLawndering:publicListing' %}"><div>Public Listings</div></a> </div>
-                    <div class="selectedNavBarBox"> History </div>
-                    <div class="navBarBox">
-                        <a href="{% url 'moneyLawndering:category' %}">
-                            <div>Categories</div>
-                        </a>
-                    </div>
-                {% endif %}
-            </div>
-        </header>
+	<body class="normal-page-background">
+		<header>
+			<div class="conatainer-sm">
+				<div class="row navBar pl-3">
+					<img class="col logoHeader mr-4" src="{% static 'moneyLawndering/ML-logo.png' %}" alt="MoneyLawndering Logo">
+					<div class="col mr-4"> <a class="text-white" href="{% url 'moneyLawndering:account' %}">Account</a></div>
+					{% if user.type == 0 %}
+						<div class="col mr-4 text-white"><a class="text-white" href="{% url 'moneyLawndering:publicListing' %}">Public Listings</a></div>
+						<div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:acceptedJobs' %}">Accepted Jobs</a></div>
+					{% elif user.type == 1 %}
+						<div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:myListing' %}">Your Listings</a></div>
+						<div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:createListing' %}">New Listing</a></div>
+						<div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:directTransfer' %}">Direct Transfer</a></div>
+					{% elif user.type == 2 %}
+						<div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:admin' %}">Admin</a></div>
+						<div class="col mr-4 text-white"><a class="text-white" href="{% url 'moneyLawndering:publicListing' %}">Public Listings</a></div>
+						<div class="col mr-4 text-white"><a class="text-white" href="{% url 'moneyLawndering:category' %}">Categories</a></div>
+					{% endif %}
+					<div class="col"> <a class="text-white" href="{% url 'moneyLawndering:history' %}">History</a></div>
+					<div class="col text-warning"><a class="text-warning" href="{% url 'moneyLawndering:logout' %}">Logout</a></div>
+				</div>
+			</div>
+		</header>
         <div class="container d-flex justify-content-center">
             <div class="d-flex flex-column w-75">
                 <div class="card loginContents blurred m-3 text-center loginItem">
@@ -92,6 +85,21 @@
                 </div>
             </div>
         </div>
+		<div class="margin"></div>
+		<footer class="absolute-bottom">
+			<div class="container-sm">
+				<div class="row py-3 bg-light">
+					<div class="w-100 mt-2 d-flex justify-content-end">
+						<span class="social-text">Follow us!</span>
+						<span class="social-icon social-box social-facebook"><i class="fa fa-facebook"></i></span>
+						<span class="social-icon social-box social-instagram"><i class="fa fa-instagram"></i></span>
+						<span class="social-icon social-box social-twitter"><i class="fa fa-twitter"></i></span>
+						<span class="social-icon social-box social-twitter"><i class="fa fa-linkedin"></i></span>
+					</div>
+					<div class='text-muted ml-3'><p>© 2022 Group 6, Inc</p></div>
+				</div>
+			</div>
+		</footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>
 </html>
