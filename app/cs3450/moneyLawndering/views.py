@@ -221,6 +221,8 @@ def workerReviews(request, listing_id, worker_id):
     listing = get_object_or_404(Listing, pk=listing_id)
     user = get_object_or_404(User, pk=listing.customer.id)
     reviews = worker.workerreview_set.all()
+    for review in reviews:
+        review.customer = User.objects.get(pk=review.customer)
     context = {'listing': listing, 'worker': worker, 'reviews': reviews, 'user':user}
     return render(request, "moneyLawndering/workerReviews.html", context)
 
@@ -473,6 +475,10 @@ def deleteCategory(request, category_id):
     except(KeyError):
         raise Http404("Could not delete the category")
     return HttpResponseRedirect(reverse('moneyLawndering:category'))
+
+def logout(request):
+    request.session.flush()
+    return HttpResponseRedirect(reverse('moneyLawndering:signin'))
 
 
     

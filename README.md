@@ -33,7 +33,7 @@ Finally to get it up and running:
 - python manage.py runserver
 
 Go to the location:
-- Type http://127.0.0.1:8000/moneyLawndering/ in browser to see the app running
+- Type localhost:8000/moneyLawndering in browser to see the app running
 
 ## Unit Testing Instructions
 Unit tests can be run by typing:
@@ -55,14 +55,31 @@ Start by running an instance of the web app by first entering the correct reposi
 Now that the app is running open up your browser and type into the address bar:
 - http://127.0.0.1:8000/moneyLawndering/
 
-After you can login using the following credentials:
+After that you can login using the credentials in the example accounts section.
+
+## Example User Accounts
+Admin Account:
 - Username: admin
 
 - Email: admin@gmail.com
     
 - Password: admin
 
-With these credentials you will have access to perform all actions as a customer, supervisor, owner, and attendant in a test environment.
+Worker Account:
+- Username: john
+
+- Email: john@gmail.com
+
+- Password: john
+
+Customer Account:
+- Username: krystal
+
+- Email: krystal@gmail.com
+
+- Password: krystal
+
+With these credentials you will have access to perform all actions as a customer, worker, or admin in a test environment.
 
 ## Other development notes, as needed
 Our coding and naming convention will follow Java's naming convention which appears generally like the following:

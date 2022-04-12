@@ -37,36 +37,34 @@
             </div>
         </header>
         <div class="container d-flex justify-content-center">
-            <div class="backgroundBox">
-                <h3>Categories: </h3>
+            <div class="card loginContents blurred m-4 w-50">
+                <div class="text-center">
+                    <h3 class="loginItem"><b>Create a category</b></h3>
+                    <form action="{% url 'moneyLawndering:createCategory' %}" method="post">
+                        {% csrf_token %}
+                        {{ form }}
+                        <div class="form-floating">
+                            <label for="category" class="form-label">Category: </label><br>
+                            <input type="text" name="category" id="category" class="form-control" value=""><br>
+                        </div>
+                        <input type="submit" class="btn btn-primary loginItem" value="Submit"/>
+                    </form>
+                </div><hr>
+
+                <h3 class="text-center"><b>Categories</b></h3>
                 <ul>
                     {% for category in categories %}
                         <li class="mt-3 mb-3">
-                            <form action="{% url 'moneyLawndering:deleteCategory' category.id %}" method="Delete">
+                            <form action="{% url 'moneyLawndering:deleteCategory' category.id %}" method="get">
                                 {% csrf_token %}
                                 {{ form }}
-                                <label for="delete">{{category.type}}: </label>
-                                <input type="submit" class="btn btn-danger float-right ml-2" id="delete" value="Delete"/> <br/>
+                                <label for="delete{{ category.id }}">{{category.type}}: </label>
+                                <input type="submit" class="btn btn-danger float-right ml-2" id="delete{{ category.id }}" value="Delete"/> <br/>
                             </form>
                         </li>
 
                     {% endfor %}
                 </ul>
-            </div>
-        </div>
-        <div class="container d-flex justify-content-center">
-            <div class="backgroundBox">
-                <h4>Create a category: </h4>
-                <form action="{% url 'moneyLawndering:createCategory' %}" method="post">
-                    {% csrf_token %}
-                    {{ form }}
-                    <div class="form-group">
-                        <label for="category" class="form-label">Category: </label><br>
-                        <input type="text" name="category" id="category" class="form-control" value=""><br>
-                    </div>
-
-                    <input type="submit" class="btn btn-primary" value="Submit"/>
-                </form>
             </div>
         </div>
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top bg-light">

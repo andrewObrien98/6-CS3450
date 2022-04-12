@@ -29,7 +29,7 @@
         </div>
     </header>
     <div class="container d-flex justify-content-center">
-        <div class="w-50 backgroundBox">
+        <div class="card loginContents blurred m-3 w-50 text-center">
             <form action="{% url 'moneyLawndering:newListing' %}" method="post">
                 {% csrf_token %}
                 {{ form }}

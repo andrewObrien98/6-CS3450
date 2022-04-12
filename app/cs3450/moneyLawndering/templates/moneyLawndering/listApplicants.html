@@ -40,20 +40,29 @@
             {% endif %}
         </div>
     </header>
-    <div>
-        <h1>Applicants:</h1>
-    </div>
-
-    <div class="applicantList">
-        {% for u in users %}
-            <div class="applicant">
-                <h3>name: {{u.name}}</h3>
-                <h4>rating: {{u.rating}}</h4>
-                <h4><a href="{% url 'moneyLawndering:workerreviews'  listing.id u.id %}">workers reviews </a></h4>
-                <button><a href="{% url 'moneyLawndering:acceptApplicant'  listing.id u.id %}"> Accept </a></button>
-                    <br/>
-            </div>
-        {% endfor %}
+    <div class="container d-flex justify-content-center loginItem">
+        <div class="card loginContents blurred m-3 w-50 text-center">
+            <h1>Applicants</h1><hr>
+            {% for u in users %}
+                <form action="{% url 'moneyLawndering:acceptApplicant' listing.id u.id %}" method="get">
+                    {% csrf_token %}
+                    {{ form }}
+                    <div class="form-floating loginItem">
+                        <label for="name"><b>Name:</b></label>
+                        <p id="name">{{u.name}}</p>
+                    </div>
+                    <div class="form-floating loginItem">
+                        <label for="rating"><b>Rating:</b></label>
+                        <p id="rating">{{u.rating}}</p>
+                    </div>
+                    <div class="form-floating loginItem">
+                        <label for="link"><b>Worker's Reviews:</b></label>
+                        <a id="link" href="{% url 'moneyLawndering:workerreviews'  listing.id u.id %}">See Reviews</a>
+                    </div>
+                    <input class="btn btn-primary loginItem" type="submit" value="Accept">
+                </form><hr>
+            {% endfor %}
+        </div>
     </div>
 
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top bg-light">
