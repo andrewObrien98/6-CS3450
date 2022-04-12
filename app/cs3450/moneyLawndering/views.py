@@ -231,6 +231,7 @@ def acceptApplicant(request, listing_id, worker_id):
     listing = get_object_or_404(Listing, pk=listing_id)
     listing.worker = worker_id
     listing.workername = worker.name
+    listing.workerPhoneNumber = worker.phoneNumber;
     listing.status=2
     listing.save()
     return HttpResponseRedirect(reverse('moneyLawndering:myListing'))
