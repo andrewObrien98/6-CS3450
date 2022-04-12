@@ -1,3 +1,7 @@
+.margin{
+	margin-bottom: 110px;
+}
+
 .title-page-background {
   background-image: url('/static/moneyLawndering/signinBackground.png');
   background-color: #1a1a6e;
@@ -6,6 +10,7 @@
   background-size: cover;
   height: 100vh;
   width: 100%;
+  background-attachment: fixed;
 }
 
 .small-title-page-background {
@@ -16,6 +21,7 @@
   background-size: cover;
   height: 100vh;
   width: 100%;
+  background-attachment: fixed;
 }
 
 .normal-page-background {
@@ -54,6 +60,7 @@
   padding-right: 16px;
   padding-top: 16px;
   padding-bottom: 16px;
+  border-radius: 1rem;
 }
 
 .loginItem {
@@ -70,90 +77,14 @@
 }
 
 .navBar {
-  display: flex;
-  top: 0;
-  justify-content: center;
   align-items: center;
   background-color: #1a1a6e;
-  padding-top: 5vh;
-  padding-bottom: 5vh;
-  padding-right: 2vh;
-  padding-left: 2vh;
-}
-
-.navBarBox {
-  flex: 1;
-  text-align: center;
-  border: 2px solid black;
-  padding-top: 4vh;
-  padding-bottom: 4vh;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-  margin-right: 1vh;
-  margin-left: 1vh;
-  background-color: #c1d2e0;
-}
-
-.selectedNavBarBox {
-  flex: 1;
-  text-align: center;
-  border: 2px solid black;
-  padding-top: 4vh;
-  padding-bottom: 4vh;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-  margin-right: 1vh;
-  margin-left: 1vh;
-  background-color: #99abba;
-}
-
-.accountBox {
-  display: flex;
-  top: 0;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #1a1a6e;
-  padding-top: 1vh;
-  padding-bottom: 1vh;
-  padding-right: 1vh;
-  padding-left: 1vh;
-}
-
-.accountInfo, .transferInfo {
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  padding-top: 2vh;
-  padding-bottom: 2vh;
-  padding-right: 2vh;
-  padding-left: 2vh;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-  margin-right: 1vh;
-  margin-left: 1vh;
-  background-color: #c1d2e0;
-  border: 2px solid black;
-  width: 30vh;
+  height: 100px;
 }
 
 .starRatingBox {
   flex: 1;
 }
-
-.listing {
-  border: 2px solid black;
-  padding-top: 3vh;
-  padding-right: 3vh;
-  padding-left: 3vh;
-  padding-bottom: 3vh;
-  margin-top: 3vh;
-  margin-bottom: 3vh;
-  margin-right: 3vh;
-  margin-left: 3vh;
-  background-color: #99abba;
-  list-style: none;
-  border-radius: 3rem;
- }
 
 .table-light {
     background-color: #fff;
@@ -181,33 +112,6 @@ p.listingsScrollMin {
 
 .listingStatusList {
     flex: 1;
-}
-
-.backgroundBox {
-    padding-top: 3vh;
-    padding-bottom: 3vh;
-    padding-right: 3vh;
-    padding-left: 3vh;
-    margin-top: 3vh;
-    margin-bottom: 3vh;
-    margin-right: 3vh;
-    margin-left: 3vh;
-    background-color: #c1d2e0;
-    border: 2px solid black;
-}
-
-.backgroundBoxSlim {
-    padding-top: 3vh;
-    padding-bottom: 3vh;
-    padding-right: 3vh;
-    padding-left: 3vh;
-    margin-top: 3vh;
-    margin-bottom: 3vh;
-    margin-right: 3vh;
-    margin-left: 3vh;
-    width: 25% !important;
-    background-color: #c1d2e0;
-    border: 2px solid black;
 }
 
 .centered {
@@ -409,9 +313,40 @@ html, body {
   height: 30%;
 }
 
+.logoHeader {
+  height: auto;
+  max-width: 120px;
+}
+
 .pageSelector {
   margin-left: 5px;
   margin-right: 5px;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.absolute-bottom{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height:95px;
+  padding-left: 5px;
+  padding-right: 10px;  
+}
+
+.map-noclick {
+  margin: 1vh;
+  top: 0;
+  bottom: 0;
+  width: 95%;
+  height: 25vh;
+  /* pointer-events: none; */
+}
+
+.map-click {
+  margin: 1vh;
+  top: 0;
+  bottom: 0;
+  width: 95%;
+  height: 25vh;
 }
