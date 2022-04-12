@@ -8,6 +8,10 @@
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
+    	<link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
+    	<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js'></script>
+    	<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css' type='text/css' />
 		{% load static %}
 		<link rel="shortcut icon" type="image/png" href="{% static 'moneyLawndering/favicon.ico' %}"/>
 		<link rel="stylesheet" type="text/css" href="{% static 'moneyLawndering/style.css' %}">
@@ -91,10 +95,10 @@
 									<h5 class="centered listingsScrollMin">You currently haven't been accepted for any jobs. Go check out some public listings to increase your odds of getting one!</h5>
 								{% else %}
 									<h5 class="centered listingsScrollMin">Leave a review when you've finished! Nice job, by the way!</h5>
-									<ul>
+									<ul id="ul">
 									{% for listing in acceptedListings %}
 										{% if listing.status != 4 %}
-										<li>
+										<li id="{{forloop.counter}}">
 											<div class="card blurred loginContents largeLogin">
 												<div class="form-floating centered">
 													<h2>{{listing.customer.name}}</h2>
@@ -102,6 +106,10 @@
 												<div class="form-floating">
 													<h5>{{listing.description|capfirst}}</h5>
 												</div>
+												<div class="form-floating">
+													<h5 id="location{{forloop.counter}}">{{listing.location}}</h5>
+												</div>
+												<div id="map{{forloop.counter}}" class="map-click"></div>
 												<div class="form-floating">
 													<form action="{% url 'moneyLawndering:completedJob' listing.id %}" method="post">
 														{% csrf_token %}
