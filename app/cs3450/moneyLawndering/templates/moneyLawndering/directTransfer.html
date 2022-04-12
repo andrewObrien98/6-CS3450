@@ -11,15 +11,19 @@
 </head>
 	<body class="normal-page-background">
 		<header>
-			<div class="conatainer-sm">
-				<div class="row navBar pl-3">
-					<img class="col logoHeader mr-4" src="{% static 'moneyLawndering/ML-logo.png' %}" alt="MoneyLawndering Logo">
-					<div class="col mr-4"> <a class="text-white" href="{% url 'moneyLawndering:account' %}">Account</a></div>
-					<div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:myListing' %}">Your Listings</a></div>
-					<div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:createListing' %}">New Listing</a></div>
-					<div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:directTransfer' %}"><b>Direct Transfer</b></a></div>
-					<div class="col"> <a class="text-white" href="{% url 'moneyLawndering:history' %}">History</a></div>
-					<div class="col text-warning"><a class="text-warning" href="{% url 'moneyLawndering:logout' %}">Logout</a></div>
+			<div class="container-sm">
+				<div class="row navBar pl-3 d-flex justify-content-between">
+					<div class="navbar centered">
+						<img class="col logoHeader" src="{% static 'moneyLawndering/ML-logo.png' %}" alt="MoneyLawndering Logo">
+						<div class="col mr-4"> <a class="text-white" href="{% url 'moneyLawndering:account' %}">Account</a></div>
+                        <div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:myListing' %}">Your Listings</a></div>
+                        <div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:createListing' %}">New Listing</a></div>
+                        <div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:directTransfer' %}"><b>Direct Transfer</b></a></div>
+						<div class="col"> <a class="text-white" href="{% url 'moneyLawndering:history' %}">History</a></div>
+					</div>
+					<div class="navbar d-flex justify-content-end">
+						<div class="col text-warning"><a class="text-warning" href="{% url 'moneyLawndering:logout' %}">Log Out</a></div>
+					</div>
 				</div>
 			</div>
 		</header>
