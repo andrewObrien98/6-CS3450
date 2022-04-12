@@ -34,7 +34,10 @@
 		</header>
     <div class="container d-flex justify-content-center loginItem">
         <div class="card loginContents blurred m-3 w-50 text-center">
-            <h1>Applicants</h1><hr>
+            <h1 class="mb-4">Applicants</h1>
+			<form action="{% url 'moneyLawndering:myListing' %}" method="get">
+				<input class="btn btn-success loginItem" type="submit" value="Go Back">
+			</form><hr>
             {% for u in users %}
                 <form action="{% url 'moneyLawndering:acceptApplicant' listing.id u.id %}" method="get">
                     {% csrf_token %}
