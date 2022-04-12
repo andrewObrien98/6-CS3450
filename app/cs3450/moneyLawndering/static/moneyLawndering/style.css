@@ -82,79 +82,9 @@
   height: 100px;
 }
 
-.navBarBox {
-  flex: 1;
-  text-align: center;
-  border: 2px solid black;
-  padding-top: 4vh;
-  padding-bottom: 4vh;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-  margin-right: 1vh;
-  margin-left: 1vh;
-  background-color: #c1d2e0;
-}
-
-.selectedNavBarBox {
-  flex: 1;
-  text-align: center;
-  border: 2px solid black;
-  padding-top: 4vh;
-  padding-bottom: 4vh;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-  margin-right: 1vh;
-  margin-left: 1vh;
-  background-color: #99abba;
-}
-
-.accountBox {
-  display: flex;
-  top: 0;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #1a1a6e;
-  padding-top: 1vh;
-  padding-bottom: 1vh;
-  padding-right: 1vh;
-  padding-left: 1vh;
-}
-
-.accountInfo, .transferInfo {
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  padding-top: 2vh;
-  padding-bottom: 2vh;
-  padding-right: 2vh;
-  padding-left: 2vh;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-  margin-right: 1vh;
-  margin-left: 1vh;
-  background-color: #c1d2e0;
-  border: 2px solid black;
-  width: 30vh;
-}
-
 .starRatingBox {
   flex: 1;
 }
-
-.listing {
-  border: 2px solid black;
-  padding-top: 3vh;
-  padding-right: 3vh;
-  padding-left: 3vh;
-  padding-bottom: 3vh;
-  margin-top: 3vh;
-  margin-bottom: 3vh;
-  margin-right: 3vh;
-  margin-left: 3vh;
-  background-color: #99abba;
-  list-style: none;
-  border-radius: 3rem;
- }
 
 .table-light {
     background-color: #fff;
@@ -182,33 +112,6 @@ p.listingsScrollMin {
 
 .listingStatusList {
     flex: 1;
-}
-
-.backgroundBox {
-    padding-top: 3vh;
-    padding-bottom: 3vh;
-    padding-right: 3vh;
-    padding-left: 3vh;
-    margin-top: 3vh;
-    margin-bottom: 3vh;
-    margin-right: 3vh;
-    margin-left: 3vh;
-    background-color: #c1d2e0;
-    border: 2px solid black;
-}
-
-.backgroundBoxSlim {
-    padding-top: 3vh;
-    padding-bottom: 3vh;
-    padding-right: 3vh;
-    padding-left: 3vh;
-    margin-top: 3vh;
-    margin-bottom: 3vh;
-    margin-right: 3vh;
-    margin-left: 3vh;
-    width: 25% !important;
-    background-color: #c1d2e0;
-    border: 2px solid black;
 }
 
 .centered {
