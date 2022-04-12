@@ -33,7 +33,7 @@
                 {% csrf_token %}
                 {{ form }}
                 <div class="form-group">
-                    <label for="category" class="form-label">Choose a category:</label>
+                    <label for="category" class="form-label"><b>Choose a category:</b></label>
                     <select name="category" id="category" class="form-control">
                        {% for category in categories%}
                          <option value={{category.type}}> {{category.type}}</option>
@@ -42,22 +42,22 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="price" class="form-label">Price ($):</label>
+                    <label for="price" class="form-label"><b>Price ($):</b></label>
                     <input type="number" name="price" id="price" class="form-control">
                 </div>
 
                 <div class="form-group">
-                    <label for="description" class="form-label">Description of Job:</label>
+                    <label for="description" class="form-label"><b>Description of Job:</b></label>
                     <textarea id="description" class="form-control" name="description" rows="4" cols="50"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="time_est" class="form-label">Estimated time to complete job (hrs)</label>
+                    <label for="time_est" class="form-label"><b>Estimated time to complete job (hrs)</b></label>
                     <input type="number" name="time_est" id="time_est" class="form-control" value=1>
                 </div>
 
                 <div class="form-group">
-                    <label for="dayOfWeek" class="form-label">Day of week you are available</label>
+                    <label for="dayOfWeek" class="form-label"><b>Day of week you are available</b></label>
                     <select name="dayOfWeek" id="dayOfWeek" class="form-control" multiple>
                       <option value="monday">Monday</option>
                       <option value="tuesday">Tuesday</option>
@@ -70,19 +70,19 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="startTime" class="form-label">You are available from: </label>
+                    <label for="startTime" class="form-label"><b>You are available from: </b></label>
                     <input type="time" id="startTime" class="form-control" name="startTime"
                        min="07:00:00" max="20:00:00" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="endTime" class="form-label">To: </label>
+                    <label for="endTime" class="form-label"><b>To: </b></label>
                     <input type="time" id="endTime" class="form-control" name="endTime"
                        min="07:00:00" max="20:00:00" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="location" class="form-label">Location</label>
+                    <label for="location" class="form-label"><b>Location</b></label>
                     <input type="text" name="location" id="location" class="form-control" value="{{user.address}}">
                 </div>
 

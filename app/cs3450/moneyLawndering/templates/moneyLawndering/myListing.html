@@ -53,7 +53,7 @@
 												{% csrf_token %}
 												{{ form }}
 												<div class="form-floating form-group">
-													<label for="category">Choose a category:</label><br>
+													<label for="category"><b>Choose a category:</b></label><br>
 														<select name="category" class="form-control" id="category">
 															{% for category in categories %}
 																{% if category == listing.category %}
@@ -65,19 +65,19 @@
 														</select><br>
 												</div>
 												<div class="form-floating form-group">
-													<label for="price">Price ($):</label><br>
+													<label for="price"><b>Price ($):</b></label><br>
 													<input type="number" class="form-control" name="price" id="price" value="{{listing.price}}" required><br>
 												</div>
 												<div class="form-floating form-group">
-													<label for="description">Description:</label><br>
+													<label for="description"><b>Description:</b></label><br>
 													<textarea id="description" class="form-control" name="description" rows=4 width="12vh" required>{{listing.description}}</textarea> <br>
 												</div>
 												<div class="form-floating form-group">
-													<label for="time_est">Estimated Completion Time (hours):</label><br>
+													<label for="time_est"><b>Estimated Completion Time (hours):</b></label><br>
 													<input type="number" class="form-control" name="time_est" id="time_est" value="{{listing.time_est}}" required><br>
 												</div>
 												<div class="form-floating form-group">
-													<label for="dayOfWeek">Your Availability:</label><br>
+													<label for="dayOfWeek"><b>Your Availability:</b></label><br>
 													<select name="dayOfWeek" class="form-control" id="dayOfWeek" multiple>
 														{% if listing.dayOfWeek == "monday" %}
 															<option value="monday" selected>Monday</option>
@@ -117,15 +117,15 @@
 													</select><br>
 												</div>
 												<div class="form-floating form-group">
-													<label for="startTime">From: </label><br>
+													<label for="startTime"><b>From: </b></label><br>
 													<input type="time" class="form-control" id="startTime" name="startTime" min="07:00:00" max="20:00:00" value="{{listing.startTimeOfDay}}" required><br>
 												</div>
 												<div class="form-floating form-group">
-													<label for="endTime">To: </label><br>
+													<label for="endTime"><b>To: </b></label><br>
 													<input type="time" class="form-control" id="endTime" name="endTime" min="07:00:00" max="20:00:00" value="{{listing.endTimeOfDay}}" required><br>
 												</div>
 												<div class="form-floating form-group">
-													<label for="location">Location</label><br>
+													<label for="location"><b>Location</b></label><br>
 													<input type="text" class="form-control" name="location" id="location" value="{{listing.location}}" required><br>
 												</div>
 												<div class="form-floating form-group">
@@ -268,7 +268,7 @@
 												<form action="{% url 'moneyLawndering:customerReview' listing.id %}" method="post">
 													{% csrf_token %}
 													{{ form }}
-													<label for="category">Rate your experience with this worker:</label>
+													<label for="category"><b>Rate your experience with this worker:</b></label>
 														<br>
 													  <div class="rate" id="rating">
 														<input type="radio" id="star5" name="rating" value={{5}} checked/>
@@ -285,7 +285,7 @@
 													<br>
 													<br>
 
-													<label for="review">How did it go?</label>
+													<label for="review"><b>How did it go?</b></label>
 													<textarea id="review" class="form-control" name="review" rows="4" cols="50"></textarea> <br>
 													<div class="form-floating form-group">
 														<input class="w-100 btn btn-lg btn-primary loginItem" type="submit" value="Leave Review">
