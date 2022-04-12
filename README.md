@@ -20,7 +20,6 @@ Django - this will probably be the most convenient and simple way to approach th
 
 Python - We will use python as this is what Django uses and it is what we are all most familiar with from taking cs-2610
 
-Vue.js - We will use this as the front-end framework for our site.
 
 
 ## Build instructions
@@ -54,7 +53,7 @@ Start by running an instance of the web app by first entering the correct reposi
 - python manage.py runserver
 
 Now that the app is running open up your browser and type into the address bar:
-- Localhost:8000
+- http://127.0.0.1:8000/moneyLawndering/
 
 After that you can login using the credentials in the example accounts section.
 
@@ -64,7 +63,7 @@ Admin Account:
 
 - Email: admin@gmail.com
     
-- Password: password
+- Password: admin
 
 Worker Account:
 - Username: john
