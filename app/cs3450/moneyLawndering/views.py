@@ -363,6 +363,7 @@ def completedJob(request, listing_id):
     if(listing.status == 4):
         raise Http404("You have already left a review for this person")
     listing.status = 4
+    listing.pubDate = timezone.now()
     listing.save()
 
     worker = get_object_or_404(User, pk=user_id)
