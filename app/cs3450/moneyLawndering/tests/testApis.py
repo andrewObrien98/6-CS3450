@@ -110,7 +110,7 @@ class UpdateUserTest(TestCase):
         cookieName = settings.SESSION_COOKIE_NAME
         self.client.cookies[cookieName] = session.session_key
 
-    def test_valid_update(self):
+    def testValidUpdate(self):
         updateData = {
             'name': 'bob',
             'email': 'bob@gmail.com',
@@ -129,4 +129,53 @@ class UpdateUserTest(TestCase):
         self.assertEqual(updatedUser.accountBalance, updateData['accountBalance'])
         self.assertRedirects(response, reverse('moneyLawndering:account'))
 
+class ListingsTest(TestCase):
+    def setUp(self):
+        self.customer = User(
+            name='jim',
+            email='jim@gmail.com',
+            type=1,
+            password='password',
+            phoneNumber=75849,
+            address='123 Logan Dr',
+            accountBalance=100,
+        )
+        self.listingData = {
+            "category": "Lawn Care",
+            "location": "123 Fake Street",
+            "time_est": 10,
+            "dayOfWeek": "Tuesday",
+            "startTime": "1:00pm",
+            "endTime": "3:00pm",
+            "description": "Mow my lawn",
+            "price": 25,
+        }
+        self.customer.save()
+        session = self.client.session
+        session['userId'] = self.customer.id
+        session.save()
+        cookieName = settings.SESSION_COOKIE_NAME
+        self.client.cookies[cookieName] = session.session_key
+
+    def testValidNewListing(self):
+        response = self.client.post(reverse('moneyLawndering:newListing'), self.listingData)
+        self.assertRedirects(response, reverse('moneyLawndering:myListing'))
+
+    def testInsufficientFundsForListing(self):
+        # Price out of bounds
+        self.listingData['price'] = 10000
+        response = self.client.post(reverse('moneyLawndering:newListing'), self.listingData)
+        self.assertEqual(response.json()['failure'], "You have insufficient funds for this job!")
+
+    def testInvalidNewListing(self):
+        # Remove price field and get invalid error
+        self.listingData.pop('price')
+        response = self.client.post(reverse('moneyLawndering:newListing'), self.listingData)
+        self.assertEqual(response.json()['failure'], "You sent an invalid listing and it could not create it")
+
+    def testDeleteListing(self):
+        response = self.client.post(reverse('moneyLawndering:newListing'), self.listingData)
+        self.assertRedirects(response, reverse('moneyLawndering:myListing'))
+        listingId = self.customer.listing_set.filter(time_est = "10")[0].id
+        response = self.client.get(reverse('moneyLawndering:deleteListing', args=(listingId,)))
 
