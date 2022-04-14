@@ -18,15 +18,24 @@
 			<div class="container-sm">
 				<div class="row navBar pl-3 d-flex justify-content-between">
 					<div class="navbar centered">
-						<img class="col logoHeader" src="{% static 'moneyLawndering/ML-logo.png' %}" alt="MoneyLawndering Logo">
-						<div class="col mr-4"> <a class="text-white" href="{% url 'moneyLawndering:account' %}">Account</a></div>
-                        <div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:myListing' %}">Your Listings</a></div>
-                        <div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:createListing' %}"><b>New Listing</b></a></div>
-                        <div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:directTransfer' %}">Direct Transfer</a></div>
-						<div class="col"> <a class="text-white" href="{% url 'moneyLawndering:history' %}">History</a></div>
+						<img class="col logoHeader d-none d-md-block" src="{% static 'moneyLawndering/ML-logo.png' %}" alt="MoneyLawndering Logo">
+						<div class="col mr-2 grow"><div><a class="text-white" href="{% url 'moneyLawndering:account' %}">Account</a></div></div>
+						{% if user.type == 0 %}
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:publicListing' %}">Public <br>Listings</a></div></div>
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:acceptedJobs' %}">Accepted <br>Jobs</a></div></div>
+						{% elif user.type == 1 %}
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:myListing' %}">Your <br>Listings</a></div></div>
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:createListing' %}"><b>New <br>Listing</b></a></div></div>
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:directTransfer' %}">Direct <br>Transfer</a></div></div>
+						{% elif user.type == 2 %}
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:admin' %}">Admin</a></div></div>
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:publicListing' %}">Public <br>Listings</a></div></div>
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:category' %}">Categories</a></div></div>
+						{% endif %}
+						<div class="col grow"><div><a class="text-white" href="{% url 'moneyLawndering:history' %}">History</a></div></div>
 					</div>
 					<div class="navbar d-flex justify-content-end">
-						<div class="col text-warning"><a class="text-warning" href="{% url 'moneyLawndering:logout' %}">Log Out</a></div>
+						<div class="col mr-2 text-warning grow"><div><a class="text-warning" href="{% url 'moneyLawndering:logout' %}">Log Out</a></div></div>
 					</div>
 				</div>
 			</div>
@@ -110,7 +119,7 @@
 						<span class="social-icon social-box social-twitter"><i class="fa fa-twitter"></i></span>
 						<span class="social-icon social-box social-twitter"><i class="fa fa-linkedin"></i></span>
 					</div>
-					<div class='text-muted ml-3'><p>© 2022 Group 6, Inc</p></div>
+					<div class='text-muted ml-3'><p class="ml-3">© 2022 Group 6, Inc</p></div>
 				</div>
 			</div>
 		</footer>

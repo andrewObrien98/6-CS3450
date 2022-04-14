@@ -22,24 +22,24 @@
 			<div class="container-sm">
 				<div class="row navBar pl-3 d-flex justify-content-between">
 					<div class="navbar centered">
-						<img class="col logoHeader" src="{% static 'moneyLawndering/ML-logo.png' %}" alt="MoneyLawndering Logo">
-						<div class="col mr-4"> <a class="text-white" href="{% url 'moneyLawndering:account' %}">Account</a></div>
+						<img class="col logoHeader d-none d-md-block" src="{% static 'moneyLawndering/ML-logo.png' %}" alt="MoneyLawndering Logo">
+						<div class="col mr-2 grow"><div><a class="text-white" href="{% url 'moneyLawndering:account' %}">Account</a></div></div>
 						{% if user.type == 0 %}
-							<div class="col mr-4 text-white"><a class="text-white" href="{% url 'moneyLawndering:publicListing' %}">Public Listings</a></div>
-							<div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:acceptedJobs' %}"><b>Accepted Jobs</b></a></div>
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:publicListing' %}">Public <br>Listings</a></div></div>
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:acceptedJobs' %}"><b>Accepted <br>Jobs</b></a></div></div>
 						{% elif user.type == 1 %}
-							<div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:myListing' %}">Your Listings</a></div>
-							<div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:createListing' %}">New Listing</a></div>
-							<div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:directTransfer' %}">Direct Transfer</a></div>
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:myListing' %}">Your <br>Listings</a></div></div>
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:createListing' %}">New <br>Listing</a></div></div>
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:directTransfer' %}">Direct <br>Transfer</a></div></div>
 						{% elif user.type == 2 %}
-							<div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:admin' %}">Admin</a></div>
-							<div class="col mr-4 text-white"><a class="text-white" href="{% url 'moneyLawndering:publicListing' %}">Public Listings</a></div>
-							<div class="col mr-4 text-white"><a class="text-white" href="{% url 'moneyLawndering:category' %}">Categories</a></div>
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:admin' %}">Admin</a></div></div>
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:publicListing' %}">Public <br>Listings</a></div></div>
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:category' %}">Categories</a></div></div>
 						{% endif %}
-						<div class="col"> <a class="text-white" href="{% url 'moneyLawndering:history' %}">History</a></div>
+						<div class="col grow"><div><a class="text-white" href="{% url 'moneyLawndering:history' %}">History</a></div></div>
 					</div>
 					<div class="navbar d-flex justify-content-end">
-						<div class="col text-warning"><a class="text-warning" href="{% url 'moneyLawndering:logout' %}">Log Out</a></div>
+						<div class="col mr-2 text-warning grow"><div><a class="text-warning" href="{% url 'moneyLawndering:logout' %}">Log Out</a></div></div>
 					</div>
 				</div>
 			</div>
@@ -89,9 +89,6 @@
 											<div class="form-floating">
 												<div><h3>Who: </h3>{{listing.customer.name|capfirst}}</div>
 											</div>
-											<div class="form-floating">
-												<div><h3>Where: </h3>{{listing.location|capfirst}}</div>
-											</div>
 										</div>
 									</li>
 								{% endfor %}
@@ -116,20 +113,39 @@
 										<li id="{{forloop.counter}}">
 											<div class="card blurred loginContents largeLogin">
 												<div class="form-floating centered">
-													<h2>{{listing.customer.name}}</h2>
+													<h2>{{listing.category|capfirst}}</h2>
+												</div>
+												<div class="form-floating centered">
+													<h3>${{listing.price|floatformat:"-2g"}}</h3>
+												</div>
+												<div class="form-floating centered">
+													<div><h3>{{listing.customer.name|capfirst}}</h3></div>
+												</div>
+												<div class="form-floating centered">
+													<div>{{listing.customer.phoneNumber}}</div>
 												</div>
 												<div class="form-floating">
-													<h5>{{listing.description|capfirst}}</h5>
+													<h3>Description: </h3>{{listing.description|capfirst}}
 												</div>
 												<div class="form-floating">
-													<h5 id="location{{forloop.counter}}">{{listing.location}}</h5>
+													{% if listing.time_est == 1.0 %}
+														<p>It'll probably take about 1 hour.</p>
+													{% else %}
+														<p>It'll probably take about {{listing.time_est|floatformat:"-1g"}} hours.</p>
+													{% endif %}
+												</div>
+												<div class="form-floating">
+													<div><h3>When: </h3>{{listing.dayOfWeek|capfirst}} between {{listing.startTimeOfDay}} and {{listing.endTimeOfDay}}</div>
+												</div>
+												<div class="form-floating">
+													<div><h3>Where: </h3><p id="location{{forloop.counter}}">{{listing.location}}</p></div>
 												</div>
 												<div id="map{{forloop.counter}}" class="map-click"></div>
 												<div class="form-floating">
 													<form action="{% url 'moneyLawndering:completedJob' listing.id %}" method="post">
 														{% csrf_token %}
 														{{ form }}
-														<label for="rating">Rate your experience with this customer:</label>
+														<label for="rating">Rate your experience with {{listing.customer.name|capfirst}}:</label>
 														<br>
 														  <div class="rate" id="rating">
 															<input type="radio" id="star5" name="rating" value={{5}} checked/>
@@ -224,7 +240,7 @@
 						<span class="social-icon social-box social-twitter"><i class="fa fa-twitter"></i></span>
 						<span class="social-icon social-box social-twitter"><i class="fa fa-linkedin"></i></span>
 					</div>
-					<div class='text-muted ml-3'><p>© 2022 Group 6, Inc</p></div>
+					<div class='text-muted ml-3'><p class="ml-3">© 2022 Group 6, Inc</p></div>
 				</div>
 			</div>
 		</footer>

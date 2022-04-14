@@ -17,15 +17,24 @@
 			<div class="container-sm">
 				<div class="row navBar pl-3 d-flex justify-content-between">
 					<div class="navbar centered">
-						<img class="col logoHeader" src="{% static 'moneyLawndering/ML-logo.png' %}" alt="MoneyLawndering Logo">
-						<div class="col mr-4"> <a class="text-white" href="{% url 'moneyLawndering:account' %}">Account</a></div>
-						<div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:myListing' %}"><b>Your Listings</b></a></div>
-						<div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:createListing' %}">New Listing</a></div>
-						<div class="col mr-4 text-white"> <a class="text-white" href="{% url 'moneyLawndering:directTransfer' %}">Direct Transfer</a></div>
-						<div class="col"> <a class="text-white" href="{% url 'moneyLawndering:history' %}">History</a></div>
+						<img class="col logoHeader d-none d-md-block" src="{% static 'moneyLawndering/ML-logo.png' %}" alt="MoneyLawndering Logo">
+						<div class="col mr-2 grow"><div><a class="text-white" href="{% url 'moneyLawndering:account' %}">Account</a></div></div>
+						{% if user.type == 0 %}
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:publicListing' %}">Public <br>Listings</a></div></div>
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:acceptedJobs' %}">Accepted <br>Jobs</a></div></div>
+						{% elif user.type == 1 %}
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:myListing' %}"><b>Your <br>Listings</b></a></div></div>
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:createListing' %}">New <br>Listing</a></div></div>
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:directTransfer' %}">Direct <br>Transfer</a></div></div>
+						{% elif user.type == 2 %}
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:admin' %}">Admin</a></div></div>
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:publicListing' %}">Public <br>Listings</a></div></div>
+							<div class="col mr-2 text-white grow"><div><a class="text-white" href="{% url 'moneyLawndering:category' %}">Categories</a></div></div>
+						{% endif %}
+						<div class="col grow"><div><a class="text-white" href="{% url 'moneyLawndering:history' %}">History</a></div></div>
 					</div>
 					<div class="navbar d-flex justify-content-end">
-						<div class="col text-warning"><a class="text-warning" href="{% url 'moneyLawndering:logout' %}">Log Out</a></div>
+						<div class="col mr-2 text-warning grow"><div><a class="text-warning" href="{% url 'moneyLawndering:logout' %}">Log Out</a></div></div>
 					</div>
 				</div>
 			</div>
@@ -224,9 +233,9 @@
 											</div>
 											<div class="form-floating">
 												{% if listing.time_est == 1.0 %}
-													<p>It probably took about 1 hour.</p>
+													<p>It'll probably take about 1 hour.</p>
 												{% else %}
-													<p>It probably took about {{listing.time_est|floatformat:"-1g"}} hours.</p>
+													<p>It'll probably take about {{listing.time_est|floatformat:"-1g"}} hours.</p>
 												{% endif %}
 											</div>
 											<div class="form-floating">
@@ -239,7 +248,7 @@
 												<div><h3>Where: </h3>{{listing.location|capfirst}}</div>
 											</div>
 											<div class="form-floating">
-												<div><h3>Worker Contact Info: </h3>{{listing.workerPhoneNumber|capfirst}}</div>
+												<div><h3>{{listing.workername|capfirst}}'s Phone Number: </h3>{{listing.workerPhoneNumber|capfirst}}</div>
 											</div>
 										</div>
 									</li>
@@ -273,7 +282,7 @@
 												<form action="{% url 'moneyLawndering:customerReview' listing.id %}" method="post">
 													{% csrf_token %}
 													{{ form }}
-													<label for="category"><b>Rate your experience with this worker:</b></label>
+													<label for="category"><b>Rate your experience with {{listing.workername|capfirst}}:</b></label>
 														<br>
 													  <div class="rate" id="rating">
 														<input type="radio" id="star5" name="rating" value={{5}} checked/>
@@ -293,7 +302,7 @@
 													<label for="review"><b>How did it go?</b></label>
 													<textarea id="review" class="form-control" name="review" rows="4" cols="50"></textarea> <br>
 													<div class="form-floating form-group">
-														<input class="w-100 btn btn-lg btn-primary loginItem" type="submit" value="Leave Review">
+														<input class="w-100 btn btn-lg btn-primary loginItem" type="submit" value="Review and Pay">
 													</div>
 												</form>
 											</div>
@@ -319,7 +328,7 @@
 						<span class="social-icon social-box social-twitter"><i class="fa fa-twitter"></i></span>
 						<span class="social-icon social-box social-twitter"><i class="fa fa-linkedin"></i></span>
 					</div>
-					<div class='text-muted ml-3'><p>© 2022 Group 6, Inc</p></div>
+					<div class='text-muted ml-3'><p class="ml-3">© 2022 Group 6, Inc</p></div>
 				</div>
 			</div>
 		</footer>

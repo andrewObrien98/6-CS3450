@@ -186,6 +186,15 @@ def customerReview(request, listing_id):
     listing.save()
     customer = get_object_or_404(User, pk=user_id)
     worker = get_object_or_404(User, pk=listing.worker)
+    admin = get_object_or_404(User, type=2)
+
+    # transfer the money now
+    admin.accountBalance = admin.accountBalance + listing.price * .1
+    worker.accountBalance = worker.accountBalance + listing.price * .9
+    customer.accountBalance = customer.accountBalance - listing.price
+    worker.save()
+    customer.save()
+    admin.save()
 
     workerReview = worker.workerreview_set.create(
         customer = customer.id,
@@ -289,7 +298,7 @@ def newListing(request):
     user = get_object_or_404(User, pk=user_id)
     try:
         if user.isCustomer:
-            if user.accountBalance >= int(request.POST['price']):
+            if user.accountBalance >= float(request.POST['price']):
                 category = request.POST['category']
                 location = request.POST['location']
                 time_est = request.POST['time_est']
@@ -303,7 +312,7 @@ def newListing(request):
                 listing = user.listing_set.create(category=category, location=location,
                                     time_est=time_est, dayOfWeek=dayOfWeek, startTimeOfDay=startTimeOfDay, 
                                     endTimeOfDay=endTimeOfDay, description=description, price=price,
-                                    status=status, pubDate=pubDate, worker=0)
+                                    status=status, pubDate=pubDate, worker=0, workerPhoneNumber=0, workername="")
                 
                 listing.save()
             else:
@@ -368,15 +377,6 @@ def completedJob(request, listing_id):
 
     worker = get_object_or_404(User, pk=user_id)
     customer = get_object_or_404(User, pk=listing.customer.id)
-    admin = get_object_or_404(User, type=2)
-
-    #transfer the money now
-    admin.accountBalance = admin.accountBalance + listing.price * .1
-    worker.accountBalance = worker.accountBalance + listing.price * .9
-    customer.accountBalance = customer.accountBalance - listing.price
-    worker.save()
-    customer.save()
-    admin.save()
 
     #add the review now
     customerReview = customer.customerreview_set.create(
@@ -447,11 +447,22 @@ def admin(request):
 def sendMoney(request):
     user_id = request.session['userId']
     user = get_object_or_404(User, pk=user_id)
-    user.accountBalance -= float(request.POST['amount'])
-    user.save()
-    worker = get_object_or_404(User, pk=int(request.POST['worker']))
-    worker.accountBalance += float(request.POST['amount'])
-    worker.save()
+    if user.accountBalance >= float(request.POST['amount']):
+        user.accountBalance -= float(request.POST['amount'])
+        user.save()
+        worker = get_object_or_404(User, pk=int(request.POST['worker']))
+        worker.accountBalance += float(request.POST['amount']) * .99
+        worker.save()
+        admin = User.objects.get(type=2)
+        admin.accountBalance += float(request.POST['amount']) * .01
+        admin.save()
+    else:
+        response = {
+            "failure": "You have insufficient funds for this transfer!",
+        }
+        response = JsonResponse(response)
+        response['Access-Control-Allow-Origin'] = '*'
+        return response
     return HttpResponseRedirect(reverse('moneyLawndering:directTransfer'))
 
 def categories(request):
