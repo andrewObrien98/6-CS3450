@@ -222,6 +222,6 @@ class AcceptListingTest(TestCase):
         response = self.client.get(reverse('moneyLawndering:acceptListing', args=(self.exampleListing.id,)))
         self.assertRedirects(response, reverse('moneyLawndering:publicListing'))
 
-    def testAcceptNonexistantListing(self):
+    def testAcceptNonexistentListing(self):
         response = self.client.get(reverse('moneyLawndering:acceptListing', args=(1500,)))
         self.assertEqual(response.status_code, 404)
