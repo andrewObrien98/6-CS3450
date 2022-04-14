@@ -342,3 +342,12 @@ html, body {
   width: 95%;
   height: 25vh;
 }
+
+.grow div {
+  transition: all 500ms;
+}
+
+.grow div:hover {
+  font-size: 20px;
+  font-size-adjust: 20px;
+}
