@@ -1,8 +1,10 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.conf import settings
+from django.utils import timezone
 
-from moneyLawndering.models import User
+from moneyLawndering.models import User, Listing
+
 
 class CreateUserTest(TestCase):
     def setUp(self):
@@ -178,4 +180,48 @@ class ListingsTest(TestCase):
         self.assertRedirects(response, reverse('moneyLawndering:myListing'))
         listingId = self.customer.listing_set.filter(time_est = "10")[0].id
         response = self.client.get(reverse('moneyLawndering:deleteListing', args=(listingId,)))
+        self.assertRedirects(response, reverse('moneyLawndering:myListing'))
+        self.assertEqual(0, len(self.customer.listing_set.filter(time_est="10")))
 
+
+class AcceptListingTest(TestCase):
+    def setUp(self):
+        self.customer = User(
+            name='jim',
+            email='jim@gmail.com',
+            type=1,
+            password='password',
+            phoneNumber=75849,
+            address='123 Logan Dr',
+            accountBalance=100,
+        )
+        self.customer.save()
+        self.exampleListing = Listing(
+            customer=self.customer,
+            category="Lawn Care",
+            location="123 Logan Ave",
+            time_est="2",
+            dayOfWeek="Tuesday",
+            startTimeOfDay="1:00pm",
+            endTimeOfDay="3:00pm",
+            description="desc",
+            price=25,
+            status=0,
+            pubDate=timezone.now(),
+            worker=0,
+            workerPhoneNumber=0,
+            workername="")
+        self.exampleListing.save()
+        session = self.client.session
+        session['userId'] = self.customer.id
+        session.save()
+        cookieName = settings.SESSION_COOKIE_NAME
+        self.client.cookies[cookieName] = session.session_key
+
+    def testAcceptExistingListing(self):
+        response = self.client.get(reverse('moneyLawndering:acceptListing', args=(self.exampleListing.id,)))
+        self.assertRedirects(response, reverse('moneyLawndering:publicListing'))
+
+    def testAcceptNonexistantListing(self):
+        response = self.client.get(reverse('moneyLawndering:acceptListing', args=(1500,)))
+        self.assertEqual(response.status_code, 404)
