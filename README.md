@@ -66,18 +66,18 @@ Admin Account:
 - Password: admin
 
 Worker Account:
-- Username: john
+- Username: ned
 
-- Email: john@gmail.com
+- Email: ned@gmail.com
 
-- Password: john
+- Password: ned
 
 Customer Account:
-- Username: krystal
+- Username: amie
 
-- Email: krystal@gmail.com
+- Email: amie@gmail.com
 
-- Password: krystal
+- Password: amie
 
 With these credentials you will have access to perform all actions as a customer, worker, or admin in a test environment.
 
