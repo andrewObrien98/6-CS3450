@@ -324,17 +324,7 @@ def newListing(request):
                 return response
     except:
         response = {
-        "failure": "You sent an invalid listing or have insufficient funds and it could not create it",
-        "category": category,
-        "location": location,
-        "time_est": time_est,
-        "dayOfWeek": dayOfWeek,
-        "StartTime": startTimeOfDay,
-        "EndTime": endTimeOfDay,
-        "Description": description,
-        "price": price,
-        "status": status,
-        "pubDate": pubDate,
+        "failure": "You sent an invalid listing and it could not create it",
         "user_id": user_id,
         }
         response = JsonResponse(response)
